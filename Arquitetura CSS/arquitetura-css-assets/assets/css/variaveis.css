@@ -1,0 +1,36 @@
+:root {
+	/*Variaveis fontes*/
+	--pacifico: Pacifico, cursive;
+
+	/*Variaveis cabecalho*/
+	--color-bg-header: #f9f9f9;
+	--color-header-nav-a: #808080;
+	--color-header-nav-a-active: #303030;
+
+	/*Variaveis banner*/
+	--color-bn-title: #fdfdfd;
+	--color-bn-title-shadow: rgba(0, 0, 0, 0.75);
+
+	/*Variaveis sobre*/
+	--color-sobre-title: #8d0606;
+	--color-sobre-desc: #595959;
+
+	/*Variaveis receitas*/
+	--color-bg-receitas: #e5e5e5;
+	--color-bg-receita: var(--color-bn-title);
+	--color-bg-bt-receita: var(--color-sobre-title);
+	--color-bg-bt-hv-receita: #620404;
+	--color-tx-bt-receita: var(--color-bn-title);
+
+	/*Variaveis quemSomos*/
+	--color-qs-title: var(--color-sobre-title);
+	--color-qs-desc: var(--color-sobre-desc);
+
+	/*Variaveis pessoas*/
+	--color-pessoas-nome: var(--color-sobre-title);
+	--color-pessoas-func: var(--color-sobre-desc);
+
+	/*Variaveis rodape*/
+	--color-bg-rodape: #bfbfbf;
+	--color-tx-rodape: var(--color-bn-title);
+}
