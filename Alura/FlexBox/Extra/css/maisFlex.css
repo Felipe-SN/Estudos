@@ -1,0 +1,69 @@
+.flexContainer:last-child {
+	margin-top: 2rem;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+div {
+	height: 50px;
+	width: 50px;
+}
+
+div:nth-child(1) {
+	background-color: red;
+	/* height: 80px;
+	width: 80px; */
+}
+
+div:nth-child(2) {
+	background-color: blue;
+}
+
+div:nth-child(3) {
+	background-color: green;
+}
+
+div:nth-child(4) {
+	background-color: yellow;
+}
+
+div:nth-child(5) {
+	background-color: pink;
+}
+
+div:nth-child(6) {
+	background-color: black;
+}
+
+div:nth-child(7) {
+	background-color: orange;
+}
+
+div:nth-child(8) {
+	background-color: silver;
+}
+/* [Fim do Setup] */
+
+.flexContainer {
+	/* align-items: center; */
+	display: flex;
+	/* flex-direction: column;
+	justify-content: space-around; */
+}
+
+.flexItem {
+	/* flex-grow: 0; [valor padrão] */
+	/* flex-shrink: 1; [valor padrão] */
+	/* flex-basis: auto; [valor padrão] */
+	flex: 0 1 auto; /* [comando short range] */
+
+}
+
+.primeiro {
+	flex: 0 1 auto;
+	/* flex-grow: 2; */
+	/* flex-shrink: 2; */
+}
