@@ -2,7 +2,7 @@
 
 	1. http://flexboxfroggy.com/ - Status: CONCLUIDO
 
-	2. http://www.flexboxdefense.com/ - Status: EM PROGRESSO
+	2. http://www.flexboxdefense.com/ - Status: CONCLUIDO
 
 # Extra
 
