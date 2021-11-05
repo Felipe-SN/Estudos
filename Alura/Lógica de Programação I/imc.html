@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Calculo de IMC</title>
+</head>
+<body>
+	<main>
+		<script>
+			function pulaLinha() {
+
+				document.write(`<br><br>`)
+			}
+
+			function mostra(frase) {
+
+				document.write(frase);
+				pulaLinha();
+			}
+
+			function calculaImc(peso, altura) {
+
+				var imc = Math.round(peso / (altura * altura));
+				return imc; // return Math.round(peso / (altura * altura)); [esta seria outra forma de utilizar o return.]
+			}
+
+			var nome = prompt(`Informe seu nome.`)
+			var peso = prompt(`${nome} informe seu peso.`)
+			var altura = prompt(`${nome} informe sua altura (utileze "." para separar metros de centimetros).`)
+			var imcCalculado = calculaImc(peso, altura);
+			// var imcJose = calculaImc(65, 1.75);
+			// var imcBraga = calculaImc(90, 1.5);
+
+			mostra(`O indice IMC de ${nome} é ${imcCalculado}`)
+
+			if (imcCalculado < 18.5) {
+				mostra(`O IMC de ${nome} está abaixo do recomendado!`)
+			}
+			if (imcCalculado >= 18.5 && imcCalculado <= 35) {
+				mostra(`O IMC de ${nome} está dentro do recomendado!`)
+			}
+			if (imcCalculado > 35) {
+				mostra(`O IMC de ${nome} está acima do recomendado!`)
+			}
+
+			// mostra(`O imc do Braga é ${imcBraga}`)
+		</script>
+	</main>
+</body>
+</html>

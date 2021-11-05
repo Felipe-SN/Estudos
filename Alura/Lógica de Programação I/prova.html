@@ -15,9 +15,38 @@
 			// ========================================================= //
 			var n = 5;
 			document.write(`O resultado da formula é: ` + n * (10 / 20));
+			document.write(`<br><br>`);
+			// ========================================================= //
+			
+			function pulaLinha() {
+				document.write(`<br><hr><br>`)
+			}
+
+			function mostra(frase) {
+				document.write(`<big>${frase}</big>`);
+				pulaLinha();
+			}
+			
+			var anoAtual = 2021;
+			var idadePedro = anoAtual - 1994;
+			var idadeMatias = anoAtual - 1989;
+			var diferencaDeIdades = idadeMatias - idadePedro;
+			
+			mostra(`A idade de Matias é ` + idadeMatias + ` anos.`);
+			mostra(`A idade de Pedro é ` + idadePedro + ` anos.`);
+			mostra(`A diferença de idade é de ` + diferencaDeIdades + ` anos.`);
+			
+			// ========================================================= //
+			
+			var anoDescoberta = 1500;
+			var MediaDeIdadeQuandoTemFilhos = 28;
+			var numeroDeGeracoes = Math.round((anoAtual - anoDescoberta) / MediaDeIdadeQuandoTemFilhos);
+			
+			mostra(`Se passaram por volta de ${numeroDeGeracoes} gerações desde ${anoDescoberta}.`);
+			
 			// ========================================================= //
 
-		</script>
+			</script>
 	</main>
 </body>
 </html>
