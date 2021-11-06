@@ -32,4 +32,4 @@ const estaLogado1 = SistemaAutenticacao.login(diretor1, `123456`);
 const estaLogado2 = SistemaAutenticacao.login(gerente1, `123`);
 const estaLogado3 = SistemaAutenticacao.login(cliente2, `456`);
 
-console.log(estaLogado1+`\n`+estaLogado2+`\n`+estaLogado3);
+console.log(`${estaLogado1}\n${estaLogado2}\n${estaLogado3}`);
