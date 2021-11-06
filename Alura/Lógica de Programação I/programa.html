@@ -8,26 +8,39 @@
 <body>
 	<main>
 		<script>
+			//===========================================================// [Adicionado após o termino desta aula]
+			
+			function pulaLinha() {
+
+				document.write(`<br><br>`)
+			}
+
+			function mostra(frase) {
+
+				document.write(frase);
+				pulaLinha();
+			}
+
+			//===========================================================//[Fim da adição, abaixo alterado para o uso das funcões.]
+
 			var ano = 2021;
-			// document.write(`Cthulhu tem bilhões de anos?<br>`);
-			// document.write(`Ele tem muito mais de ` + 999999999999 + ` de anos, Chululu tava por ai, desde antes de quando o universo era mato!`);
-			// document.write(`<br><br><br>`);
-			// document.write(`<br><br><br>`);
-			// document.write(`Bira nasceu em ` + (ano - 27) + `<br>`);
-			document.write(`Bira tem ` + (ano - 1994) + ` anos`);
-			document.write(`<br>`);
-			// document.write(`Glauber nasceu em ` + (ano - 50) + `<br>`);
-			document.write(`Glauber tem ` + (ano - 1971) + ` anos`);
-			document.write(`<br>`);
-			// document.write(`Klayton nasceu em ` + (ano - 18) + `<br>`);
-			document.write(`Klayton tem ` + (ano - 2003) + ` anos`);
-			document.write(`<br>`);
+			// mostra(`Cthulhu tem bilhões de anos?`);
+			// mostra(`Ele tem muito mais de ` + 999999999999 + ` de anos, Chululu tava por ai, desde antes de quando o universo era mato!`);
+
+			//===========================================================//
+
+			// mostra(`Bira nasceu em ` + (ano - 27));
+			mostra(`Bira tem ` + (ano - 1994) + ` anos`);
+			// mostra(`Glauber nasceu em ` + (ano - 50));
+			mostra(`Glauber tem ` + (ano - 1971) + ` anos`);
+			// mostra(`Klayton nasceu em ` + (ano - 18));
+			mostra(`Klayton tem ` + (ano - 2003) + ` anos`);
 			var idadeBira = ano - 1994;
 			var idadeGlauber = ano - 1971;
 			var idadeKlayton = ano - 2003;
 			var media = (idadeBira + idadeGlauber + idadeKlayton) / 3;
 
-			document.write(`Média das idades é ` + Math.round(media));
+			mostra(`Média das idades é ` + Math.round(media));
 		</script>
 	</main>
 </body>
