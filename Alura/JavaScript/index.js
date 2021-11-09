@@ -22,7 +22,7 @@ import { SistemaAutenticacao } from "./SistemaAutenticacao.js";
 // console.log(contaPoupanca1);
 // console.log(contaSalario1);
 
-const cliente2 = new Cliente(`João`, 33344455566,`456`);
+const cliente2 = new Cliente(`João`, 33344455566, `456`);
 const diretor1 = new Diretor(`José`, 11122233344, 10000);
 diretor1.cadastrarSenha(`123456`);
 const gerente1 = new Gerente(`Helias`, 22233344455, 5000);
