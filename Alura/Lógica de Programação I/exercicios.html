@@ -3,50 +3,130 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Exercicio</title>
+	<title>Exercicios</title>
 </head>
 <body>
 	<main>
 		<script>
+			// ========================================================= //
+			// document.write(`Eu acertei: ` + (15 / 50) * 100 + `%`);
+			// document.write(`<br>`);
+			// ========================================================= //
+			// var n = 5;
+			// document.write(`O resultado da formula é: ` + n * (10 / 20));
+			// document.write(`<br><br>`);
+			// ========================================================= //
 
-			// ========================================================= //
-			document.write(`Eu acertei: ` + (15 / 50) * 100 + `%`);
-			document.write(`<br>`);
-			// ========================================================= //
-			var n = 5;
-			document.write(`O resultado da formula é: ` + n * (10 / 20));
-			document.write(`<br><br>`);
-			// ========================================================= //
-			
+			// function pulaLinha() {
+			// 	document.write(`<br><hr><br>`)
+			// }
+
 			function pulaLinha() {
-				document.write(`<br><hr><br>`)
+				document.write(`<br><br>`);
 			}
+
+			// function mostra(frase) {
+			// 	document.write(`<big>${frase}</big>`);
+			// 	pulaLinha();
+			// }
 
 			function mostra(frase) {
-				document.write(`<big>${frase}</big>`);
+				document.write(frase);
 				pulaLinha();
 			}
-			
-			var anoAtual = 2021;
-			var idadePedro = anoAtual - 1994;
-			var idadeMatias = anoAtual - 1989;
-			var diferencaDeIdades = idadeMatias - idadePedro;
-			
-			mostra(`A idade de Matias é ` + idadeMatias + ` anos.`);
-			mostra(`A idade de Pedro é ` + idadePedro + ` anos.`);
-			mostra(`A diferença de idade é de ` + diferencaDeIdades + ` anos.`);
-			
-			// ========================================================= //
-			
-			var anoDescoberta = 1500;
-			var MediaDeIdadeQuandoTemFilhos = 28;
-			var numeroDeGeracoes = Math.round((anoAtual - anoDescoberta) / MediaDeIdadeQuandoTemFilhos);
-			
-			mostra(`Se passaram por volta de ${numeroDeGeracoes} gerações desde ${anoDescoberta}.`);
-			
+
 			// ========================================================= //
 
-			</script>
+			// var anoAtual = 2021;
+			// var idadePedro = anoAtual - 1994;
+			// var idadeMatias = anoAtual - 1989;
+			// var diferencaDeIdades = idadeMatias - idadePedro;
+
+			// mostra(`A idade de Matias é ` + idadeMatias + ` anos.`);
+			// mostra(`A idade de Pedro é ` + idadePedro + ` anos.`);
+			// mostra(`A diferença de idade é de ` + diferencaDeIdades + ` anos.`);
+
+			// ========================================================= //
+
+			// var anoDescoberta = 1500;
+			// var MediaDeIdadeQuandoTemFilhos = 28;
+			// var numeroDeGeracoes = Math.round((anoAtual - anoDescoberta) / MediaDeIdadeQuandoTemFilhos);
+
+			// mostra(`Se passaram por volta de ${numeroDeGeracoes} gerações desde ${anoDescoberta}.`);
+
+			// ========================================================= //
+
+			// var contador0 = 2;
+			// while (contador0 <= 100) {
+			// 	mostra(contador0);
+			// 	contador0 += 2;
+			// }
+
+			// mostra(`FIM`);
+
+			// ========================================================= //
+
+			// var contador1 = 30;
+
+			// while (contador1 <= 40) {
+			// 	if (contador1 === 33 || contador1 === 37) {
+			// 		contador1 += 1;
+			// 	} else {
+			// 		mostra(contador1);
+			// 		contador1 += 1;
+			// 	}
+			// }
+
+			// mostra(`FIM`);
+
+			// ========================================================= //
+
+			// var contador2 = 20;
+
+			// while (contador2 >= 0) {
+			// 	mostra(contador2)
+			// 	contador2 += -1;
+			// }
+
+			// mostra(`FIM`)
+
+			// ========================================================= //
+
+			// var loginCad = `Braga`;
+			// var senhaCad = `Senha@123`;
+
+			// var contador3 = 1;
+			// var limite = 3;
+
+			// while (contador3 <= limite) {
+
+			// 	var login = prompt(`Informe seu login.`);
+			// 	var senha = prompt(`imforme sua senha.`);
+			// 	var autentica = loginCad === login && senhaCad === senha;
+
+			// 	if (autentica) {
+
+			// 		mostra(`Bem vindo, ${login}!`);
+			// 		contador3 = limite;
+			// 	} else {
+
+			// 		if (contador3 === limite) {
+			// 			alert(`Numero de tentativas exedido!\n!!ACESSO NEGADO!!`)
+
+			// 		} else {
+
+			// 			alert(`Tentativa ${contador3} de 3!\nInforme o login e senha corretos!`);
+			// 		}
+			// 	}
+			// 	contador3 += 1;
+			// }
+
+			// ========================================================= //
+			// ========================================================= //
+			// ========================================================= //
+			// ========================================================= //
+			// ========================================================= //
+		</script>
 	</main>
 </body>
 </html>
