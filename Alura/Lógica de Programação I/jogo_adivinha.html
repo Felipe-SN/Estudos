@@ -26,16 +26,23 @@
 
 			var numeroPensado = sorteia(10);
 			var chute = parseInt(prompt(`Digite seu chute!`));
+			var tentativa = 1;
 
-			if (chute === numeroPensado) {
-				
-				mostra(`Você acertou!!!`);
-			} else if (chute > numeroPensado) {
+			while (tentativa <= 3) {
 
-				mostra(`Você errou, chutou alto o numero certo era ${numeroPensado}!`);
-			} else {
+				if (chute === numeroPensado) {
 
-				mostra(`Você errou, chutou baixo o numero certo era ${numeroPensado}!`);
+					mostra(`Você acertou!!!\n${numeroPensado} era o número pensado!`);
+					break;
+				} else if (chute > numeroPensado) {
+
+					mostra(`Você errou, chutou alto!`);
+				} else {
+
+					mostra(`Você errou, chutou baixo!`);
+				}
+
+				tentativa++
 			}
 		</script>
 	</main>
