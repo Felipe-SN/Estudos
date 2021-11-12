@@ -7,6 +7,7 @@
 </head>
 <body>
 	<main>
+		<h1>Receitas do Yan</h1>
 		<script>
 			// ========================================================= //
 			// document.write(`Eu acertei: ` + (15 / 50) * 100 + `%`);
@@ -123,6 +124,38 @@
 
 			// ========================================================= //
 			// ========================================================= //
+
+			var ingredientes = [];
+
+			var quantidade = parseInt(prompt("Quantos ingredientes você vai adicionar?"));
+
+			var contador = 1;
+
+			while (contador <= quantidade) {
+
+				var achou = false;
+
+				var ingrediente = prompt("Informe o ingrediente " + contador);
+
+				for (let posicao = 0; posicao < ingredientes.length; posicao++) {
+
+					if (ingredientes[posicao] == ingrediente) {
+
+						achou = true;
+						alert(`Ingrediente ${ingredientes[posicao]} já adicionado!\nPor favor, escolha um item diferente!`)
+						break;
+					}
+				}
+
+				if (achou == false) {
+
+					ingredientes.push(ingrediente);
+					contador++;
+				}
+			}
+
+			console.log(ingredientes);
+
 			// ========================================================= //
 			// ========================================================= //
 			// ========================================================= //
