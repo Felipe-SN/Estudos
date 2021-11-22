@@ -1,23 +1,25 @@
 var tela = document.querySelector(`canvas`);
+var paleta = document.querySelector(`input`);
 var pincel = tela.getContext(`2d`);
 
 pincel.fillStyle = `gray`;
 pincel.fillRect(0, 0, tela.width, tela.height);
 
 var posicao = 0;
-var cores = [`blue`, `red`, `green`];
+// var cores = [`blue`, `red`, `green`];
 var raio = 10;
+var desenha;
 
-function trocaCor() {
-	posicao++;
+// function trocaCor() {
+// 	posicao++;
 
-	if (posicao >= cores.length) {
-		posicao = 0;
-	}
+// 	if (posicao >= cores.length) {
+// 		posicao = 0;
+// 	}
 
-	console.log(cores[posicao]);
-	return false;
-}
+// 	alert(`A cor selecionada é: ${cores[posicao]}!`);
+// 	return false;
+// }
 
 function criaCirculo(evento) {
 	var x = evento.pageX - tela.offsetLeft;
@@ -31,12 +33,21 @@ function criaCirculo(evento) {
 		raio = raio - 5;
 	}
 
-	pincel.fillStyle = cores[posicao];
-	pincel.beginPath();
-	pincel.arc(x, y, raio, 0, 2 * 3.14);
-	pincel.fill();
-	console.log(`${x}, ${y}`);
+	if (desenha) {
+		pincel.fillStyle = paleta.value;
+		pincel.beginPath();
+		pincel.arc(x, y, raio, 0, 2 * 3.14);
+		pincel.fill();
+	}
+	// console.log(`${x}, ${y}`);
+	// console.log(evento);
 }
 
-tela.onclick = criaCirculo;
-tela.oncontextmenu = trocaCor;
+tela.onmousedown = function () {
+	desenha = true;
+};
+tela.onmouseup = function () {
+	desenha = false;
+};
+tela.onmousemove = criaCirculo;
+// tela.oncontextmenu = trocaCor;
