@@ -7,8 +7,8 @@ pincel.fillRect(0, 0, tela.width, tela.height);
 var raio = 20;
 var posX = tela.width / 2;
 var posY = tela.height / 2;
-var movimento = 1;
-var pulso = 1;
+// var movimento = 1;
+// var pulso = 1;
 
 var esquerda = 37;
 var cima = 38;
