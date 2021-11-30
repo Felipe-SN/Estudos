@@ -12,7 +12,7 @@ body {
 
 .todo-list {
 	background-color: #0b2027;
-	font-family: "Space Mono", monospace;
+	font-family: 'Space Mono', monospace;
 	padding: 1rem;
 	min-width: 400px;
 	min-height: 300px;
@@ -21,7 +21,7 @@ body {
 .title {
 	border-bottom: 1px solid rgba(246, 241, 209, 0.5);
 	font-size: 1.5rem;
-	font-family: "BioRhyme", serif;
+	font-family: 'BioRhyme', serif;
 	color: #f6f1d1;
 }
 
@@ -70,7 +70,7 @@ body {
 
 .todo-list {
 	background-color: #0b2027;
-	font-family: "Space Mono", monospace;
+	font-family: 'Space Mono', monospace;
 	padding: 1rem;
 	min-width: 400px;
 	min-height: 300px;
@@ -79,7 +79,7 @@ body {
 .title {
 	border-bottom: 1px solid rgba(246, 241, 209, 0.5);
 	font-size: 1.5rem;
-	font-family: "BioRhyme", serif;
+	font-family: 'BioRhyme', serif;
 	color: #f6f1d1;
 }
 
@@ -87,20 +87,17 @@ body {
 	display: flex;
 	justify-content: center;
 }
-
 .form-input,
 .form-button {
 	border-radius: 0;
 	padding: 0.75rem;
 	font-size: 0.75rem;
 }
-
 .form-input {
 	outline: none;
 	background-color: #f6f1d1;
 	border-color: rgba(255, 255, 255, 0.1);
 }
-
 .form-button {
 	border: 1px;
 	background: #f6f1d1;
@@ -108,7 +105,6 @@ body {
 	cursor: pointer;
 	margin-left: 0.25rem;
 }
-
 .form-button:hover {
 	color: #f6f1d1;
 	background: rgba(246, 241, 209, 0.1);
@@ -159,6 +155,14 @@ body {
 
 .content {
 	margin: 0;
+}
+
+.content-data {
+	color: #f6f1d1;
+	display: flex;
+	justify-content: flex-start;
+	margin-bottom: 0.5rem;
+	padding: 1rem 3rem;
 }
 
 .task.done .content {
