@@ -9,13 +9,13 @@ export const criaData = (data) => {
 
 	dataTopo.innerHTML = conteudo;
 
-	tarefas.forEach((tarefa) => {
+	tarefas.forEach((tarefa, id) => {
 		// eslint-disable-next-line no-undef
 		const dia = moment(tarefa.dataFormatada, 'DD/MM/YYYY');
 		const diff = dataMoment.diff(dia);
 
 		if (diff === 0) {
-			dataTopo.appendChild(Tarefa(tarefa));
+			dataTopo.appendChild(Tarefa(tarefa, id));
 		}
 	});
 
