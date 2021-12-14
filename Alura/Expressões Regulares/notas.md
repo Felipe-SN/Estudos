@@ -32,6 +32,6 @@
 
 \b - word boundary [limites de conjuntos de caracteres].
 
-^ -
+^ - no inicio do valor analisado.
 
-$ -
+$ - no final do valor analisado.
