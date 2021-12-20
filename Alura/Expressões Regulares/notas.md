@@ -1,39 +1,49 @@
 # Expressões Regulares
 
+## Meta-chars
+
+	. - qualquer valor.
+
 ## Quantifiers
 
-{n} - exatamente n vezes.
+	{n} - exatamente n vezes.
 
-{n,} - no minimo n vezes.
+	{n,} - no minimo n vezes.
 
-{n,m} - no minimo n, no maximo m vezes.
+	{n,m} - no minimo n, no maximo m vezes.
 
-? - zero ou uma vez.
+	? - zero ou uma vez.
 
-- - uma ou mais vezes.
+	+ - uma ou mais vezes.
 
-* - zero ou mais vezes.
+	* - zero ou mais vezes.
 
 ## Classes de Char - []
 
-[A-Z] - letras de A até Z.
+	[A-Z] - letras de A até Z.
 
-[123] - 1,2 ou 3.
+	[123] - 1,2 ou 3.
 
-\d - todos os digitos [0-9].
+	\d - todos os digitos [0-9].
 
-\s - whitespace [ \t\r\n\f]
+	\s - whitespace [ \t\r\n\f]
 
-\w - word char [A-Za-z0-9_]
+	\w - word char [A-Za-z0-9_]
+
+## Grupos de Char - ()
+
+	?: - non-capturing group (não deve ser mostrado no resultado final | (?:de\s+)?).
+
+	| - significa OU | (alfa|beta).
 
 ## Âncoras
 
-<!-- Âncora é uma forma de selecionar e retornar uma posição no valor que esta sendo analisado. -->
+	Âncora é uma forma de selecionar e retornar uma posição no valor que esta sendo analisado.
 
-\b - word boundary (não deve haver nada adjacente do valor analisado (==>\b, \b<==)).
+	\b - word boundary (não deve haver nada adjacente do valor analisado | ==>\b, \b<==).
 
-\B - non word boundary (deve haver algo adjacente do valor analisado (==>\B, \B<==)).
+	\B - non word boundary (deve haver algo adjacente do valor analisado | ==>\B, \B<==).
 
-^ - no inicio do valor analisado.
+	^ - no inicio do valor analisado.
 
-$ - no final do valor analisado.
+	$ - no final do valor analisado.
