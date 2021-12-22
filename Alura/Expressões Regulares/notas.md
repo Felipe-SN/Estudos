@@ -36,6 +36,10 @@
 
 	| - significa OU | (alfa|beta).
 
+	? - Significa opcional | (\w+)?.
+
+	\n - back reference (faz referencia ao index do grupo) | ((G1).\w+\s+\1).
+
 ## Âncoras
 
 	Âncora é uma forma de selecionar e retornar uma posição no valor que esta sendo analisado.
