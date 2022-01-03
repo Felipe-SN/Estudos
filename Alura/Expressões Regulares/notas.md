@@ -44,9 +44,9 @@
 
 	Âncora é uma forma de selecionar e retornar uma posição no valor que esta sendo analisado.
 
-	\b - word boundary (não deve haver nada adjacente do valor analisado | ==>\b, \b<==).
+	\b - word boundary (não deve haver nada adjacente do valor analisado) | (==>\b, \b<==).
 
-	\B - non word boundary (deve haver algo adjacente do valor analisado | ==>\B, \B<==).
+	\B - non word boundary (deve haver algo adjacente do valor analisado) | (==>\B, \B<==).
 
 	^ - no inicio do valor analisado.
 
