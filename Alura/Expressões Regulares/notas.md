@@ -8,9 +8,9 @@
 
 	{n} - exatamente n vezes.
 
-	{n,} - no minimo n vezes.
+	{n,} - no mínimo n vezes.
 
-	{n,m} - no minimo n, no maximo m vezes.
+	{n,m} - no mínimo n, no máximo m vezes.
 
 	? - zero ou uma vez.
 
@@ -24,7 +24,7 @@
 
 	[123] - 1,2 ou 3.
 
-	\d - todos os digitos [0-9].
+	\d - todos os dígitos [0-9].
 
 	\s - whitespace [ \t\r\n\f]
 
