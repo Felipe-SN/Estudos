@@ -1,0 +1,41 @@
+.container {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	min-height: 100vh;
+}
+form{
+	width: fit-content;
+	height: fit-content;
+}
+
+.form-group {
+	margin: 0 0;
+}
+
+label {
+	font-size: 1.5rem;
+}
+
+.form-control {
+	border: solid 1px black;
+	display: block;
+	width: fit-content;
+	height: 1.3rem;
+}
+
+.btn {
+	background: blue;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	display: inline-block;
+	padding: 0.5rem;
+	text-align: center;
+}
+
+.btn-primary {
+}
+
+.btn-danger {
+}
