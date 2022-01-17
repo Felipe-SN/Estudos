@@ -21,13 +21,14 @@ const criaNovaLinha = (nome, email, id) => {
 
 const tabela = document.querySelector('[data-tabela]');
 
-tabela.addEventListener('click', (evento) => {
+tabela.addEventListener('click', async (evento) => {
 	let ehBtnDeletar =
 		evento.target.className === 'botao-simples botao-simples--excluir';
 	if (ehBtnDeletar) {
 		const linhaCliente = evento.target.closest('[data-id]');
 		let id = linhaCliente.dataset.id;
-		clienteService.removeCliente(id).then(() => linhaCliente.remove());
+		await clienteService.removeCliente(id);
+		linhaCliente.remove();
 	}
 });
 

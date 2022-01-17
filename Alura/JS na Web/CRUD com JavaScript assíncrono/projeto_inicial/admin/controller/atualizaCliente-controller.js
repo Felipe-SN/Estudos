@@ -15,10 +15,9 @@ clienteService.detalhaCliente(id).then((dados) => {
 
 const formulario = document.querySelector('[data-form]');
 
-formulario.addEventListener('submit', (evento) => {
+formulario.addEventListener('submit', async (evento) => {
 	evento.preventDefault();
 
-	clienteService.atualizaCliente(inputNome.value, inputEmail.value, id).then(()=> {
-		window.location.href = "../telas/edicao_concluida.html"
-	})
+	await clienteService.atualizaCliente(inputNome.value, inputEmail.value, id);
+	window.location.href = '../telas/edicao_concluida.html';
 });
