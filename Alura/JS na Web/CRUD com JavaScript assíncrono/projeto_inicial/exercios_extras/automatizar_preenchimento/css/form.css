@@ -46,6 +46,7 @@ label {
 	padding: 0.5rem;
 	text-align: center;
 	width: fit-content;
+	transition: all .5s .2s ease-in;
 }
 
 .btn-primary:hover,
