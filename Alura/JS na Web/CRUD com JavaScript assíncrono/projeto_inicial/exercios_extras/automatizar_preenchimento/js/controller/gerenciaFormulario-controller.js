@@ -1,13 +1,16 @@
 import { conectores } from '../service/fetch.js';
 
-const inputDoCep = document.getElementById('cep');
+const cep = document.getElementById('cep');
 const rua = document.querySelector('#rua');
 const complemento = document.querySelector('#complemento');
 const bairro = document.querySelector('#bairro');
 const cidade = document.querySelector('#cidade');
 const estado = document.querySelector('#estado');
 
-inputDoCep.focus();
+cep.focus();
+cep.oninput = function () {
+	cep.value = cep.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+};
 
 const btnPesquisarCEP = document.querySelector('#btnPesquisar');
 btnPesquisarCEP.addEventListener('click', async (event) => {
@@ -26,13 +29,13 @@ const btnLimpar = document.querySelector('#btnLimpar');
 btnLimpar.addEventListener('click', (event) => {
 	event.preventDefault();
 
-	inputDoCep.value = null;
+	cep.value = null;
 	rua.value = null;
 	complemento.value = null;
 	bairro.value = null;
 	cidade.value = null;
 	estado.value = null;
-	inputDoCep.focus();
+	cep.focus();
 });
 
 const atribuiCampos = (resultado) => {
@@ -41,6 +44,5 @@ const atribuiCampos = (resultado) => {
 	bairro.value = resultado.bairro;
 	cidade.value = resultado.localidade;
 	estado.value = resultado.uf;
-	inputDoCep.focus();
+	cep.focus();
 };
-
