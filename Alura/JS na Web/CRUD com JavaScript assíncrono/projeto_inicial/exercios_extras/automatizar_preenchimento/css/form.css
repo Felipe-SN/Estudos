@@ -10,16 +10,23 @@ form {
 	flex-direction: column;
 	flex-wrap: wrap;
 	justify-content: center;
-	width: 50vw;
+	width: 80vw;
 }
 
 .form-group {
 	align-items: flex-start;
 	display: flex;
-	flex-flow: row wrap;
+	flex-flow: column wrap;
+	height: fit-content;
 	justify-content: space-between;
-	margin: 0 0 1rem;
-	width: 40vw;
+	margin-bottom: 2rem;
+	width: 100%;
+}
+
+.form-group:last-child {
+	align-items: center;
+	flex-flow: column wrap;
+	width: 90%;
 }
 
 label {
@@ -42,14 +49,26 @@ label {
 	cursor: pointer;
 	display: inline-block;
 	font-size: 1.5rem;
-	margin: 2rem 2rem 0 2rem;
+	margin: 1rem;
 	padding: 0.5rem;
 	text-align: center;
 	width: fit-content;
-	transition: all .5s .2s ease-in;
+	transition: all 0.5s 0.2s ease-in;
 }
 
 .btn-primary:hover,
 .btn-danger:hover {
 	background: #0084ff;
+}
+
+/* responsive */
+
+@media screen and (min-width: 765px) {
+	form {
+		width: 60vw;
+	}
+
+	.form-group:last-child {
+		flex-flow: row wrap;
+	}
 }
