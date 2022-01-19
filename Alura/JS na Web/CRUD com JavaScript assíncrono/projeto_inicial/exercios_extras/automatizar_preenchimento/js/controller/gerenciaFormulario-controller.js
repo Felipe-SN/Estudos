@@ -1,3 +1,5 @@
+import { conectores } from '../service/fetch.js';
+
 const inputDoCep = document.querySelector('#cep');
 const rua = document.querySelector('#rua');
 const complemento = document.querySelector('#complemento');
@@ -6,23 +8,15 @@ const cidade = document.querySelector('#cidade');
 const estado = document.querySelector('#estado');
 
 const btnPesquisarCEP = document.querySelector('#btnPesquisar');
-btnPesquisarCEP.addEventListener('click', (event) => {
+btnPesquisarCEP.addEventListener('click', async (event) => {
 	event.preventDefault();
 
-	const valorDoCep = inputDoCep.value;
-	const url = `https://viacep.com.br/ws/${valorDoCep}/json/`;
-
-	fetch(url)
-		.then((response) => {
-			return response.json();
-		})
-		.then((data) => {
-			if (data.erro) {
-				alert('O CEP DIGITADO ESTÁ INVÁLIDO');
-				return;
-			}
-			atribuiCampos(data);
-		});
+	const resultado = await conectores.capturaDados();
+	if (resultado.erro || !resultado.ok) {
+		alert('O CEP DIGITADO ESTÁ INVÁLIDO');
+		throw new Error(`O CEP DIGITADO ESTÁ INVÁLIDO: ${resultado.erro}`);
+	}
+	atribuiCampos(resultado);
 });
 
 const btnLimpar = document.querySelector('#btnLimpar');
@@ -37,10 +31,10 @@ btnLimpar.addEventListener('click', (event) => {
 	estado.value = null;
 });
 
-const atribuiCampos = (data) => {
-	rua.value = data.logradouro;
-	complemento.value = data.complemento;
-	bairro.value = data.bairro;
-	cidade.value = data.localidade;
-	estado.value = data.uf;
+const atribuiCampos = (resultado) => {
+	rua.value = resultado.logradouro;
+	complemento.value = resultado.complemento;
+	bairro.value = resultado.bairro;
+	cidade.value = resultado.localidade;
+	estado.value = resultado.uf;
 };
