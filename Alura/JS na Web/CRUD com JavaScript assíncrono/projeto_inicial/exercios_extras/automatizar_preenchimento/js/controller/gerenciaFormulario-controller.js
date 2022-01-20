@@ -1,11 +1,11 @@
 import { conectores } from '../service/fetch.js';
 
 const cep = document.getElementById('cep');
-const rua = document.querySelector('#rua');
-const complemento = document.querySelector('#complemento');
-const bairro = document.querySelector('#bairro');
-const cidade = document.querySelector('#cidade');
-const estado = document.querySelector('#estado');
+const rua = document.getElementById('rua');
+const complemento = document.getElementById('complemento');
+const bairro = document.getElementById('bairro');
+const cidade = document.getElementById('cidade');
+const estado = document.getElementById('estado');
 
 cep.focus();
 cep.oninput = function () {

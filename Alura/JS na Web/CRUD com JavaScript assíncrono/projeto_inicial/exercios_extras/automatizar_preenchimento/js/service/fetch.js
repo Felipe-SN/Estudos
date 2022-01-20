@@ -1,6 +1,6 @@
 const capturaDados = async () => {
-	const inputDoCep = document.getElementById('cep');
-	const valorDoCep = inputDoCep.value;
+	const cep = document.getElementById('cep');
+	const valorDoCep = cep.value;
 	const url = `https://viacep.com.br/ws/${valorDoCep}/json/`;
 
 	const resposta = await fetch(url);
