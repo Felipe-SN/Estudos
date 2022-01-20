@@ -3,7 +3,7 @@ body {
 }
 
 header {
-	background: #BBBBBB;
+	background: #bbbbbb;
 	padding: 20px 0;
 }
 
@@ -33,13 +33,13 @@ nav a {
 	color: #000000;
 	font-weight: bold;
 	font-size: 22px;
-	transition: .3s ease-in;
+	transition: 0.3s ease-in;
 }
 
 nav a:hover {
-	color: #C78C19;
+	color: #c78c19;
 	text-decoration: underline;
-	transition: .3s ease-out;
+	transition: 0.3s ease-out;
 }
 
 .produtos {
@@ -62,11 +62,11 @@ nav a:hover {
 }
 
 .produtos li:hover {
-	border-color: #C78C19;
+	border-color: #c78c19;
 }
 
 .produtos li:active {
-	border-color: #088C19;
+	border-color: #088c19;
 }
 
 .produtos li:hover h2 {
@@ -95,16 +95,17 @@ footer {
 }
 
 .copyright {
-	color: #CCCCCC;
+	color: #cccccc;
 	font-size: 13px;
 	margin: 20px 0 0 0;
 }
 
 form {
 	margin: 2rem auto 2rem 2rem;
-} 
+}
 
-form label, form legend {
+form label,
+form legend {
 	display: block;
 	font-size: 20px;
 	margin-bottom: 10px;
@@ -117,7 +118,7 @@ form label, form legend {
 	width: 50%;
 }
 
-.radio > input[type=radio] {
+.radio > input[type='radio'] {
 	appearance: none;
 	vertical-align: text-top;
 	background: orange;
@@ -130,20 +131,22 @@ form label, form legend {
 	cursor: pointer;
 }
 
-.radio > input[type=radio]::after {
-	content: '';
-	box-sizing: border-box;
+.radio > input[type='radio']::after {
 	background: transparent;
-	display: inline-block;
-	position: relative;
-	left: .22rem;
 	border-radius: 50%;
-	height: .5rem;
-	width: .5rem;
-	transition: .3s ease-in;
+	box-sizing: border-box;
+	content: '';
+	cursor: pointer;
+	display: block;
+	height: 0.5rem;
+	position: relative;
+	position: relative;
+	transform: translate(50%, 50%);
+	transition: 0.3s ease-in;
+	width: 0.5rem;
 }
 
-.radio > input[type=radio]:checked::after {
+.radio > input[type='radio']:checked::after {
 	background: white;
 }
 
@@ -160,34 +163,36 @@ form label, form legend {
 	cursor: pointer;
 }
 
-.checkbox > input[type=checkbox] {
+.checkbox > input[type='checkbox'] {
 	vertical-align: text-top;
 	width: 1rem;
 	height: 1rem;
-	border-radius: 25%;
+	border-radius: 2px;
 	appearance: none;
 	background-color: orange;
 	cursor: pointer;
-} 
-
-.checkbox > input[type=checkbox]::after {
-	content: '';
-	border: transparent;
-	display: inline-flex;
-	position: relative;
-	bottom: .12rem;
-	left: .22rem;
-	height: .65rem;
-	width: .4rem;
-	transform: rotate(45deg) skew(10deg, 10deg);
-	transition: .3s ease-in;
 }
 
-.checkbox > input[type=checkbox]:checked, .radio > input[type=radio]:checked {
+.checkbox > input[type='checkbox']::after {
+	border: transparent;
+	bottom: 0.12rem;
+	content: '';
+	display: block;
+	height: 0.65rem;
+	left: 30%;
+	position: relative;
+	top: -55%;
+	transform: rotate(45deg) skew(10deg, 10deg) translate(50%, 50%);
+	transition: 0.3s ease-in;
+	width: 0.4rem;
+}
+
+.checkbox > input[type='checkbox']:checked,
+.radio > input[type='radio']:checked {
 	background: radial-gradient(circle, orange, darkorange 50%);
 }
 
-.checkbox > input[type=checkbox]:checked::after {
+.checkbox > input[type='checkbox']:checked::after {
 	border-bottom: 2px solid white;
 	border-right: 2px solid white;
 }
@@ -221,7 +226,8 @@ thead {
 	font-weight: bold;
 }
 
-td, th {
+td,
+th {
 	border: 1px solid black;
 	padding: 8px 15px;
 }
@@ -240,7 +246,7 @@ td, th {
 
 .principal {
 	padding: 3em 0;
-	background: #FEFEFE;
+	background: #fefefe;
 	width: 940px;
 	margin: 0 auto;
 }
@@ -265,7 +271,7 @@ td, th {
 
 .mapa {
 	padding: 3em 0;
-	background: linear-gradient(#FEFEFE, #888888);
+	background: linear-gradient(#fefefe, #888888);
 }
 
 .mapa-conteudo {
@@ -303,7 +309,7 @@ td, th {
 }
 
 .itens:before {
-	content: "★";
+	content: '★';
 }
 
 .imagem-beneficios {
@@ -322,7 +328,12 @@ td, th {
 }
 
 @media screen and (max-width: 900px) {
-	.caixa, .principal, .conteudo-beneficios, .mapa-conteudo, .video, .produtos {
+	.caixa,
+	.principal,
+	.conteudo-beneficios,
+	.mapa-conteudo,
+	.video,
+	.produtos {
 		width: auto;
 		margin: 1rem 1rem;
 	}
@@ -331,16 +342,19 @@ td, th {
 		text-align: center;
 	}
 
-	.caixa, nav {
+	.caixa,
+	nav {
 		position: static;
 		text-align: center;
 	}
 
-	.lista-beneficios, .imagem-beneficios {
+	.lista-beneficios,
+	.imagem-beneficios {
 		width: 100%;
 	}
 
-	.imagem-beneficios, .video {
+	.imagem-beneficios,
+	.video {
 		margin-top: 1.5rem;
 	}
 
@@ -350,8 +364,8 @@ td, th {
 		margin: 5% auto;
 	}
 
-
-	form, table {
+	form,
+	table {
 		width: auto;
 		margin: 5% auto;
 		margin-left: 5%;
