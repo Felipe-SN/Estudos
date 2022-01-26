@@ -8,12 +8,12 @@ const cidade = document.getElementById('cidade');
 const estado = document.getElementById('estado');
 
 cep.focus();
-cep.oninput = function () {
+cep.oninput = () => {
 	cep.value = cep.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
 };
 
-const btnPesquisarCEP = document.querySelector('#btnPesquisar');
-btnPesquisarCEP.addEventListener('click', async (event) => {
+const btnPesquisar = document.getElementById('btnPesquisar');
+btnPesquisar.addEventListener('click', async (event) => {
 	event.preventDefault();
 
 	const resultado = await conectores.capturaDados();
@@ -22,10 +22,19 @@ btnPesquisarCEP.addEventListener('click', async (event) => {
 		throw new Error(`O CEP DIGITADO ESTÁ INVÁLIDO: ${resultado.erro}`);
 	}
 
-	atribuiCampos(resultado);
+	preencheCampos(resultado);
 });
 
-const btnLimpar = document.querySelector('#btnLimpar');
+const preencheCampos = (resultado) => {
+	rua.value = resultado.logradouro;
+	complemento.value = resultado.complemento;
+	bairro.value = resultado.bairro;
+	cidade.value = resultado.localidade;
+	estado.value = resultado.uf;
+	cep.focus();
+};
+
+const btnLimpar = document.getElementById('btnLimpar');
 btnLimpar.addEventListener('click', (event) => {
 	event.preventDefault();
 
@@ -37,12 +46,3 @@ btnLimpar.addEventListener('click', (event) => {
 	estado.value = null;
 	cep.focus();
 });
-
-const atribuiCampos = (resultado) => {
-	rua.value = resultado.logradouro;
-	complemento.value = resultado.complemento;
-	bairro.value = resultado.bairro;
-	cidade.value = resultado.localidade;
-	estado.value = resultado.uf;
-	cep.focus();
-};
