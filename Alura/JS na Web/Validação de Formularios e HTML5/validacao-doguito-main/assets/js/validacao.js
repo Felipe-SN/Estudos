@@ -46,6 +46,7 @@ const mensagensDeErro = {
 	cep: {
 		valueMissing: 'O campo CEP não pode estar vazio.',
 		patternMismatch: 'O CEP digitado não é valido.',
+		customError: 'Não foi possível encontrar o CEP informado.',
 	},
 	logradouro: {
 		valueMissing: 'O campo logradouro não pode estar vazio.',
@@ -163,7 +164,7 @@ const confirmaDigito = (soma) => {
 	return 11 - (soma % 11);
 };
 
-const recuperarCEP = async (input) => {
+const recuperarCEP = (input) => {
 	const cep = input.value.replace(/\D/g, '');
 	const url = `https://viacep.com.br/ws/${cep}/json/`;
 	const options = {
@@ -175,12 +176,28 @@ const recuperarCEP = async (input) => {
 	};
 
 	if (!input.validity.patternMismatch && !input.validity.valueMissing) {
-		const resposta = await fetch(url, options);
-		const data = resposta.json();
-		console.log(data);
-
-		if (data.erro) {
-			input.setCustomValidity('Não foi possível encontrar o CEP informado.');
-		}
+		fetch(url, options)
+			.then((resposta) => resposta.json())
+			.then((dados) => {
+				console.log(dados);
+				if (dados.erro) {
+					input.setCustomValidity(
+						'Não foi possível encontrar o CEP informado.'
+					);
+					return;
+				}
+				input.setCustomValidity('');
+				preencheCamposCEP(dados);
+			});
 	}
+};
+
+const preencheCamposCEP = (dados) => {
+	const logradouro = document.querySelector('[data-tipo="logradouro"]');
+	const cidade = document.querySelector('[data-tipo="cidade"]');
+	const estado = document.querySelector('[data-tipo="estado"]');
+
+	logradouro.value = dados.logradouro;
+	cidade.value = dados.localidade;
+	estado.value = dados.uf;
 };
