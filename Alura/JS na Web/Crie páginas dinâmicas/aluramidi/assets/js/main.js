@@ -1,4 +1,4 @@
-const listaTeclas = document.querySelectorAll('[data-btn]');
+const listaTeclas = document.querySelectorAll('[data-tecla]');
 const listaSons = document.querySelectorAll('[data-som]');
 
 const tocaSom = (idAudio) => {
@@ -16,9 +16,9 @@ for (let contador = 0; contador < listaTeclas.length; contador++) {
 }
 
 /*
-listaTeclas.forEach((btn) => {
-  btn.addEventListener('click', (e) => {
-    const tipoSom = e.target.dataset.btn;
+listaTeclas.forEach((tecla) => {
+  tecla.addEventListener('click', (e) => {
+    const tipoSom = e.target.dataset.tecla;
     listaSons[tipoSom].play();
   });
 });
