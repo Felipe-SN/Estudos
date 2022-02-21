@@ -1,3 +1,3 @@
 
-#link para ratica indicado no curso
+#link para pratica indicado no curso
 https://cssgridgarden.com/
