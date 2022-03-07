@@ -68,7 +68,7 @@ const drawPlayers = () => {
   ctx.fillStyle = colorObjects;
   ctx.fillRect(player2X, player2Y, lineSize, playerHeight);
 };
-
+/*limpa atela para a apresentação de cada novo frame*/
 const clearCanvas = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 };
@@ -79,27 +79,30 @@ const autoMovementPlayer2 = () => {
   const playerBottom = player2Y + playerHeight;
   const player2Speed = yBall - playerHeight / 2;
   const hitTop =
-    playerTop <= topLineY + lineSize * 2 && yBall <= playerCenter * 1.5;
+    playerTop <= topLineY + lineSize * 2 &&
+    yBall <= playerCenter + playerCenter / 2;
   const hitBottom =
-    playerBottom >= bottomLineY - lineSize && yBall >= playerTop ;
+    playerBottom >= bottomLineY - lineSize &&
+    yBall >= playerTop + playerCenter / 2;
 
-  if (hitTop) {
-    player2Y = player2Y;
-    return;
+  if (xBall >= xCenter) {
+    if (hitTop || hitBottom) {
+      player2Y = player2Y;
+      return;
+    }
+
+    player2Y = player2Speed;
   }
-  if (hitBottom) {
-    player2Y = player2Y;
-    return;
-  }
-  player2Y = player2Speed;
 };
 
-const commands = (event) => {
-  event.preventDefault();
-
+const handleKeysPressed = (event) => {
   const code = event.code;
+  initializeCommand(event, code);
+};
 
-  const teclasAceitas = {
+const initializeCommand = (event, code) => {
+  const acceptedKeys = {
+    /*comandos responsáveis pelo player2*/
     ArrowUp() {
       if (player2Y > topLineY + lineSize) {
         player2Y -= playersSpeed;
@@ -110,6 +113,7 @@ const commands = (event) => {
         player2Y += playersSpeed;
       }
     },
+    /*comandos responsáveis pelo player1*/
     KeyW() {
       if (player1Y > topLineY + lineSize * 2) {
         player1Y -= playersSpeed;
@@ -122,19 +126,19 @@ const commands = (event) => {
     },
   };
 
-  const fazMover = teclasAceitas[code];
+  const moveIt = acceptedKeys[code];
 
-  if (fazMover) {
+  if (moveIt) {
     event.preventDefault();
-    fazMover();
+    moveIt();
   }
 };
 
-window.addEventListener('keydown', commands);
+window.addEventListener('keydown', handleKeysPressed);
 
 const ballInteractions = () => {
   /*adiciona o movimento a bola*/
-  // xBall += xBallMove;
+  xBall += xBallMove;
   yBall += yBallMove;
 
   /*delimita os extremos dos players para ter interação com a bola*/
