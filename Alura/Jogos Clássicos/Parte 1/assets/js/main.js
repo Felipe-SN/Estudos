@@ -1,10 +1,11 @@
 const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+const context = canvas.getContext('2d');
 
-ctx.canvas.height = window.innerHeight - canvas.offsetHeight;
-ctx.canvas.width = window.innerWidth - canvas.offsetWidth;
+context.canvas.height = window.innerHeight - canvas.offsetHeight;
+context.canvas.width = window.innerWidth - canvas.offsetWidth;
 
-const lineSize = 10,
+const globals = {},
+  lineSize = 10,
   ballRadius = 10,
   ballSpeed = 5,
   bottomLineX = 10,
@@ -28,75 +29,146 @@ let player1Y = yCenter - playerHeight / 2,
   yBallMove = ballSpeed;
 
 const drawBackground = () => {
-  ctx.fillStyle = colorBg;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  const background = {
+    draw() {
+      context.fillStyle = colorBg;
+      context.fillRect(0, 0, canvas.width, canvas.height);
+    },
+  };
+  return background;
+};
+
+const drawScores = () => {
+  const score = {
+    /*contagem de pontos iniciais*/
+    player1: 0,
+    player2: 0,
+
+    /*desenha o placar de ambos os players*/
+    draw() {
+      context.font = `200px "VT323"`;
+      context.fillStyle = colorObjects;
+      context.textAlign = 'left';
+      context.fillText(`${score.player1}`, xCenter - xCenter / 2, yCenter / 2);
+      context.textAlign = 'right';
+      context.fillText(`${score.player2}`, xCenter + xCenter / 2, yCenter / 2);
+    },
+
+    /*centraliza e inverte o movimento da bola ao sair por uma das extremidades X do campo*/
+    centerBall() {
+      xBall = xCenter;
+      yBall = yCenter;
+      xBallMove = -xBallMove;
+    },
+
+    /*marca pontos para o jogador com base na lateral X do campo que a bola saiu*/
+    update() {
+      /*gerencia pontos do player1*/
+      if (xBall + ballRadius >= canvas.width) {
+        score.player1++;
+        score.centerBall();
+      }
+
+      /*gerencia pontos do player2*/
+      if (xBall - ballRadius <= 0) {
+        score.player2++;
+        score.centerBall();
+      }
+    },
+  };
+  return score;
 };
 
 const drawFieldLines = () => {
-  /*parâmetros lateral superior*/
-  ctx.fillStyle = colorObjects;
-  ctx.fillRect(topLineX, topLineY, canvas.width - lineSize * 2, lineSize);
+  const fieldLines = {
+    draw() {
+      /*parâmetros lateral superior*/
+      context.fillStyle = colorObjects;
+      context.fillRect(
+        topLineX,
+        topLineY,
+        canvas.width - lineSize * 2,
+        lineSize
+      );
 
-  /*parâmetros lateral inferior*/
-  ctx.fillStyle = colorObjects;
-  ctx.fillRect(bottomLineX, bottomLineY, canvas.width - lineSize * 2, lineSize);
+      /*parâmetros lateral inferior*/
+      context.fillStyle = colorObjects;
+      context.fillRect(
+        bottomLineX,
+        bottomLineY,
+        canvas.width - lineSize * 2,
+        lineSize
+      );
 
-  /*parâmetros da rede*/
-  ctx.beginPath();
-  ctx.setLineDash([5, 10]);
-  ctx.moveTo(xCenter, canvas.height - lineSize * 3);
-  ctx.lineTo(xCenter, lineSize * 3);
-  ctx.lineWidth = lineSize;
-  ctx.strokeStyle = colorObjects;
-  ctx.stroke();
+      /*parâmetros da rede*/
+      context.beginPath();
+      context.setLineDash([45, 20]);
+      context.moveTo(xCenter, canvas.height - lineSize * 3);
+      context.lineTo(xCenter, lineSize * 3);
+      context.lineWidth = lineSize;
+      context.strokeStyle = colorObjects;
+      context.stroke();
+    },
 
-  /*centraliza e inverte o movimento da bola ao sair por uma das extremidades X do campo*/
-  if (xBall + ballRadius >= canvas.width || xBall - ballRadius <= 0) {
-    xBall = xCenter;
-    yBall = yCenter;
-    xBallMove = -xBallMove;
-  }
-  /*inverte a direção de movimento Y da bola ao tocar em uma das extremidades Y do campo*/
-  if (
-    yBall + ballRadius >= bottomLineY ||
-    yBall - ballRadius <= topLineY + lineSize
-  ) {
-    yBallMove = -yBallMove;
-  }
+    update() {
+      /*inverte a direção de movimento Y da bola ao tocar em uma das extremidades Y do campo*/
+      if (
+        yBall + ballRadius >= bottomLineY ||
+        yBall - ballRadius <= topLineY + lineSize
+      ) {
+        yBallMove = -yBallMove;
+      }
+    },
+  };
+  return fieldLines;
 };
 
 const drawBall = () => {
-  /*parâmetros referentes a bola*/
-  ctx.fillStyle = colorObjects;
-  ctx.beginPath();
-  ctx.arc(xBall, yBall, ballRadius, 0, 2 * 3.14);
-  ctx.fill();
+  const ball = {
+    draw() {
+      /*parâmetros referentes a bola*/
+      context.fillStyle = colorObjects;
+      context.beginPath();
+      context.arc(xBall, yBall, ballRadius, 0, 2 * 3.14);
+      context.fill();
+    },
 
-  /*adiciona o movimento a bola*/
-  xBall += xBallMove;
-  yBall += yBallMove;
+    update() {
+      /*adiciona o movimento a bola*/
+      xBall += xBallMove;
+      yBall += yBallMove;
+    },
+  };
+  return ball;
 };
 
 const drawPlayers = () => {
-  /*parâmetros referentes ao player1*/
-  ctx.fillStyle = colorObjects;
-  ctx.fillRect(player1X, player1Y, lineSize, playerHeight);
+  const players = {
+    draw() {
+      /*parâmetros referentes ao player1*/
+      context.fillStyle = colorObjects;
+      context.fillRect(player1X, player1Y, lineSize, playerHeight);
 
-  /*parâmetros referentes ao player2*/
-  ctx.fillStyle = colorObjects;
-  ctx.fillRect(player2X, player2Y, lineSize, playerHeight);
+      /*parâmetros referentes ao player2*/
+      context.fillStyle = colorObjects;
+      context.fillRect(player2X, player2Y, lineSize, playerHeight);
+    },
 
-  /*delimita os extremos dos players para ter interação com a bola*/
-  if (
-    (xBall + ballRadius >= player2X &&
-      yBall - ballRadius >= player2Y &&
-      yBall + ballRadius <= player2Y + playerHeight) ||
-    (xBall - ballRadius <= player1X + lineSize &&
-      yBall - ballRadius >= player1Y &&
-      yBall + ballRadius <= player1Y + playerHeight)
-  ) {
-    xBallMove = -xBallMove;
-  }
+    update() {
+      /*delimita os extremos dos players para ter interação com a bola*/
+      if (
+        (xBall + ballRadius >= player2X &&
+          yBall - ballRadius >= player2Y &&
+          yBall + ballRadius <= player2Y + playerHeight) ||
+        (xBall - ballRadius <= player1X + lineSize &&
+          yBall - ballRadius >= player1Y &&
+          yBall + ballRadius <= player1Y + playerHeight)
+      ) {
+        xBallMove = -xBallMove;
+      }
+    },
+  };
+  return players;
 };
 /*função para automatizar os movimentos do player2*/
 const autoMovementPlayer2 = () => {
@@ -161,12 +233,24 @@ const initializeCommand = (event, code) => {
 /*adiciona um escutador para as teclas pressionadas*/
 window.addEventListener('keydown', handleKeysPressed);
 
+globals.score = drawScores();
+globals.background = drawBackground();
+globals.fieldLines = drawFieldLines();
+globals.ball = drawBall();
+globals.players = drawPlayers();
+
 /*faz a animação do jogo ocorrer*/
 const animation = () => {
-  drawBackground();
-  drawFieldLines();
-  autoMovementPlayer2();
-  drawBall();
+  globals.score.update();
+  globals.fieldLines.update();
+  globals.ball.update();
+  globals.players.update();
+  globals.background.draw();
+  globals.score.draw();
+  globals.fieldLines.draw();
+  globals.ball.draw();
+  globals.players.draw();
+
   drawPlayers();
 
   requestAnimationFrame(animation);
