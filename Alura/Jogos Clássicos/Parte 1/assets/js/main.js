@@ -4,34 +4,14 @@ const context = canvas.getContext('2d');
 context.canvas.height = window.innerHeight - canvas.offsetHeight;
 context.canvas.width = window.innerWidth - canvas.offsetWidth;
 
-const globals = {},
-  lineSize = 10,
-  ballRadius = 10,
-  ballSpeed = 5,
-  bottomLineX = 10,
-  bottomLineY = canvas.height - lineSize * 2,
-  colorBg = 'black',
-  colorObjects = 'white',
-  player1X = lineSize,
-  player2X = canvas.width - lineSize * 2,
-  playerHeight = 100,
-  playersSpeed = 2 * ballSpeed,
-  topLineX = 10,
-  topLineY = 10,
-  xCenter = canvas.width / 2,
-  yCenter = canvas.height / 2;
-
-let player1Y = yCenter - playerHeight / 2,
-  player2Y = yCenter - playerHeight / 2,
-  xBall = xCenter,
-  xBallMove = ballSpeed,
-  yBall = yCenter,
-  yBallMove = ballSpeed;
+const globals = {};
 
 const drawBackground = () => {
   const background = {
+    colorBg: 'black',
+
     draw() {
-      context.fillStyle = colorBg;
+      context.fillStyle = background.colorBg;
       context.fillRect(0, 0, canvas.width, canvas.height);
     },
   };
@@ -47,30 +27,38 @@ const drawScores = () => {
     /*desenha o placar de ambos os players*/
     draw() {
       context.font = `200px "VT323"`;
-      context.fillStyle = colorObjects;
+      context.fillStyle = globals.fieldLines.colorObjects;
       context.textAlign = 'left';
-      context.fillText(`${score.player1}`, xCenter - xCenter / 2, yCenter / 2);
+      context.fillText(
+        `${score.player1}`,
+        globals.fieldLines.xCenter - globals.fieldLines.xCenter / 2,
+        globals.fieldLines.yCenter / 2
+      );
       context.textAlign = 'right';
-      context.fillText(`${score.player2}`, xCenter + xCenter / 2, yCenter / 2);
+      context.fillText(
+        `${score.player2}`,
+        globals.fieldLines.xCenter + globals.fieldLines.xCenter / 2,
+        globals.fieldLines.yCenter / 2
+      );
     },
 
     /*centraliza e inverte o movimento da bola ao sair por uma das extremidades X do campo*/
     centerBall() {
-      xBall = xCenter;
-      yBall = yCenter;
-      xBallMove = -xBallMove;
+      globals.ball.xBall = globals.fieldLines.xCenter;
+      globals.ball.yBall = globals.fieldLines.yCenter;
+      globals.ball.xBallMove = -globals.ball.xBallMove;
     },
 
     /*marca pontos para o jogador com base na lateral X do campo que a bola saiu*/
     update() {
       /*gerencia pontos do player1*/
-      if (xBall + ballRadius >= canvas.width) {
+      if (globals.ball.xBall + globals.ball.ballRadius >= canvas.width) {
         score.player1++;
         score.centerBall();
       }
 
       /*gerencia pontos do player2*/
-      if (xBall - ballRadius <= 0) {
+      if (globals.ball.xBall - globals.ball.ballRadius <= 0) {
         score.player2++;
         score.centerBall();
       }
@@ -81,42 +69,56 @@ const drawScores = () => {
 
 const drawFieldLines = () => {
   const fieldLines = {
+    lineSize: 10,
+    xCenter: canvas.width / 2,
+    yCenter: canvas.height / 2,
+    colorObjects: 'white',
+    bottomLineX: 10,
+    bottomLineY: canvas.height - 10 * 2,
+    topLineX: 10,
+    topLineY: 10,
+
     draw() {
       /*parâmetros lateral superior*/
-      context.fillStyle = colorObjects;
+      context.fillStyle = fieldLines.colorObjects;
       context.fillRect(
-        topLineX,
-        topLineY,
-        canvas.width - lineSize * 2,
-        lineSize
+        fieldLines.topLineX,
+        fieldLines.topLineY,
+        canvas.width - fieldLines.lineSize * 2,
+        fieldLines.lineSize
       );
 
       /*parâmetros lateral inferior*/
-      context.fillStyle = colorObjects;
+      context.fillStyle = fieldLines.colorObjects;
       context.fillRect(
-        bottomLineX,
-        bottomLineY,
-        canvas.width - lineSize * 2,
-        lineSize
+        fieldLines.bottomLineX,
+        fieldLines.bottomLineY,
+        canvas.width - fieldLines.lineSize * 2,
+        fieldLines.lineSize
       );
 
       /*parâmetros da rede*/
       context.beginPath();
       context.setLineDash([45, 20]);
-      context.moveTo(xCenter, canvas.height - lineSize * 3);
-      context.lineTo(xCenter, lineSize * 3);
-      context.lineWidth = lineSize;
-      context.strokeStyle = colorObjects;
+      context.moveTo(
+        fieldLines.xCenter,
+        canvas.height - fieldLines.lineSize * 3
+      );
+      context.lineTo(fieldLines.xCenter, fieldLines.lineSize * 3);
+      context.lineWidth = fieldLines.lineSize;
+      context.strokeStyle = fieldLines.colorObjects;
       context.stroke();
     },
 
     update() {
       /*inverte a direção de movimento Y da bola ao tocar em uma das extremidades Y do campo*/
       if (
-        yBall + ballRadius >= bottomLineY ||
-        yBall - ballRadius <= topLineY + lineSize
+        globals.ball.yBall + globals.ball.ballRadius >=
+          fieldLines.bottomLineY ||
+        globals.ball.yBall - globals.ball.ballRadius <=
+          fieldLines.topLineY + fieldLines.lineSize
       ) {
-        yBallMove = -yBallMove;
+        globals.ball.yBallMove = -globals.ball.yBallMove;
       }
     },
   };
@@ -125,18 +127,24 @@ const drawFieldLines = () => {
 
 const drawBall = () => {
   const ball = {
+    ballRadius: 10,
+    xBall: globals.fieldLines.xCenter,
+    xBallMove: 5,
+    yBall: globals.fieldLines.yCenter,
+    yBallMove: 5,
+
     draw() {
       /*parâmetros referentes a bola*/
-      context.fillStyle = colorObjects;
+      context.fillStyle = globals.fieldLines.colorObjects;
       context.beginPath();
-      context.arc(xBall, yBall, ballRadius, 0, 2 * 3.14);
+      context.arc(ball.xBall, ball.yBall, ball.ballRadius, 0, 2 * 3.14);
       context.fill();
     },
 
     update() {
       /*adiciona o movimento a bola*/
-      xBall += xBallMove;
-      yBall += yBallMove;
+      ball.xBall += ball.xBallMove;
+      ball.yBall += ball.yBallMove;
     },
   };
   return ball;
@@ -144,27 +152,47 @@ const drawBall = () => {
 
 const drawPlayers = () => {
   const players = {
+    playerHeight: 100,
+    player1Y: globals.fieldLines.yCenter - 50,
+    player2Y: globals.fieldLines.yCenter - 50,
+    player1X: globals.fieldLines.lineSize,
+    player2X: canvas.width - globals.fieldLines.lineSize * 2,
+    playersSpeed: 2 * globals.ball.xBallMove,
+
     draw() {
+      /*especifica a cor que os players são criados*/
+      context.fillStyle = globals.fieldLines.colorObjects;
       /*parâmetros referentes ao player1*/
-      context.fillStyle = colorObjects;
-      context.fillRect(player1X, player1Y, lineSize, playerHeight);
+      context.fillRect(
+        players.player1X,
+        players.player1Y,
+        globals.fieldLines.lineSize,
+        players.playerHeight
+      );
 
       /*parâmetros referentes ao player2*/
-      context.fillStyle = colorObjects;
-      context.fillRect(player2X, player2Y, lineSize, playerHeight);
+      context.fillRect(
+        players.player2X,
+        players.player2Y,
+        globals.fieldLines.lineSize,
+        players.playerHeight
+      );
     },
 
     update() {
       /*delimita os extremos dos players para ter interação com a bola*/
       if (
-        (xBall + ballRadius >= player2X &&
-          yBall - ballRadius >= player2Y &&
-          yBall + ballRadius <= player2Y + playerHeight) ||
-        (xBall - ballRadius <= player1X + lineSize &&
-          yBall - ballRadius >= player1Y &&
-          yBall + ballRadius <= player1Y + playerHeight)
+        (globals.ball.xBall + globals.ball.ballRadius >= players.player2X &&
+          globals.ball.yBall - globals.ball.ballRadius >= players.player2Y &&
+          globals.ball.yBall + globals.ball.ballRadius <=
+            players.player2Y + players.playerHeight) ||
+        (globals.ball.xBall - globals.ball.ballRadius <=
+          players.player1X + globals.fieldLines.lineSize &&
+          globals.ball.yBall - globals.ball.ballRadius >= players.player1Y &&
+          globals.ball.yBall + globals.ball.ballRadius <=
+            players.player1Y + players.playerHeight)
       ) {
-        xBallMove = -xBallMove;
+        globals.ball.xBallMove = -globals.ball.xBallMove;
       }
     },
   };
@@ -172,19 +200,25 @@ const drawPlayers = () => {
 };
 /*função para automatizar os movimentos do player2*/
 const autoMovementPlayer2 = () => {
-  const player2DetectionRange = xCenter + xCenter / 5,
-    player2Center = player2Y + playerHeight / 2;
+  const player2DetectionRange =
+      globals.fieldLines.xCenter + globals.fieldLines.xCenter / 5,
+    player2Center = globals.players.player2Y + globals.players.playerHeight / 2;
 
-  if (xBall >= player2DetectionRange) {
-    if (player2Y > topLineY + lineSize * 2 && yBall <= player2Center) {
-      player2Y -= playersSpeed;
+  if (globals.ball.xBall >= player2DetectionRange) {
+    if (
+      globals.players.player2Y >
+        globals.fieldLines.topLineY + globals.fieldLines.lineSize * 2 &&
+      globals.ball.yBall <= player2Center
+    ) {
+      globals.players.player2Y -= globals.players.playersSpeed;
     }
 
     if (
-      player2Y + playerHeight < bottomLineY - lineSize &&
-      yBall >= player2Center
+      globals.players.player2Y + globals.players.playerHeight <
+        globals.fieldLines.bottomLineY - globals.fieldLines.lineSize &&
+      globals.ball.yBall >= player2Center
     ) {
-      player2Y += playersSpeed;
+      globals.players.player2Y += globals.players.playersSpeed;
     }
   }
 };
@@ -200,24 +234,36 @@ const initializeCommand = (event, code) => {
   const acceptedKeys = {
     /*comandos responsáveis pelo player2*/
     ArrowUp() {
-      if (player2Y > topLineY + lineSize * 2) {
-        player2Y -= playersSpeed;
+      if (
+        globals.players.player2Y >
+        globals.fieldLines.topLineY + globals.fieldLines.lineSize * 2
+      ) {
+        globals.players.player2Y -= globals.players.playersSpeed;
       }
     },
     ArrowDown() {
-      if (player2Y + playerHeight < bottomLineY - lineSize) {
-        player2Y += playersSpeed;
+      if (
+        globals.players.player2Y + globals.players.playerHeight <
+        globals.fieldLines.bottomLineY - globals.fieldLines.lineSize
+      ) {
+        globals.players.player2Y += globals.players.playersSpeed;
       }
     },
     /*comandos responsáveis pelo player1*/
     KeyW() {
-      if (player1Y > topLineY + lineSize * 2) {
-        player1Y -= playersSpeed;
+      if (
+        globals.players.player1Y >
+        globals.fieldLines.topLineY + globals.fieldLines.lineSize * 2
+      ) {
+        globals.players.player1Y -= globals.players.playersSpeed;
       }
     },
     KeyS() {
-      if (player1Y + playerHeight < bottomLineY - lineSize) {
-        player1Y += playersSpeed;
+      if (
+        globals.players.player1Y + globals.players.playerHeight <
+        globals.fieldLines.bottomLineY - globals.fieldLines.lineSize
+      ) {
+        globals.players.player1Y += globals.players.playersSpeed;
       }
     },
   };
@@ -245,13 +291,12 @@ const animation = () => {
   globals.fieldLines.update();
   globals.ball.update();
   globals.players.update();
+  autoMovementPlayer2();
   globals.background.draw();
   globals.score.draw();
   globals.fieldLines.draw();
   globals.ball.draw();
   globals.players.draw();
-
-  drawPlayers();
 
   requestAnimationFrame(animation);
 };
