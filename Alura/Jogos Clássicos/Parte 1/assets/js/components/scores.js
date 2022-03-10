@@ -1,3 +1,5 @@
+import { globals } from '../main--modules.js';
+
 const drawScores = () => {
   const score = {
     /*contagem de pontos iniciais*/

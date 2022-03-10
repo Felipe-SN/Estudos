@@ -1,4 +1,10 @@
 import drawBackground from './components/background.js';
+import drawFieldLines from './components/fieldLines.js';
+import drawScores from './components/scores.js';
+import drawBall from './components/ball.js';
+import drawPlayers from './components/players.js';
+import handleKeysPressed from './controller/commands.js';
+import movementCPU from './controller/CPU.js';
 
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
@@ -23,7 +29,7 @@ const animation = () => {
   globals.fieldLines.update();
   globals.ball.update();
   globals.players.update();
-  autoMovementPlayer2();
+  movementCPU();
   globals.background.draw();
   globals.score.draw();
   globals.fieldLines.draw();

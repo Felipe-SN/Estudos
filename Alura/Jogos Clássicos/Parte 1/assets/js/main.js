@@ -4,8 +4,16 @@ const context = canvas.getContext('2d');
 context.canvas.height = window.innerHeight - canvas.offsetHeight;
 context.canvas.width = window.innerWidth - canvas.offsetWidth;
 
-const globals = {};
+/*adiciona musica de fundo ao jogo*/
+// const soundtrack = () => {
+//   const soundtrack = new Audio('./assets/sounds/trilha.mp3');
 
+//   soundtrack.preload = 'auto';
+//   soundtrack.loop = true;
+//   window.onload = soundtrack.play();
+// };
+
+/*parâmetros e regras para criar o plano de fundo do jogo*/
 const drawBackground = () => {
   const background = {
     colorBg: 'black',
@@ -18,15 +26,17 @@ const drawBackground = () => {
   return background;
 };
 
+/*parâmetros e regras para criar o placar do jogo*/
 const drawScores = () => {
   const score = {
+    scoreSound: new Audio('./assets/sounds/ponto.mp3'),
     /*contagem de pontos iniciais*/
     player1: 0,
     player2: 0,
 
     /*desenha o placar de ambos os players*/
     draw() {
-      context.font = `200px "VT323"`;
+      context.font = `150px "VT323"`;
       context.fillStyle = globals.fieldLines.colorObjects;
       context.textAlign = 'left';
       context.fillText(
@@ -54,12 +64,14 @@ const drawScores = () => {
       /*gerencia pontos do player1*/
       if (globals.ball.xBall + globals.ball.ballRadius >= canvas.width) {
         score.player1++;
+        score.scoreSound.play();
         score.centerBall();
       }
 
       /*gerencia pontos do player2*/
       if (globals.ball.xBall - globals.ball.ballRadius <= 0) {
         score.player2++;
+        score.scoreSound.play();
         score.centerBall();
       }
     },
@@ -67,6 +79,7 @@ const drawScores = () => {
   return score;
 };
 
+/*parâmetros e regras para criar as linhas e rede do campo*/
 const drawFieldLines = () => {
   const fieldLines = {
     lineSize: 10,
@@ -125,6 +138,7 @@ const drawFieldLines = () => {
   return fieldLines;
 };
 
+/*parâmetros e regras para criar a bola*/
 const drawBall = () => {
   const ball = {
     ballRadius: 10,
@@ -150,14 +164,16 @@ const drawBall = () => {
   return ball;
 };
 
+/*parâmetros e regras para criar os players*/
 const drawPlayers = () => {
   const players = {
-    playerHeight: 100,
+    hitPaddleSound: new Audio('./assets/sounds/raquetada.mp3'),
+    height: 100,
     player1Y: globals.fieldLines.yCenter - 50,
     player2Y: globals.fieldLines.yCenter - 50,
     player1X: globals.fieldLines.lineSize,
     player2X: canvas.width - globals.fieldLines.lineSize * 2,
-    playersSpeed: 2 * globals.ball.xBallMove,
+    speed: 2 * globals.ball.xBallMove,
 
     draw() {
       /*especifica a cor que os players são criados*/
@@ -167,7 +183,7 @@ const drawPlayers = () => {
         players.player1X,
         players.player1Y,
         globals.fieldLines.lineSize,
-        players.playerHeight
+        players.height
       );
 
       /*parâmetros referentes ao player2*/
@@ -175,52 +191,72 @@ const drawPlayers = () => {
         players.player2X,
         players.player2Y,
         globals.fieldLines.lineSize,
-        players.playerHeight
+        players.height
       );
     },
 
     update() {
-      /*delimita os extremos dos players para ter interação com a bola*/
+      /*delimita os extremos dos players para rebater a bola e toca o som de contato*/
       if (
         (globals.ball.xBall + globals.ball.ballRadius >= players.player2X &&
           globals.ball.yBall - globals.ball.ballRadius >= players.player2Y &&
           globals.ball.yBall + globals.ball.ballRadius <=
-            players.player2Y + players.playerHeight) ||
+            players.player2Y + players.height) ||
         (globals.ball.xBall - globals.ball.ballRadius <=
           players.player1X + globals.fieldLines.lineSize &&
           globals.ball.yBall - globals.ball.ballRadius >= players.player1Y &&
           globals.ball.yBall + globals.ball.ballRadius <=
-            players.player1Y + players.playerHeight)
+            players.player1Y + players.height)
       ) {
+        players.hitPaddleSound.play();
         globals.ball.xBallMove = -globals.ball.xBallMove;
       }
     },
   };
   return players;
 };
+
 /*função para automatizar os movimentos do player2*/
-const autoMovementPlayer2 = () => {
-  const player2DetectionRange =
-      globals.fieldLines.xCenter + globals.fieldLines.xCenter / 5,
-    player2Center = globals.players.player2Y + globals.players.playerHeight / 2;
+const enablesCPUMovement = () => {
+  const movementCPU = {
+    /*especifica o limite de detecção da CPU em ralação a bola */
+    detectionRangeCPU: globals.fieldLines.xCenter,
+    intervalUpScaling: 10,
+    speedCPU: 4.15,
 
-  if (globals.ball.xBall >= player2DetectionRange) {
-    if (
-      globals.players.player2Y >
-        globals.fieldLines.topLineY + globals.fieldLines.lineSize * 2 &&
-      globals.ball.yBall <= player2Center
-    ) {
-      globals.players.player2Y -= globals.players.playersSpeed;
-    }
+    update() {
+      const middleCPU = globals.players.player2Y + 50;
+      /*detecta quando a bola passa do limite pre determinado*/
+      if (globals.ball.xBall >= movementCPU.detectionRangeCPU) {
+        /*faz com que a CPU movimente o player2*/
+        if (
+          globals.ball.yBall <= middleCPU &&
+          globals.players.player2Y >=
+            globals.fieldLines.topLineY + globals.fieldLines.lineSize * 2
+        ) {
+          globals.players.player2Y -= movementCPU.speedCPU;
+        }
 
-    if (
-      globals.players.player2Y + globals.players.playerHeight <
-        globals.fieldLines.bottomLineY - globals.fieldLines.lineSize &&
-      globals.ball.yBall >= player2Center
-    ) {
-      globals.players.player2Y += globals.players.playersSpeed;
-    }
-  }
+        if (
+          globals.ball.yBall >= middleCPU &&
+          globals.players.player2Y + globals.players.height <=
+            globals.fieldLines.bottomLineY - globals.fieldLines.lineSize
+        ) {
+          globals.players.player2Y += movementCPU.speedCPU;
+        }
+      }
+
+      /*especifica a velocidade de movimento da CPU e o aumento de dificuldade*/
+      const intervalReached =
+        globals.score.player1 === movementCPU.intervalUpScaling;
+
+      if (intervalReached) {
+        movementCPU.speedCPU = movementCPU.speedCPU * 1.04;
+        movementCPU.intervalUpScaling += 10;
+      }
+    },
+  };
+  return movementCPU;
 };
 
 /*cuida das teclas pressionadas*/
@@ -235,35 +271,35 @@ const initializeCommand = (event, code) => {
     /*comandos responsáveis pelo player2*/
     ArrowUp() {
       if (
-        globals.players.player2Y >
+        globals.players.player2Y >=
         globals.fieldLines.topLineY + globals.fieldLines.lineSize * 2
       ) {
-        globals.players.player2Y -= globals.players.playersSpeed;
+        globals.players.player2Y -= globals.players.speed;
       }
     },
     ArrowDown() {
       if (
-        globals.players.player2Y + globals.players.playerHeight <
+        globals.players.player2Y + globals.players.height <=
         globals.fieldLines.bottomLineY - globals.fieldLines.lineSize
       ) {
-        globals.players.player2Y += globals.players.playersSpeed;
+        globals.players.player2Y += globals.players.speed;
       }
     },
     /*comandos responsáveis pelo player1*/
     KeyW() {
       if (
-        globals.players.player1Y >
+        globals.players.player1Y >=
         globals.fieldLines.topLineY + globals.fieldLines.lineSize * 2
       ) {
-        globals.players.player1Y -= globals.players.playersSpeed;
+        globals.players.player1Y -= globals.players.speed;
       }
     },
     KeyS() {
       if (
-        globals.players.player1Y + globals.players.playerHeight <
+        globals.players.player1Y + globals.players.height <=
         globals.fieldLines.bottomLineY - globals.fieldLines.lineSize
       ) {
-        globals.players.player1Y += globals.players.playersSpeed;
+        globals.players.player1Y += globals.players.speed;
       }
     },
   };
@@ -279,26 +315,30 @@ const initializeCommand = (event, code) => {
 /*adiciona um escutador para as teclas pressionadas*/
 window.addEventListener('keydown', handleKeysPressed);
 
+const globals = {};
+
 globals.score = drawScores();
 globals.background = drawBackground();
 globals.fieldLines = drawFieldLines();
 globals.ball = drawBall();
 globals.players = drawPlayers();
+globals.movementCPU = enablesCPUMovement();
 
 /*faz a animação do jogo ocorrer*/
 const animation = () => {
-  globals.score.update();
-  globals.fieldLines.update();
-  globals.ball.update();
-  globals.players.update();
-  autoMovementPlayer2();
   globals.background.draw();
   globals.score.draw();
   globals.fieldLines.draw();
   globals.ball.draw();
   globals.players.draw();
+  globals.movementCPU.update();
+  globals.players.update();
+  globals.score.update();
+  globals.fieldLines.update();
+  globals.ball.update();
 
   requestAnimationFrame(animation);
 };
 
+// soundtrack();
 animation();

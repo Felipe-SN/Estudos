@@ -1,3 +1,5 @@
+import { globals } from '../main--modules.js';
+
 const drawBall = () => {
   const ball = {
     ballRadius: 10,

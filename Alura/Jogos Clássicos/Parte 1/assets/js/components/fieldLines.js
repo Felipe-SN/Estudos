@@ -1,3 +1,5 @@
+import { globals } from '../main--modules.js';
+
 const drawFieldLines = () => {
   const fieldLines = {
     lineSize: 10,

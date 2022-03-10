@@ -1,10 +1,12 @@
 import { globals } from '../main--modules.js';
 
 /*função para automatizar os movimentos do player2*/
-const autoMovementPlayer2 = () => {
+const movementCPU = () => {
   const player2DetectionRange =
       globals.fieldLines.xCenter + globals.fieldLines.xCenter / 5,
     player2Center = globals.players.player2Y + globals.players.playerHeight / 2;
+
+  const speedCPU = globals.players.playersSpeed / 2;
 
   if (globals.ball.xBall >= player2DetectionRange) {
     if (
@@ -12,7 +14,7 @@ const autoMovementPlayer2 = () => {
         globals.fieldLines.topLineY + globals.fieldLines.lineSize * 2 &&
       globals.ball.yBall <= player2Center
     ) {
-      globals.players.player2Y -= globals.players.playersSpeed;
+      globals.players.player2Y -= speedCPU;
     }
 
     if (
@@ -20,9 +22,9 @@ const autoMovementPlayer2 = () => {
         globals.fieldLines.bottomLineY - globals.fieldLines.lineSize &&
       globals.ball.yBall >= player2Center
     ) {
-      globals.players.player2Y += globals.players.playersSpeed;
+      globals.players.player2Y += speedCPU;
     }
   }
 };
 
-export default autoMovementPlayer2;
+export default movementCPU;
