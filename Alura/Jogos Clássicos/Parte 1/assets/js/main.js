@@ -260,13 +260,13 @@ const enablesCPUMovement = () => {
 
 /*cuida das teclas pressionadas*/
 const handleKeysPressed = (event) => {
-  console.table(event.type);
   const code = event.code;
-  initializeCommand(event, code);
+  const type = event.type;
+  commandHandler(event, code, type);
 };
 
 /*inicializa os comandos com base nas teclas pressionadas*/
-const initializeCommand = (event, code) => {
+const commandHandler = (event, code, type) => {
   const acceptedKeys = {
     /*comandos responsáveis pelo player2*/
     ArrowUp() {
@@ -304,16 +304,51 @@ const initializeCommand = (event, code) => {
     },
   };
 
+  const acceptedTypes = {
+    keydown() {
+      if (moveIt && intervalID === null) {
+        event.preventDefault();
+        intervalID = setInterval(moveIt(), 50);
+      }
+    },
+    keyup() {
+      console.log(intervalID);
+      intervalID = null;
+      clearInterval(intervalID);
+    },
+  };
+
+  const validType = acceptedTypes[type];
   const moveIt = acceptedKeys[code];
 
-  if (moveIt) {
-    event.preventDefault();
-    moveIt();
+  let intervalID = null;
+
+  if (validType) {
+    validType();
   }
+
+  //
+  //
+
+  // if (type == 'keydown') {
+  //   if (moveIt && intervalID === null) {
+  //     event.preventDefault();
+  //     intervalID = setInterval(() => {
+  //       moveIt();
+  //     }, 50);
+  //   }
+  // }
+
+  // if (type == 'keyup') {
+  //   console.log(intervalID);
+  //   intervalID = null;
+  //   clearInterval(intervalID);
+  // }
 };
 
 /*adiciona um escutador para as teclas pressionadas*/
 window.addEventListener('keydown', handleKeysPressed);
+window.addEventListener('keyup', handleKeysPressed);
 
 const globals = {};
 
