@@ -1,5 +1,6 @@
 import { globals } from '../main--modules.js';
 
+/*parâmetros e regras para criar as linhas e rede do campo*/
 const drawFieldLines = () => {
   const fieldLines = {
     lineSize: 10,

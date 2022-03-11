@@ -5,13 +5,12 @@ context.canvas.height = window.innerHeight - canvas.offsetHeight;
 context.canvas.width = window.innerWidth - canvas.offsetWidth;
 
 /*adiciona musica de fundo ao jogo*/
-// const soundtrack = () => {
-//   const soundtrack = new Audio('./assets/sounds/trilha.mp3');
+const soundtrack = () => {
+  const soundtrack = new Audio('./assets/sounds/soundtrack.mp3');
 
-//   soundtrack.preload = 'auto';
-//   soundtrack.loop = true;
-//   window.onload = soundtrack.play();
-// };
+  soundtrack.loop = true;
+  window.onload = soundtrack.play();
+};
 
 /*parâmetros e regras para criar o plano de fundo do jogo*/
 const drawBackground = () => {
@@ -29,7 +28,7 @@ const drawBackground = () => {
 /*parâmetros e regras para criar o placar do jogo*/
 const drawScores = () => {
   const score = {
-    scoreSound: new Audio('./assets/sounds/ponto.mp3'),
+    scoreSound: new Audio('./assets/sounds/point.mp3'),
     /*contagem de pontos iniciais*/
     player1: 0,
     player2: 0,
@@ -167,7 +166,7 @@ const drawBall = () => {
 /*parâmetros e regras para criar os players*/
 const drawPlayers = () => {
   const players = {
-    hitPaddleSound: new Audio('./assets/sounds/raquetada.mp3'),
+    hitPaddleSound: new Audio('./assets/sounds/paddle_hit.mp3'),
     height: 100,
     player1Y: globals.fieldLines.yCenter - 50,
     player2Y: globals.fieldLines.yCenter - 50,
@@ -261,6 +260,7 @@ const enablesCPUMovement = () => {
 
 /*cuida das teclas pressionadas*/
 const handleKeysPressed = (event) => {
+  console.table(event.type);
   const code = event.code;
   initializeCommand(event, code);
 };
@@ -340,5 +340,5 @@ const animation = () => {
   requestAnimationFrame(animation);
 };
 
-// soundtrack();
+soundtrack();
 animation();

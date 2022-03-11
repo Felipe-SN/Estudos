@@ -12,35 +12,35 @@ const initializeCommand = (event, code) => {
     /*comandos responsáveis pelo player2*/
     ArrowUp() {
       if (
-        globals.players.player2Y >
+        globals.players.player2Y >=
         globals.fieldLines.topLineY + globals.fieldLines.lineSize * 2
       ) {
-        globals.players.player2Y -= globals.players.playersSpeed;
+        globals.players.player2Y -= globals.players.speed;
       }
     },
     ArrowDown() {
       if (
-        globals.players.player2Y + globals.players.playerHeight <
+        globals.players.player2Y + globals.players.height <=
         globals.fieldLines.bottomLineY - globals.fieldLines.lineSize
       ) {
-        globals.players.player2Y += globals.players.playersSpeed;
+        globals.players.player2Y += globals.players.speed;
       }
     },
     /*comandos responsáveis pelo player1*/
     KeyW() {
       if (
-        globals.players.player1Y >
+        globals.players.player1Y >=
         globals.fieldLines.topLineY + globals.fieldLines.lineSize * 2
       ) {
-        globals.players.player1Y -= globals.players.playersSpeed;
+        globals.players.player1Y -= globals.players.speed;
       }
     },
     KeyS() {
       if (
-        globals.players.player1Y + globals.players.playerHeight <
+        globals.players.player1Y + globals.players.height <=
         globals.fieldLines.bottomLineY - globals.fieldLines.lineSize
       ) {
-        globals.players.player1Y += globals.players.playersSpeed;
+        globals.players.player1Y += globals.players.speed;
       }
     },
   };

@@ -1,5 +1,6 @@
 import { globals } from '../main--modules.js';
 
+/*parâmetros e regras para criar a bola*/
 const drawBall = () => {
   const ball = {
     ballRadius: 10,

@@ -1,14 +1,16 @@
 import { globals } from '../main--modules.js';
 
+/*parâmetros e regras para criar o placar do jogo*/
 const drawScores = () => {
   const score = {
+    scoreSound: new Audio('./assets/sounds/point.mp3'),
     /*contagem de pontos iniciais*/
     player1: 0,
     player2: 0,
 
     /*desenha o placar de ambos os players*/
     draw() {
-      context.font = `200px "VT323"`;
+      context.font = `150px "VT323"`;
       context.fillStyle = globals.fieldLines.colorObjects;
       context.textAlign = 'left';
       context.fillText(
@@ -36,12 +38,14 @@ const drawScores = () => {
       /*gerencia pontos do player1*/
       if (globals.ball.xBall + globals.ball.ballRadius >= canvas.width) {
         score.player1++;
+        score.scoreSound.play();
         score.centerBall();
       }
 
       /*gerencia pontos do player2*/
       if (globals.ball.xBall - globals.ball.ballRadius <= 0) {
         score.player2++;
+        score.scoreSound.play();
         score.centerBall();
       }
     },

@@ -1,3 +1,4 @@
+/*parâmetros e regras para criar o plano de fundo do jogo*/
 const drawBackground = () => {
   const background = {
     colorBg: 'black',
