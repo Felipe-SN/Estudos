@@ -4,14 +4,6 @@ const context = canvas.getContext('2d');
 context.canvas.height = window.innerHeight - canvas.offsetHeight;
 context.canvas.width = window.innerWidth - canvas.offsetWidth;
 
-/*adiciona musica de fundo ao jogo*/
-const soundtrack = () => {
-  const soundtrack = new Audio('./assets/sounds/soundtrack.mp3');
-
-  soundtrack.loop = true;
-  window.onload = soundtrack.play();
-};
-
 /*parâmetros e regras para criar o plano de fundo do jogo*/
 const drawBackground = () => {
   const background = {
@@ -35,7 +27,7 @@ const drawScores = () => {
 
     /*desenha o placar de ambos os players*/
     draw() {
-      context.font = `150px "VT323"`;
+      context.font = `125px "VT323"`;
       context.fillStyle = globals.fieldLines.colorObjects;
       context.textAlign = 'left';
       context.fillText(
@@ -51,27 +43,20 @@ const drawScores = () => {
       );
     },
 
-    /*centraliza e inverte o movimento da bola ao sair por uma das extremidades X do campo*/
-    centerBall() {
-      globals.ball.xBall = globals.fieldLines.xCenter;
-      globals.ball.yBall = globals.fieldLines.yCenter;
-      globals.ball.xBallMove = -globals.ball.xBallMove;
-    },
-
-    /*marca pontos para o jogador com base na lateral X do campo que a bola saiu*/
     update() {
+      /*marca pontos para o jogador com base na lateral X do campo que a bola saiu*/
       /*gerencia pontos do player1*/
       if (globals.ball.xBall + globals.ball.ballRadius >= canvas.width) {
         score.player1++;
         score.scoreSound.play();
-        score.centerBall();
+        globals.ball.centerBall();
       }
 
       /*gerencia pontos do player2*/
       if (globals.ball.xBall - globals.ball.ballRadius <= 0) {
         score.player2++;
         score.scoreSound.play();
-        score.centerBall();
+        globals.ball.centerBall();
       }
     },
   };
@@ -111,7 +96,7 @@ const drawFieldLines = () => {
 
       /*parâmetros da rede*/
       context.beginPath();
-      context.setLineDash([45, 20]);
+      context.setLineDash([50, 30]);
       context.moveTo(
         fieldLines.xCenter,
         canvas.height - fieldLines.lineSize * 3
@@ -120,18 +105,6 @@ const drawFieldLines = () => {
       context.lineWidth = fieldLines.lineSize;
       context.strokeStyle = fieldLines.colorObjects;
       context.stroke();
-    },
-
-    update() {
-      /*inverte a direção de movimento Y da bola ao tocar em uma das extremidades Y do campo*/
-      if (
-        globals.ball.yBall + globals.ball.ballRadius >=
-          fieldLines.bottomLineY ||
-        globals.ball.yBall - globals.ball.ballRadius <=
-          fieldLines.topLineY + fieldLines.lineSize
-      ) {
-        globals.ball.yBallMove = -globals.ball.yBallMove;
-      }
     },
   };
   return fieldLines;
@@ -142,9 +115,9 @@ const drawBall = () => {
   const ball = {
     ballRadius: 10,
     xBall: globals.fieldLines.xCenter,
-    xBallMove: 5,
+    xBallMove: 10,
     yBall: globals.fieldLines.yCenter,
-    yBallMove: 5,
+    yBallMove: 10,
 
     draw() {
       /*parâmetros referentes a bola*/
@@ -154,10 +127,59 @@ const drawBall = () => {
       context.fill();
     },
 
+    centerBall() {
+      /*centraliza e inverte o movimento da bola ao sair por uma das extremidades X do campo*/
+      ball.xBall = globals.fieldLines.xCenter;
+      ball.yBall = globals.fieldLines.yCenter;
+      ball.xBallMove = -ball.xBallMove;
+      ball.yBallMove = 0;
+    },
+
     update() {
       /*adiciona o movimento a bola*/
       ball.xBall += ball.xBallMove;
       ball.yBall += ball.yBallMove;
+
+      /*delimita os extremos dos players para rebater a bola e toca o som de contato*/
+      /*colisão com player2*/
+      if (
+        ball.xBall - ball.ballRadius <=
+          globals.players.player1X + globals.fieldLines.lineSize &&
+        ball.yBall - ball.ballRadius >= globals.players.player1Y &&
+        ball.yBall + ball.ballRadius <=
+          globals.players.player1Y + globals.players.height
+      ) {
+        globals.players.hitPaddleSound.play();
+        ball.yBallMove =
+          (ball.yBall -
+            (globals.players.player1Y + globals.players.height / 2)) /
+          16;
+        ball.xBallMove = -ball.xBallMove;
+      }
+
+      /*colisão com player2*/
+      if (
+        ball.xBall + ball.ballRadius >= globals.players.player2X &&
+        ball.yBall - ball.ballRadius >= globals.players.player2Y &&
+        ball.yBall + ball.ballRadius <=
+          globals.players.player2Y + globals.players.height
+      ) {
+        globals.players.hitPaddleSound.play();
+        ball.yBallMove =
+          (ball.yBall -
+            (globals.players.player1Y + globals.players.height / 2)) /
+          16;
+        ball.xBallMove = -ball.xBallMove;
+      }
+
+      /*inverte a direção de movimento Y da bola ao tocar em uma das extremidades Y do campo*/
+      if (
+        ball.yBall + ball.ballRadius >= globals.fieldLines.bottomLineY ||
+        ball.yBall - ball.ballRadius <=
+          globals.fieldLines.topLineY + globals.fieldLines.lineSize
+      ) {
+        ball.yBallMove = -ball.yBallMove;
+      }
     },
   };
   return ball;
@@ -172,7 +194,7 @@ const drawPlayers = () => {
     player2Y: globals.fieldLines.yCenter - 50,
     player1X: globals.fieldLines.lineSize,
     player2X: canvas.width - globals.fieldLines.lineSize * 2,
-    speed: 2 * globals.ball.xBallMove,
+    speed: 10,
 
     draw() {
       /*especifica a cor que os players são criados*/
@@ -193,24 +215,6 @@ const drawPlayers = () => {
         players.height
       );
     },
-
-    update() {
-      /*delimita os extremos dos players para rebater a bola e toca o som de contato*/
-      if (
-        (globals.ball.xBall + globals.ball.ballRadius >= players.player2X &&
-          globals.ball.yBall - globals.ball.ballRadius >= players.player2Y &&
-          globals.ball.yBall + globals.ball.ballRadius <=
-            players.player2Y + players.height) ||
-        (globals.ball.xBall - globals.ball.ballRadius <=
-          players.player1X + globals.fieldLines.lineSize &&
-          globals.ball.yBall - globals.ball.ballRadius >= players.player1Y &&
-          globals.ball.yBall + globals.ball.ballRadius <=
-            players.player1Y + players.height)
-      ) {
-        players.hitPaddleSound.play();
-        globals.ball.xBallMove = -globals.ball.xBallMove;
-      }
-    },
   };
   return players;
 };
@@ -219,8 +223,9 @@ const drawPlayers = () => {
 const enablesCPUMovement = () => {
   const movementCPU = {
     /*especifica o limite de detecção da CPU em ralação a bola */
-    detectionRangeCPU: globals.fieldLines.xCenter,
-    intervalUpScaling: 10,
+    detectionRangeCPU:
+      globals.fieldLines.xCenter + globals.fieldLines.xCenter / 2,
+    levelUpScaling: 10,
     speedCPU: 4.15,
 
     update() {
@@ -229,7 +234,7 @@ const enablesCPUMovement = () => {
       if (globals.ball.xBall >= movementCPU.detectionRangeCPU) {
         /*faz com que a CPU movimente o player2*/
         if (
-          globals.ball.yBall <= middleCPU &&
+          globals.ball.yBall < middleCPU &&
           globals.players.player2Y >=
             globals.fieldLines.topLineY + globals.fieldLines.lineSize * 2
         ) {
@@ -237,7 +242,7 @@ const enablesCPUMovement = () => {
         }
 
         if (
-          globals.ball.yBall >= middleCPU &&
+          globals.ball.yBall > middleCPU &&
           globals.players.player2Y + globals.players.height <=
             globals.fieldLines.bottomLineY - globals.fieldLines.lineSize
         ) {
@@ -247,11 +252,13 @@ const enablesCPUMovement = () => {
 
       /*especifica a velocidade de movimento da CPU e o aumento de dificuldade*/
       const intervalReached =
-        globals.score.player1 === movementCPU.intervalUpScaling;
+        globals.score.player1 === movementCPU.levelUpScaling;
 
       if (intervalReached) {
         movementCPU.speedCPU = movementCPU.speedCPU * 1.04;
-        movementCPU.intervalUpScaling += 10;
+        movementCPU.levelUpScaling += 10;
+        globals.score.player1 = 0;
+        globals.score.player2 = 0;
       }
     },
   };
@@ -266,6 +273,8 @@ const handleKeysPressed = (event) => {
 };
 
 /*inicializa os comandos com base nas teclas pressionadas*/
+let intervalID;
+
 const commandHandler = (event, code, type) => {
   const acceptedKeys = {
     /*comandos responsáveis pelo player2*/
@@ -306,44 +315,23 @@ const commandHandler = (event, code, type) => {
 
   const acceptedTypes = {
     keydown() {
-      if (moveIt && intervalID === null) {
+      if (moveIt && intervalID === undefined) {
         event.preventDefault();
-        intervalID = setInterval(moveIt(), 50);
+        intervalID = setInterval(moveIt, 20);
       }
     },
     keyup() {
-      console.log(intervalID);
-      intervalID = null;
       clearInterval(intervalID);
+      intervalID = undefined;
     },
   };
 
   const validType = acceptedTypes[type];
   const moveIt = acceptedKeys[code];
 
-  let intervalID = null;
-
   if (validType) {
     validType();
   }
-
-  //
-  //
-
-  // if (type == 'keydown') {
-  //   if (moveIt && intervalID === null) {
-  //     event.preventDefault();
-  //     intervalID = setInterval(() => {
-  //       moveIt();
-  //     }, 50);
-  //   }
-  // }
-
-  // if (type == 'keyup') {
-  //   console.log(intervalID);
-  //   intervalID = null;
-  //   clearInterval(intervalID);
-  // }
 };
 
 /*adiciona um escutador para as teclas pressionadas*/
@@ -367,13 +355,20 @@ const animation = () => {
   globals.ball.draw();
   globals.players.draw();
   globals.movementCPU.update();
-  globals.players.update();
   globals.score.update();
-  globals.fieldLines.update();
   globals.ball.update();
 
   requestAnimationFrame(animation);
 };
 
-soundtrack();
+/*adiciona musica de fundo ao jogo*/
+// const soundtrack = () => {
+//   const soundtrack = new Audio('./assets/sounds/soundtrack.mp3');
+
+//   soundtrack.loop = true;
+//   window.onload = soundtrack.play();
+// };
+
+// soundtrack();
+
 animation();
