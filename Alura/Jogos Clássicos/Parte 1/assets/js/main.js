@@ -135,7 +135,7 @@ const drawBall = () => {
       ball.xBall = globals.fieldLines.xCenter;
       ball.yBall = globals.fieldLines.yCenter;
       ball.xBallMove = -ball.xBallMove;
-      ball.yBallMove = 0;
+      ball.yBallMove = -ball.yBallMove;
     },
 
     update() {
@@ -191,12 +191,13 @@ const drawBall = () => {
 //parâmetros e regras para criar os players
 const drawPlayers = () => {
   const players = {
-    hitPaddleSound: new Audio('./assets/sounds/paddle_hit.mp3'),
     height: 100,
-    player1Y: globals.fieldLines.yCenter - 50,
-    player2Y: globals.fieldLines.yCenter - 50,
+    hitPaddleSound: new Audio('./assets/sounds/paddle_hit.mp3'),
+    center: 50,
     player1X: globals.fieldLines.lineSize,
+    player1Y: globals.fieldLines.yCenter - 50,
     player2X: canvas.width - globals.fieldLines.lineSize * 2,
+    player2Y: globals.fieldLines.yCenter - 50,
     speed: 10,
 
     draw() {
@@ -229,10 +230,10 @@ const enablesCPUMovement = () => {
     detectionRangeCPU: globals.fieldLines.xCenter,
     ScoreUpStage: 10,
     actualStage: 1,
-    speedCPU: 4.15,
+    speedCPU: 8,
 
     update() {
-      const middleCPU = globals.players.player2Y + 50;
+      const middleCPU = globals.players.player2Y + globals.players.center;
       //detecta quando a bola passa do limite pre determinado
       if (globals.ball.xBall >= movementCPU.detectionRangeCPU) {
         //faz com que a CPU movimente o player2
@@ -258,8 +259,8 @@ const enablesCPUMovement = () => {
         globals.score.player1 === movementCPU.ScoreUpStage;
 
       if (intervalReached) {
-        movementCPU.speedCPU = movementCPU.speedCPU * 1.04;
-        movementCPU.ScoreUpStage += 10;
+        movementCPU.speedCPU = movementCPU.speedCPU * 1.1;
+        movementCPU.ScoreUpStage += movementCPU.actualStage;
         movementCPU.actualStage++;
         alert(`Stage ${movementCPU.actualStage}`);
         globals.score.player1 = 0;
@@ -347,7 +348,7 @@ const commandHandler = (event, code, type) => {
       //faz a checagem dos controles de movimento
       if (moveIt && globals.intervalID === undefined) {
         event.preventDefault();
-        globals.intervalID = setInterval(moveIt, 20);
+        globals.intervalID = setInterval(moveIt, 10);
       }
 
       //faz a checagem dos controles de fluxo de jogo
