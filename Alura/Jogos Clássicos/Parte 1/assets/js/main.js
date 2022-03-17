@@ -228,7 +228,7 @@ const enablesCPUMovement = () => {
   const movementCPU = {
     //especifica o limite de detecção da CPU em ralação a bola
     detectionRangeCPU: globals.fieldLines.xCenter,
-    ScoreUpStage: 10,
+    ScoreUpStage: 7,
     actualStage: 1,
     speedCPU: 8,
 
@@ -261,21 +261,34 @@ const enablesCPUMovement = () => {
       const gameOver = globals.score.player2 === movementCPU.ScoreUpStage;
 
       if (intervalReached) {
-        movementCPU.speedCPU = movementCPU.speedCPU * 1.1;
+        movementCPU.speedCPU = movementCPU.speedCPU * 1.07;
         movementCPU.ScoreUpStage += movementCPU.actualStage;
         movementCPU.actualStage++;
-        alert(`Stage ${movementCPU.actualStage}`);
+        if (movementCPU.actualStage < 6) {
+          alert(`Stage ${movementCPU.actualStage}`);
+        }
         globals.score.player1 = 0;
         globals.score.player2 = 0;
       }
       if (gameOver) {
-        alert('!!!Game Over!!!');
-        initialize();
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        tutorial.classList.add('visible');
-        commandHandler(null, 'KeyP', 'keydown');
+        const message = '=========Game Over=========';
+        movementCPU.endGame(message);
         return;
       }
+
+      if (movementCPU.actualStage >= 6) {
+        const message = '=====Congratulations!=====\n====You Beat The Game====';
+        movementCPU.endGame(message);
+        return;
+      }
+    },
+
+    endGame(message) {
+      alert(message);
+      initialize();
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      tutorial.classList.add('visible');
+      commandHandler(null, 'KeyP', 'keydown');
     },
   };
   return movementCPU;
