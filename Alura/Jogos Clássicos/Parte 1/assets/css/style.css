@@ -1,0 +1,48 @@
+body {
+  align-items: center;
+  display: flex;
+  font-family: 'VT323', monospace;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#canvas {
+  background-color: black;
+  display: block;
+  margin: 0 auto;
+}
+
+.paused {
+  color: white;
+  display: none;
+  font-size: 20rem;
+  position: absolute;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.commands {
+  color: white;
+  display: none;
+  position: absolute;
+  text-align: center;
+}
+
+.commands__tittle--principal {
+  font-size: 4.5rem;
+  padding-bottom: 1rem;
+  text-decoration: underline;
+}
+
+.commands__tittle--subTittle {
+  font-size: 3.5rem;
+  padding-bottom: 1rem;
+}
+
+.commands__item {
+  font-size: 3rem;
+}
+
+.visible {
+  display: inline-block;
+}

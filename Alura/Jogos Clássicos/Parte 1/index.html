@@ -3,10 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/css/reset.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Pong</title>
   </head>
   <body>
-    <canvas></canvas>
+    <canvas id="canvas"></canvas>
+    <ul class="commands visible" data-command-list>
+      <li class="commands__tittle--principal">Commands</li>
+      <li class="commands__tittle--subTittle"
+        >Player 1:
+        <ul>
+          <li class="commands__item">W = move up.</li>
+          <li class="commands__item">S = move down.</li>
+        </ul>
+      </li>
+      <!-- <li class="commands__tittle--subTittle"
+        >Player2
+        <ul>
+          <li class="commands__item">Arrow Up = move up.</li>
+          <li class="commands__item">Arrow Down = move down.</li>
+        </ul>
+      </li> -->
+      <li class="commands__tittle--subTittle"
+        >General:
+        <ul>
+          <li class="commands__item">P = Start/Pause game.</li>
+        </ul>
+      </li>
+    </ul>
+    <span class="paused" data-paused>PAUSED</span>
     <script src="./assets/js/main.js"></script>
+    <!-- <script type="module" src="./assets/js/main.js"></script> -->
   </body>
 </html>
