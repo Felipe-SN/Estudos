@@ -398,10 +398,6 @@ const soundtrack = () => {
   return track;
 };
 
-//adiciona um escutador para as teclas pressionadas
-window.addEventListener('keydown', handleKeysPressed);
-window.addEventListener('keyup', handleKeysPressed);
-
 //inicializa as variáveis do jogo
 const initialize = () => {
   globals.running = false;
@@ -430,6 +426,10 @@ const startAnimation = () => {
 
   globals.requestedAnimation = requestAnimationFrame(startAnimation);
 };
+
+//adiciona um escutador para as teclas pressionadas
+window.addEventListener('keydown', handleKeysPressed);
+window.addEventListener('keyup', handleKeysPressed);
 
 const globals = {};
 initialize();
