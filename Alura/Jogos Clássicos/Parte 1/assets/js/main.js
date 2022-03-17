@@ -258,6 +258,8 @@ const enablesCPUMovement = () => {
       const intervalReached =
         globals.score.player1 === movementCPU.ScoreUpStage;
 
+      const gameOver = globals.score.player2 === movementCPU.ScoreUpStage;
+
       if (intervalReached) {
         movementCPU.speedCPU = movementCPU.speedCPU * 1.1;
         movementCPU.ScoreUpStage += movementCPU.actualStage;
@@ -265,6 +267,14 @@ const enablesCPUMovement = () => {
         alert(`Stage ${movementCPU.actualStage}`);
         globals.score.player1 = 0;
         globals.score.player2 = 0;
+      }
+      if (gameOver) {
+        alert('!!!Game Over!!!');
+        initialize();
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        tutorial.classList.add('visible');
+        commandHandler(null, 'KeyP', 'keydown');
+        return;
       }
     },
   };
@@ -322,7 +332,7 @@ const commandHandler = (event, code, type) => {
 
   const acceptedKeys = {
     //comandos responsáveis por gerenciar o fluxo do jogo
-    // comando responsável por pausar o jogo
+    //comando responsável por pausar o jogo
     KeyP() {
       if (globals.running) {
         cancelAnimationFrame(globals.requestedAnimation);
@@ -392,19 +402,20 @@ const soundtrack = () => {
 window.addEventListener('keydown', handleKeysPressed);
 window.addEventListener('keyup', handleKeysPressed);
 
-const globals = {};
-
-globals.running = false;
-globals.showCommands = true;
-globals.requestedAnimation = undefined;
-globals.intervalID = undefined;
-globals.track = soundtrack();
-globals.score = drawScores();
-globals.background = drawBackground();
-globals.fieldLines = drawFieldLines();
-globals.ball = drawBall();
-globals.players = drawPlayers();
-globals.movementCPU = enablesCPUMovement();
+//inicializa as variáveis do jogo
+const initialize = () => {
+  globals.running = false;
+  globals.showCommands = true;
+  globals.requestedAnimation = undefined;
+  globals.intervalID = undefined;
+  globals.track = soundtrack();
+  globals.score = drawScores();
+  globals.background = drawBackground();
+  globals.fieldLines = drawFieldLines();
+  globals.ball = drawBall();
+  globals.players = drawPlayers();
+  globals.movementCPU = enablesCPUMovement();
+};
 
 //faz a animação do jogo ocorrer
 const startAnimation = () => {
@@ -419,3 +430,6 @@ const startAnimation = () => {
 
   globals.requestedAnimation = requestAnimationFrame(startAnimation);
 };
+
+const globals = {};
+initialize();
