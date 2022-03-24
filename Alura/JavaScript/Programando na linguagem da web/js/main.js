@@ -21,12 +21,14 @@ for (let i = 0; i < pacientes.length; i++) {
     console.log('Peso invalido');
     pesoValido = false;
     tdPeso.textContent = 'Peso Invalido!';
+    paciente.classList.add('paciente-invalido');
   }
 
   if (altura <= 0 || altura >= 4) {
     console.log('Altura invalido');
     alturaValida = false;
     tdAltura.textContent = 'Altura Invalida!';
+    paciente.classList.add('paciente-invalido');
   }
 
   if (pesoValido && alturaValida) {
