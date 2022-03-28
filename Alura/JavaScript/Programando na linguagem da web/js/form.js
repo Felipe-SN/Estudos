@@ -38,16 +38,6 @@ const montaTr = (paciente) => {
   pacienteTr.appendChild(montaTd(paciente.gordura, 'info-gordura'));
   pacienteTr.appendChild(montaTd(paciente.imc, 'info-imc'));
 
-  // const templateTr = `
-  // <td class="info-nome">${paciente.nome}</td>
-  // <td class="info-peso">${paciente.peso}</td>
-  // <td class="info-altura">${paciente.altura}</td>
-  // <td class="info-gordura">${paciente.gordura}</td>
-  // <td class="info-imc">${paciente.imc}</td>
-  // `;
-
-  // pacienteTr.innerHTML = templateTr;
-
   return pacienteTr;
 };
 
