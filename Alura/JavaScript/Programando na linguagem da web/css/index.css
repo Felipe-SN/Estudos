@@ -9,19 +9,19 @@ body {
 
 header {
   background-color: #333;
-  height: 3em;
   color: #fff;
+  height: 3em;
   margin-bottom: 1em;
 }
 
 header h1 {
-  font-size: 2em;
   display: inline-block;
+  font-size: 2em;
   vertical-align: middle;
 }
 header h2 {
-  font-size: 2em;
   display: inline-block;
+  font-size: 2em;
   vertical-align: middle;
 }
 
@@ -33,9 +33,9 @@ header .container:before {
 }
 
 .container {
-  width: 60%;
   height: 100%;
   margin: 0 auto;
+  width: 60%;
 }
 
 section {
@@ -44,30 +44,36 @@ section {
 }
 
 section h2 {
-  font-size: 3em;
-  display: block;
-  padding-bottom: 0.5em;
   border-bottom: 1px solid #ccc;
+  display: block;
+  font-size: 3em;
   margin-bottom: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+#filtra-paciente {
+  width: 200px;
+  height: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 table {
-  width: 100%;
   margin-bottom: 0.5em;
   table-layout: fixed;
+  width: 100%;
 }
 
 td,
 th {
-  padding: 0.7em;
-  margin: 0;
   border: 1px solid #ccc;
+  margin: 0;
+  padding: 0.7em;
   text-align: center;
 }
 
 th {
-  font-weight: bold;
   background-color: #eee;
+  font-weight: bold;
 }
 
 label {
@@ -76,12 +82,16 @@ label {
   margin-bottom: 0.2em;
 }
 
+#erro-ajax {
+  color: red;
+}
+
 .campo {
+  border: 1px solid #ccc;
   margin: 0;
   padding-bottom: 1em;
-  width: 100%;
-  border: 1px solid #ccc;
   padding: 0.7em;
+  width: 100%;
   width: 100%;
 }
 
@@ -91,26 +101,26 @@ label {
 }
 
 .grupo {
-  width: 32%;
   display: inline-block;
   padding: 10px 0px;
+  width: 32%;
 }
 
 button {
-  padding: 0.5em 2em;
-  border: 0;
-  border-bottom: 3px solid;
-  font-size: 1.2em;
-  cursor: pointer;
-  margin: 0;
-  margin-top: -3px;
-  color: #fff;
   background-color: #0c8cd3;
+  border-bottom: 3px solid;
   border-color: #04324c;
-  width: 20%;
-  display: block;
+  border: 0;
   clear: both;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 1.2em;
+  margin-top: -3px;
+  margin: 0;
   margin: 10px 0px;
+  padding: 0.5em 2em;
+  width: 20%;
 }
 
 button:active {
@@ -135,4 +145,17 @@ button:disabled {
 .paciente-invalido {
   background-color: lightcoral;
   color: #fff;
+}
+
+#mensagens-erro {
+  color: red;
+}
+
+.fadeOut {
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.invisivel {
+  display: none;
 }

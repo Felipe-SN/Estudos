@@ -3,6 +3,20 @@ titulo.textContent = 'Aparecida Nutricionista';
 
 const pacientes = document.querySelectorAll('.paciente');
 
+const validaPeso = (peso) => {
+  if (peso >= 0 && peso < 1000) {
+    return true;
+  }
+  return false;
+};
+
+const validaAltura = (altura) => {
+  if (altura >= 0 && altura <= 3.3) {
+    return true;
+  }
+  return false;
+};
+
 const calculaImc = (peso, altura) => {
   const imc = peso / (altura * altura);
   return imc.toFixed(2);
@@ -19,20 +33,18 @@ for (let i = 0; i < pacientes.length; i++) {
 
   const tdImc = paciente.querySelector('.info-imc');
 
-  let pesoValido = true;
-  let alturaValida = true;
+  let pesoValido = validaPeso(peso);
+  let alturaValida = validaAltura(altura);
 
-  if (peso <= 0 || peso >= 1000) {
+  if (!pesoValido) {
     console.log('Peso invalido');
-    pesoValido = false;
-    tdPeso.textContent = 'Peso Invalido!';
+    peso = 'Peso Invalido!';
     paciente.classList.add('paciente-invalido');
   }
 
-  if (altura <= 0 || altura >= 4) {
+  if (!alturaValida) {
     console.log('Altura invalido');
-    alturaValida = false;
-    tdAltura.textContent = 'Altura Invalida!';
+    altura = 'Altura Invalida!';
     paciente.classList.add('paciente-invalido');
   }
 
