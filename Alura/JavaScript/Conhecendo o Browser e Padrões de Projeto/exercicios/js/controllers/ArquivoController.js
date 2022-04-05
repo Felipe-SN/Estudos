@@ -5,14 +5,13 @@ class ArquivoController {
 
   envia() {
     //cria um Arquivo com as suas propriedades;
-    const arquivo = this._criaArquivo();
-    this._limpaFormulario();
+    const arquivo = ArquivoHelper.cria(this._inputDados.value);
     // exibe mensagem no console com os dados do arquivo.
-    console.log(arquivo);
-  }
+    console.log(
+      `Dados do arquivo:\n- Nome: ${arquivo.nome}\n- Tamanho: ${arquivo.tamanho}\n- Tipo: ${arquivo.tipo}`
+    );
 
-  _criaArquivo() {
-    return new Arquivo(...this._inputDados.value.toUpperCase().split('/'));
+    this._limpaFormulario();
   }
 
   _limpaFormulario() {
