@@ -28,3 +28,19 @@ label {
 button {
   font-size: 2rem;
 }
+
+/* LIsta de funcionários */
+
+table {
+  text-align: center;
+}
+
+th {
+  background-color: black;
+  color: white;
+}
+
+th,
+td {
+  border: solid black 2px;
+}
