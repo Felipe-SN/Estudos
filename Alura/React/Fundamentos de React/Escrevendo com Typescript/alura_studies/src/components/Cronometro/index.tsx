@@ -7,14 +7,25 @@ import tempoParaSegundos from '../../common/utils/time';
 
 interface Props {
   selecionado: ITarefa | undefined;
+  finalizaTarefa: () => void;
 }
 
-export default function Cronometro({ selecionado }: Props) {
+export default function Cronometro({ selecionado, finalizaTarefa }: Props) {
   const [tempo, setTempo] = useState<number>();
 
   useEffect(() => {
     selecionado?.tempo && setTempo(tempoParaSegundos(selecionado.tempo));
   }, [selecionado]);
+
+  function regressiva(contador: number = 0) {
+    setTimeout(() => {
+      if (contador > 0) {
+        setTempo(contador - 1);
+        return regressiva(contador - 1);
+      }
+      finalizaTarefa();
+    }, 1000);
+  }
 
   return (
     <div className={style.cronometro}>
@@ -22,7 +33,7 @@ export default function Cronometro({ selecionado }: Props) {
       <div className={style.relogioWrapper}>
         <Relogio tempo={tempo} />
       </div>
-      <Botao>Começar</Botao>
+      <Botao onClick={() => regressiva(tempo)}>Começar</Botao>
     </div>
   );
 }
