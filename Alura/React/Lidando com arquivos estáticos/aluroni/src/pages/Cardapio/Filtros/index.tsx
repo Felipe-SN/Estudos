@@ -1,11 +1,33 @@
 import filtros from './filtros.json';
-// import Styles from './Filtros.modules.scss';
+import styles from './Filtros.module.scss';
+import classNames from 'classnames';
 
-export default function Filtros() {
+type IOpcao = typeof filtros[0];
+
+interface Props {
+  filtro: number | null;
+  setFiltro: React.Dispatch<React.SetStateAction<number | null>>;
+}
+
+export default function Filtros({ filtro, setFiltro }: Props) {
+  const selecionarFiltros = (opcao: IOpcao) => {
+    if (filtro === opcao.id) return setFiltro(null);
+    return setFiltro(opcao.id);
+  };
+
   return (
-    <div>
-      {filtros.map(option => (
-        <button key={option.id}></button>
+    <div className={styles.filtros}>
+      {filtros.map(opcao => (
+        <button
+          className={classNames({
+            [styles.filtros__filtro]: true,
+            [styles['filtros__filtro--ativo']]: filtro === opcao.id,
+          })}
+          key={opcao.id}
+          onClick={() => selecionarFiltros(opcao)}
+        >
+          {opcao.label}
+        </button>
       ))}
     </div>
   );
