@@ -4,15 +4,21 @@ import { useState } from 'react';
 import classNames from 'classnames';
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md';
 
-interface Props {
-  ordenador: string;
-  setOrdenador: React.Dispatch<React.SetStateAction<string>>;
+export type OpcoesOrdenador = '' | 'porcao' | 'qtd_pessoas' | 'preco';
+
+interface IOperador {
+  ordenador: OpcoesOrdenador;
+  setOrdenador: React.Dispatch<React.SetStateAction<OpcoesOrdenador>>;
 }
 
-export default function Ordenador({ ordenador, setOrdenador }: Props) {
+export default function Ordenador({ ordenador, setOrdenador }: IOperador) {
   const [aberto, setAberto] = useState(false);
   const nomeOrdenador =
     ordenador && opcoes.find(opcao => opcao.value === ordenador)?.nome;
+
+  const trocaBase = (valor: any) => {
+    return valor;
+  };
 
   return (
     <button
@@ -39,7 +45,7 @@ export default function Ordenador({ ordenador, setOrdenador }: Props) {
           <div
             className={styles.ordenador__option}
             key={opcao.value}
-            onClick={() => setOrdenador(opcao.value)}
+            onClick={() => setOrdenador(trocaBase(opcao.value))}
           >
             {opcao.nome}
           </div>
