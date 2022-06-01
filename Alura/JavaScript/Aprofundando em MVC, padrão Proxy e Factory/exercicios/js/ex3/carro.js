@@ -1,5 +1,5 @@
 const $ = document.querySelector.bind(document);
-const p = $('[data-carro]');
+const p = $('[data-info]');
 
 let carro = {
   velocidade: 100,
