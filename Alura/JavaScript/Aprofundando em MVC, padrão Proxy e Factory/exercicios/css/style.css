@@ -4,6 +4,7 @@
 
 body {
   align-items: center;
+  background-color: hsl(0, 0%, 85%);
   flex-direction: column;
   display: flex;
   justify-content: center;

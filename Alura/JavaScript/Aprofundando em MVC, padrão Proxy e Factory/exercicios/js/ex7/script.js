@@ -19,6 +19,8 @@ class Pessoa {
 // let pessoa = new Pessoa('Barney');
 // pessoa.grita('Olá');
 
+/*
+
 let pessoa = new Proxy(new Pessoa('Barney'), {
   get(target, prop, receiver) {
     if (prop == 'grita' && typeof target[prop] == typeof Function) {
@@ -36,4 +38,20 @@ let pessoa = new Proxy(new Pessoa('Barney'), {
   },
 });
 
-pessoa.grita('Olá');
+*/
+
+let pessoa = new Proxy(new Pessoa('Barney'), {
+  get(target, prop, receiver) {
+    if (prop == 'grita' && typeof target[prop] == typeof Function) {
+      return function () {
+        console.log(
+          `Interceptei o método: ${prop}, por isso estou exbindo essa mensagem!`
+        );
+        Reflect.apply(target[prop], target, arguments);
+      };
+    }
+    return Reflect.get(target, prop, receiver);
+  },
+});
+
+console.log(pessoa.grita('Olá'));
