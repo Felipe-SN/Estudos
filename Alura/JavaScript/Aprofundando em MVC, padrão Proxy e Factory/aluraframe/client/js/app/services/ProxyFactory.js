@@ -5,19 +5,18 @@ class ProxyFactory {
         if (props.includes(prop) && ProxyFactory._isFunction(target[prop])) {
           return function () {
             console.log(`interceptando ${prop}`);
-            Reflect.apply(target[prop], target, arguments);
-            return action(target);
+            const retorno = Reflect.apply(target[prop], target, arguments);
+            action(target);
+            return retorno;
           };
         }
         return Reflect.get(target, prop, receiver);
       },
 
       set(target, prop, value, receiver) {
-        if (props.includes(prop)) {
-          target[prop] = value;
-          action(target);
-        }
-        return Reflect.set(target, prop, value, receiver);
+        const retorno = Reflect.set(target, prop, value, receiver);
+        if (props.includes(prop)) action(target);
+        return retorno;
       },
     });
   }
