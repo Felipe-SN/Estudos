@@ -1,13 +1,16 @@
 class NegociacoesService {
-  obterNegociacaoDaSemana(cb) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'negociacoes/semana');
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState == 4) {
-        if (xhr.status == 200) {
-          cb(
-            null,
-            JSON.parse(xhr.responseText).map(
+  constructor() {
+    this._http = new HttpService();
+  }
+  obterNegociacoesDaSemana() {
+    const url = 'negociacoes/semana';
+
+    return new Promise((resolve, reject) => {
+      this._http
+        .get(url)
+        .then(negociacoes => {
+          resolve(
+            negociacoes.map(
               objeto =>
                 new Negociacao(
                   new Date(objeto.data),
@@ -16,16 +19,62 @@ class NegociacoesService {
                 )
             )
           );
-        } else {
-          console.log(
-            `Houve um erro na requisição.\nErro: Status-${xhr.status} ReadyState-${xhr.readyState}\n${xhr.responseText}`
-          );
-          cb('Não foi possível obter as negociações.', null);
-        }
-      }
-    };
+        })
+        .catch(erro => {
+          console.log(erro);
+          reject(`Não foi possível importar de ${url}`);
+        });
+    });
+  }
 
-    xhr.send();
+  obterNegociacoesDaSemanaAnterior() {
+    const url = 'negociacoes/anterior';
+
+    return new Promise((resolve, reject) => {
+      this._http
+        .get(url)
+        .then(negociacoes => {
+          resolve(
+            negociacoes.map(
+              objeto =>
+                new Negociacao(
+                  new Date(objeto.data),
+                  objeto.quantidade,
+                  objeto.valor
+                )
+            )
+          );
+        })
+        .catch(erro => {
+          console.log(erro);
+          reject(`Não foi possível importar de ${url}`);
+        });
+    });
+  }
+
+  obterNegociacoesDaSemanaRetrasada() {
+    const url = 'negociacoes/retrasada';
+
+    return new Promise((resolve, reject) => {
+      this._http
+        .get(url)
+        .then(negociacoes => {
+          resolve(
+            negociacoes.map(
+              objeto =>
+                new Negociacao(
+                  new Date(objeto.data),
+                  objeto.quantidade,
+                  objeto.valor
+                )
+            )
+          );
+        })
+        .catch(erro => {
+          console.log(erro);
+          reject(`Não foi possível importar de ${url}`);
+        });
+    });
   }
 }
 
