@@ -1,5 +1,18 @@
+let ok = true;
+
 const promise = new Promise((resolve, reject) => {
-  setTimeout(() => resolve('PROMISE RESOLVIDA'), 5000);
+  console.log(resolve);
+  setTimeout(() => {
+    if (ok) {
+      resolve('PROMISE CONCLUÍDA');
+      return;
+    }
+
+    reject('HOUVE PROBLEMAS');
+  }, 5000);
 });
 
-promise.then(resultado => console.log(resultado));
+promise
+  .then(resultado => console.log(resultado))
+  .catch(erro => console.log(erro));
+console.log('FIM');
