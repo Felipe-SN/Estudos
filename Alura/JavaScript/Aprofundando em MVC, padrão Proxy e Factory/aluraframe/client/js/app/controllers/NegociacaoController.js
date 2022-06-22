@@ -1,5 +1,7 @@
 class NegociacaoController {
   constructor() {
+    this._ordemAtual = '';
+
     const $ = document.querySelector.bind(document);
 
     this._inputData = $('#data');
@@ -10,7 +12,9 @@ class NegociacaoController {
       new ListaNegociacoes(),
       new NegociacoesView($('#negociacoesView')),
       'adiciona',
-      'esvazia'
+      'esvazia',
+      'ordena',
+      'inverteOrdem'
     );
 
     this._mensagem = new Bind(
@@ -31,18 +35,15 @@ class NegociacaoController {
   importaNegociacoes() {
     const service = new NegociacoesService();
 
-    Promise.all([
-      service.obterNegociacoesDaSemana(),
-      service.obterNegociacoesDaSemanaAnterior(),
-      service.obterNegociacoesDaSemanaRetrasada(),
-    ])
+    service
+      .obterNegociacoes()
       .then(negociacoes => {
-        negociacoes
-          .reduce((arrayAchatado, array) => arrayAchatado.concat(array), [])
-          .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
-        this._mensagem.texto = 'Negociações importadas com sucesso';
+        negociacoes.forEach(negociacao =>
+          this._listaNegociacoes.adiciona(negociacao)
+        );
+        this._mensagem.texto = 'Negociações do período importadas com sucesso';
       })
-      .catch(erro => (this._mensagem.texto = erro));
+      .catch(error => (this._mensagem.texto = error));
   }
 
   apaga() {
@@ -64,5 +65,15 @@ class NegociacaoController {
     this._inputValor.value = 0.0;
 
     this._inputData.focus();
+  }
+
+  ordena(coluna) {
+    if (this._ordemAtual == coluna) {
+      this._listaNegociacoes.inverteOrdem();
+      this._ordemAtual = coluna;
+      return;
+    }
+    this._listaNegociacoes.ordena((a, b) => a[coluna] - b[coluna]);
+    this._ordemAtual = coluna;
   }
 }

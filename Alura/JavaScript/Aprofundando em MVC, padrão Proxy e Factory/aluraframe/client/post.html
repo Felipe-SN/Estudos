@@ -46,6 +46,7 @@
       </button>
     </form>
 
+    <script src="js/app/services/HttpService.js"></script>
     <script>
       const data = document.getElementById('data');
       const valor = document.getElementById('valor');
@@ -59,32 +60,63 @@
 
       function sendPost(event) {
         event.preventDefault();
+
         console.log('Enviando post');
 
-        //aqui você deve ler os dados do formulário
-        //construir o json
-        //enviar o XMLHttpRequest
+        const $ = document.querySelector.bind(document);
+        inputData = $('#data');
+        inputQuantidade = $('#quantidade');
+        inputValor = $('#valor');
 
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', '/negociacoes', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onreadystatechange = () => {
-          if (xhr.readyState < 4 && xhr.status > 200) {
-            alert(
-              `Error: State-${xhr.readyState} Status-${xhr.status} Response-${xhr.responseText}`
-            );
-            return;
-          }
-
-          data.value = '';
-          qtd.value = 1;
-          valor.value = 0.0;
-          data.focus();
-
-          alert('Negociações enviadas com sucesso.');
+        const negociacao = {
+          data: inputData.value,
+          quantidade: inputQuantidade.value,
+          valor: inputValor.value,
         };
-        xhr.send(JSON.stringify(negocicao));
+
+        // usando nosso serviço. Veja que nem guardei em uma variável
+        new HttpService()
+          .post('/negociacoes', negociacao)
+          .then(() => {
+            inputData.value = '';
+            inputQuantidade.value = 1;
+            inputValor.value = 0.0;
+            inputData.focus();
+            alert('Negociação enviada com sucesso');
+          })
+          .catch(erro =>
+            alert(`Não foi possível enviar a negociação: ${erro}`)
+          );
       }
+
+      // function sendPost(event) {
+      //   event.preventDefault();
+      //   console.log('Enviando post');
+
+      //   //aqui você deve ler os dados do formulário
+      //   //construir o json
+      //   //enviar o XMLHttpRequest
+
+      //   const xhr = new XMLHttpRequest();
+      //   xhr.open('POST', '/negociacoes', true);
+      //   xhr.setRequestHeader('Content-Type', 'application/json');
+      //   xhr.onreadystatechange = () => {
+      //     if (xhr.readyState < 4 && xhr.status > 200) {
+      //       alert(
+      //         `Error: State-${xhr.readyState} Status-${xhr.status} Response-${xhr.responseText}`
+      //       );
+      //       return;
+      //     }
+
+      //     data.value = '';
+      //     qtd.value = 1;
+      //     valor.value = 0.0;
+      //     data.focus();
+
+      //     alert('Negociações enviadas com sucesso.');
+      //   };
+      //   xhr.send(JSON.stringify(negocicao));
+      // }
     </script>
   </body>
 </html>
