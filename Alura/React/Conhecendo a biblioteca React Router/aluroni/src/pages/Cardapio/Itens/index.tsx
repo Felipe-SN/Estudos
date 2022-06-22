@@ -3,7 +3,7 @@ import Item from './Item';
 import cardapio from './itens.json';
 import styles from './Itens.module.scss';
 
-type Props = { busca: string; filtro: Number | null; ordenador: string };
+type Props = { busca: string; filtro: number | null; ordenador: string };
 
 export default function Itens(props: Props) {
   const [lista, setLista] = useState(cardapio);
@@ -15,7 +15,7 @@ export default function Itens(props: Props) {
       return regex.test(title);
     };
 
-    const testaFiltro = (id: Number | null) => {
+    const testaFiltro = (id: number | null) => {
       if (filtro !== null) return filtro === id;
       return true;
     };
@@ -29,14 +29,14 @@ export default function Itens(props: Props) {
 
     const ordenar = (novaLista: typeof cardapio) => {
       switch (ordenador) {
-        case 'porcao':
-          return ordenarPropriedadeCrescente(novaLista, 'size');
-        case 'qtd_pessoas':
-          return ordenarPropriedadeCrescente(novaLista, 'serving');
-        case 'preco':
-          return ordenarPropriedadeCrescente(novaLista, 'price');
-        default:
-          return novaLista;
+      case 'porcao':
+        return ordenarPropriedadeCrescente(novaLista, 'size');
+      case 'qtd_pessoas':
+        return ordenarPropriedadeCrescente(novaLista, 'serving');
+      case 'preco':
+        return ordenarPropriedadeCrescente(novaLista, 'price');
+      default:
+        return novaLista;
       }
     };
 
