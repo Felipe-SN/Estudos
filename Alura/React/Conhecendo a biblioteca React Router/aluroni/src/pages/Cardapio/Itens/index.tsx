@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Item from './Item';
-import cardapio from './itens.json';
+import cardapio from 'data/cardapio.json';
 import styles from './Itens.module.scss';
 
 type Props = { busca: string; filtro: number | null; ordenador: string };
@@ -54,3 +54,4 @@ export default function Itens(props: Props) {
     </div>
   );
 }
+
