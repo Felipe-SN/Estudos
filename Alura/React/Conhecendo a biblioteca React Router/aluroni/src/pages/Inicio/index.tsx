@@ -1,6 +1,6 @@
 import cardapio from 'data/cardapio.json';
 import styles from './Inicio.module.scss';
-import theme from 'styles/tema.module.scss';
+import theme from 'styles/Tema.module.scss';
 import nossaCasa from 'assets/nossa_casa.png';
 
 export default function Inicio() {

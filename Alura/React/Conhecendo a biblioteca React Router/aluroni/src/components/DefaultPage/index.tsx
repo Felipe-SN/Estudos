@@ -1,5 +1,5 @@
 import styles from './DefaultPage.module.scss';
-import theme from 'styles/tema.module.scss';
+import theme from 'styles/Tema.module.scss';
 import { Outlet } from 'react-router-dom';
 
 export default function DefaultPage() {
