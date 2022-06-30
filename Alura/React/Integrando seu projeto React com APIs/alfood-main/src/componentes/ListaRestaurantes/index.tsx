@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IPaginacao } from 'interfaces/IPaginacao';
+import IPaginacao from 'interfaces/IPaginacao';
 import { useEffect, useState } from 'react';
 import IRestaurante from 'interfaces/IRestaurante';
 import style from './ListaRestaurantes.module.scss';
