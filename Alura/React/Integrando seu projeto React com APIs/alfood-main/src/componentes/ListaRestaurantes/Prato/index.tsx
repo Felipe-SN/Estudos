@@ -1,4 +1,4 @@
-import IPrato from '../../../interfaces/IPrato';
+import IPrato from 'interfaces/IPrato';
 import estilos from './Prato.module.scss';
 
 interface PratoProps {
@@ -25,3 +25,4 @@ const Prato = ({ prato }: PratoProps) => {
 };
 
 export default Prato;
+
