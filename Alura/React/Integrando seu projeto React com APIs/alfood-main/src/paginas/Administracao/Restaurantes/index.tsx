@@ -1,15 +1,15 @@
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, } from '@mui/material';
-import axios from 'axios';
+import http from 'http/instance';
 import IRestaurante from 'interfaces/IRestaurante';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const AdministracaoRestaurantes = () => {
+const AdminRestaurantes = () => {
   const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([]);
 
   useEffect(() => {
-    axios
-      .get<IRestaurante[]>('http://localhost:8000/api/v2/restaurantes/')
+    http
+      .get<IRestaurante[]>('restaurantes/')
       .then(response => {
         setRestaurantes(response.data);
       })
@@ -17,16 +17,14 @@ const AdministracaoRestaurantes = () => {
   }, []);
 
   const excluir = (restauranteParaExcluir: IRestaurante) => {
-    axios
-      .delete(
-        `http://localhost:8000/api/v2/restaurantes/${restauranteParaExcluir.id}/`
-      )
+    http
+      .delete(`restaurantes/${restauranteParaExcluir.id}/`)
       .then(() => {
         const listaRestaurantes = restaurantes.filter(
           restaurante => restaurante.id !== restauranteParaExcluir.id
         );
         setRestaurantes([...listaRestaurantes]);
-        alert('Restaurante Excluido com Sucesso!');
+        alert('Restaurante Excluído com Sucesso!');
       })
       .catch(error => console.log(error));
     return;
@@ -47,11 +45,9 @@ const AdministracaoRestaurantes = () => {
             <TableRow key={restaurante.id}>
               <TableCell>{restaurante.nome}</TableCell>
               <TableCell>
-                <Button variant="outlined">
-                  <Link to={`/admin/restaurantes/${restaurante.id}`}>
-                    Editar
-                  </Link>
-                </Button>
+                <Link to={`/admin/restaurantes/${restaurante.id}`}>
+                  <Button variant="outlined">Editar</Button>
+                </Link>
               </TableCell>
               <TableCell>
                 <Button
@@ -70,4 +66,4 @@ const AdministracaoRestaurantes = () => {
   );
 };
 
-export default AdministracaoRestaurantes;
+export default AdminRestaurantes;

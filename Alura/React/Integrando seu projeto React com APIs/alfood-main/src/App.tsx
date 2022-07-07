@@ -1,20 +1,25 @@
-import AdministracaoRestaurantes from 'paginas/Administracao/Restaurantes/AdministracaoRestaurantes';
-import FormularioRestaurantes from 'paginas/Administracao/Restaurantes/FormularioRestaurantes';
 import { Routes, Route } from 'react-router-dom';
+import AdminBasePage from 'paginas/Administracao';
+import AdminRestaurantes from 'paginas/Administracao/Restaurantes';
+import FormRestaurantes from 'paginas/Administracao/Restaurantes/Formulario';
 import Home from 'paginas/Home';
 import VitrineRestaurantes from 'paginas/VitrineRestaurantes';
+import AdminPratos from 'paginas/Administracao/Pratos';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/restaurantes" element={<VitrineRestaurantes />} />
-      <Route
-        path="admin/restaurantes"
-        element={<AdministracaoRestaurantes />}
-      />
-      <Route path="admin/restaurantes/novo" element={<FormularioRestaurantes />} />
-      <Route path="admin/restaurantes/:id" element={<FormularioRestaurantes />} />
+
+      <Route path="/admin" element={<AdminBasePage />}>
+        <Route path="restaurantes/" element={<AdminRestaurantes />} />
+        <Route path="restaurantes/novo" element={<FormRestaurantes />} />
+        <Route path="restaurantes/:id" element={<FormRestaurantes />} />
+
+        <Route path="pratos/" element={<AdminPratos />} />
+        <Route path="pratos/novo" element={<AdminPratos />} />
+      </Route>
     </Routes>
   );
 }
