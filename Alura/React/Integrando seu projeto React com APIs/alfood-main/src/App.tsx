@@ -10,15 +10,19 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/restaurantes" element={<VitrineRestaurantes />} />
+      <Route path="restaurantes" element={<VitrineRestaurantes />} />
 
-      <Route path="/admin" element={<AdminBasePage />}>
-        <Route path="restaurantes/" element={<AdminRestaurantes />} />
-        <Route path="restaurantes/novo" element={<FormRestaurantes />} />
-        <Route path="restaurantes/:id" element={<FormRestaurantes />} />
+      <Route path="admin" element={<AdminBasePage />}>
+        <Route path="restaurantes">
+          <Route path="" element={<AdminRestaurantes />} />
+          <Route path="novo" element={<FormRestaurantes />} />
+          <Route path=":id" element={<FormRestaurantes />} />
+        </Route>
 
-        <Route path="pratos/" element={<AdminPratos />} />
-        <Route path="pratos/novo" element={<AdminPratos />} />
+        <Route path="pratos">
+          <Route path="" element={<AdminPratos />} />
+          <Route path="novo" element={<AdminPratos />} />
+        </Route>
       </Route>
     </Routes>
   );
