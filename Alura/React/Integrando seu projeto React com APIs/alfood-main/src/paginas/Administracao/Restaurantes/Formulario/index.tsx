@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 
 const FormRestaurantes = () => {
   const params = useParams();
+  const [nomeRestaurante, setNomeRestaurante] = useState('');
 
   useEffect(() => {
     if (params.id) {
@@ -14,8 +15,6 @@ const FormRestaurantes = () => {
         .then(response => setNomeRestaurante(response.data.nome));
     }
   }, [params]);
-
-  const [nomeRestaurante, setNomeRestaurante] = useState('');
 
   const onSubmitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

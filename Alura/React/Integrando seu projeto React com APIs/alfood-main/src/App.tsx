@@ -5,6 +5,7 @@ import FormRestaurantes from 'paginas/Administracao/Restaurantes/Formulario';
 import Home from 'paginas/Home';
 import VitrineRestaurantes from 'paginas/VitrineRestaurantes';
 import AdminPratos from 'paginas/Administracao/Pratos';
+import FormPratos from 'paginas/Administracao/Pratos/Formulario';
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
 
         <Route path="pratos">
           <Route path="" element={<AdminPratos />} />
-          <Route path="novo" element={<AdminPratos />} />
+          <Route path="novo" element={<FormPratos />} />
         </Route>
       </Route>
     </Routes>
