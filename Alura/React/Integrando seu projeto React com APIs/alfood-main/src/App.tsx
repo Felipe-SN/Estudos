@@ -23,6 +23,7 @@ function App() {
         <Route path="pratos">
           <Route path="" element={<AdminPratos />} />
           <Route path="novo" element={<FormPratos />} />
+          <Route path=":id" element={<FormPratos />} />
         </Route>
       </Route>
     </Routes>

@@ -9,9 +9,11 @@ import {
   Typography,
 } from '@mui/material';
 import http from 'http/instance';
+import IPrato from 'interfaces/IPrato';
 import IRestaurante from 'interfaces/IRestaurante';
 import ITag from 'interfaces/ITag';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const FormPratos = () => {
   const [description, setDescription] = useState('');
@@ -21,6 +23,20 @@ const FormPratos = () => {
   const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([]);
   const [tag, setTag] = useState('');
   const [tags, setTags] = useState<ITag[]>([]);
+  const params = useParams();
+
+  useEffect(() => {
+    if (params.id) {
+      http.get<IPrato>(`pratos/${params.id}/`).then(response => {
+        const data = response.data;
+
+        setNomePrato(data.nome);
+        setDescription(data.descricao);
+        setTag(data.tag);
+        setRestaurante(data.restaurante.toString());
+      });
+    }
+  }, [params]);
 
   useEffect(() => {
     http
@@ -32,7 +48,10 @@ const FormPratos = () => {
   }, []);
 
   const ifFileExists = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files?.length) return setImagem(event.target.files[0]);
+    if (event.target.files?.length) {
+      setImagem(event.target.files[0]);
+      return;
+    }
     setImagem(null);
   };
 
@@ -48,8 +67,22 @@ const FormPratos = () => {
 
     if (imagem) formData.append('imagem', imagem);
 
-    console.log(formData);
-
+    if (params.id) {
+      http
+        .request({
+          url: `pratos/${params.id}/`,
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          data: formData,
+        })
+        .then(() => {
+          alert('Prato atualizado com sucesso!');
+        })
+        .catch(error => console.log(error));
+      return;
+    }
     http
       .request({
         url: 'pratos/',
@@ -154,3 +187,4 @@ const FormPratos = () => {
 };
 
 export default FormPratos;
+
