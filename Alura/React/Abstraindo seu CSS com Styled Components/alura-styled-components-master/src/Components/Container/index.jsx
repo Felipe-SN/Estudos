@@ -1,16 +1,30 @@
-import React from "react";
+import React from 'react';
 
-import Titulo from "../Titulo";
-import Conta from "../Conta";
+import Titulo from '../Titulo';
+import Conta from '../Conta';
+import styled from 'styled-components';
+import { cores } from '../UI/variables';
+
+const Wrapper = styled.div`
+  background-color: ${cores.fundoClaro};
+  min-height: 90vh;
+  padding: 0px 15vw;
+`;
+
+const Content = styled.section`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 
 const Container = () => {
   return (
-    <div className="container">
+    <Wrapper>
       <Titulo>Olá Fulano!</Titulo>
-      <section className="conteudo">
+      <Content>
         <Conta />
-      </section>
-    </div>
+      </Content>
+    </Wrapper>
   );
 };
 
