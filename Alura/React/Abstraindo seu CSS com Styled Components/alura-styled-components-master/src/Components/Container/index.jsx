@@ -4,6 +4,7 @@ import Titulo from '../Titulo';
 import Conta from '../Conta';
 import styled from 'styled-components';
 import { cores } from '../UI/variables';
+import Extrato from '../Extrato';
 
 const Wrapper = styled.div`
   background-color: ${cores.fundoClaro};
@@ -15,6 +16,10 @@ const Content = styled.section`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
 `;
 
 const Container = () => {
@@ -23,6 +28,7 @@ const Container = () => {
       <Titulo>Olá Fulano!</Titulo>
       <Content>
         <Conta />
+        <Extrato />
       </Content>
     </Wrapper>
   );

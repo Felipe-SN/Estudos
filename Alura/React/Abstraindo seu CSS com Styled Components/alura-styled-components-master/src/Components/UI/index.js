@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 import { cores } from './variables';
 
-export const Icon = styled.img`
-  height: 25px;
-  width: 25px;
-`;
-
 export const Box = styled.div`
   background-color: white;
   border-radius: 5px;
@@ -15,6 +10,11 @@ export const Box = styled.div`
   justify-content: space-between;
   padding: 20px;
   width: 48%;
+
+  @media (max-width: 800px) {
+    width: 95%;
+    margin: 5px;
+  }
 `;
 
 export const Btn = styled.button`
@@ -27,11 +27,20 @@ export const Btn = styled.button`
   font-weight: 600;
   margin: 15px auto 0px auto;
   padding: 8px 20px;
-
   cursor: pointer;
 `;
 
 export const Detalhe = styled.span`
   color: #41d3be;
   font-size: 24px;
+`;
+
+export const Icon = styled.img`
+  height: 25px;
+  width: 25px;
+`;
+
+export const Saldo = styled.div`
+  font-weight: 700;
+  font-size: 32px;
 `;
