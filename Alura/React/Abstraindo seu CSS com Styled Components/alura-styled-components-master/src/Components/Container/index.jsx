@@ -3,16 +3,16 @@ import React from 'react';
 import Titulo from '../Titulo';
 import Conta from '../Conta';
 import styled from 'styled-components';
-import { cores } from '../UI/variables';
 import Extrato from '../Extrato';
 
 const Wrapper = styled.div`
-  background-color: ${cores.fundoClaro};
+  background-color: ${({ theme }) => theme.body};
   min-height: 90vh;
   padding: 0px 15vw;
 `;
 
 const Content = styled.section`
+  color: ${({ theme }) => theme.text};
   display: flex;
   flex-direction: row;
   justify-content: space-between;
