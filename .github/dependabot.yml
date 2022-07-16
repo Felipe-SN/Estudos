@@ -7,12 +7,12 @@ version: 2
 updates:
   # Enable version updates for npm
   - package-ecosystem: "npm"
-    directory: "/Alura/React/React Router navegação em uma SPA/petshop"
+    directory: "/Alura/React/Lidando com arquivos estáticos/aluroni"
     schedule:
       interval: "daily"
       
   # Enable version updates for pip
   - package-ecosystem: "pip"
-    directory: "/Alura/React/React Router navegação em uma SPA/petshop"
+    directory: "/Alura/React/Lidando com arquivos estáticos/aluroni"
     schedule:
       interval: "daily"
