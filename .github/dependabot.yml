@@ -7,12 +7,12 @@ version: 2
 updates:
   # Enable version updates for npm
   - package-ecosystem: "npm"
-    directory: "/*"
+    directory: "/Alura"
     schedule:
       interval: "daily"
       
   # Enable version updates for pip
   - package-ecosystem: "pip"
-    directory: "/*"
+    directory: "/Alura"
     schedule:
       interval: "daily"
