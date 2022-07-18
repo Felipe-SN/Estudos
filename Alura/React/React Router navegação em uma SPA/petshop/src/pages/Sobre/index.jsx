@@ -1,10 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-
-import '../assets/css/componentes/cartao.css'
+import 'assets/css/componentes/cartao.css';
 
 const Sobre = () => {
-
   return (
     <main>
       <div className="container">
@@ -12,12 +10,13 @@ const Sobre = () => {
       </div>
       <section className="container flex flex--centro">
         <article className="cartao">
-          O blog do doguito foi criado para tirar diversas dúvidas sobre o mundo pet!!!
+          O blog do doguito foi criado para tirar diversas dúvidas sobre o mundo
+          pet!!!
         </article>
-        
       </section>
     </main>
-  )
-}
+  );
+};
 
-export default Sobre
+export default Sobre;
+
