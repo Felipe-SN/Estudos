@@ -18,12 +18,12 @@ const Header = () => {
       <nav className="menu-cabecalho">
         <ul className="menu-itens">
           <li>
-            <Link to="entrar" className="menu-item menu-item--entrar">
+            <Link to="#" className="menu-item menu-item--entrar">
               Entrar
             </Link>
           </li>
           <li>
-            <Link to="produtos" className="menu-item">
+            <Link to="#" className="menu-item">
               Produtos
             </Link>
           </li>
