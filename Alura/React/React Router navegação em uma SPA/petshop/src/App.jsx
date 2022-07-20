@@ -11,8 +11,8 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        <Route index element={<Home />} />
-        <Route path="/sobre" element={<Sobre />} />
+        <Route path="/" element={<Home />} />
+        <Route path="sobre" element={<Sobre />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </Router>
