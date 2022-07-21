@@ -15,7 +15,7 @@ const PostListing = ({ url }) => {
         <Link
           className={`cartao-post cartao-post--${post.categoria}`}
           key={post.id}
-          to={`posts/${post.id}`}
+          to={`/posts/${post.id}`}
         >
           <article>
             <h3 className="cartao-post__titulo">{post.title}</h3>
