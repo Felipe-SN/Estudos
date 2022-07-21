@@ -1,15 +1,16 @@
 import { search } from 'api';
 import React, { useEffect, useState } from 'react';
 import 'assets/css/post.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Post = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [post, setPost] = useState({});
 
   useEffect(() => {
-    search(`posts/${id}`, setPost);
-  }, [id]);
+    search(`posts/${id}`, setPost).catch(() => navigate('/404'));
+  }, [id, navigate]);
 
   return (
     <main className="container flex flex--centro">
