@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.0.15",
-    "sass": "^1.51.0",
+    "sass": "^1.54.0",
     "typescript-plugin-css-modules": "^3.4.0"
   }
 }
