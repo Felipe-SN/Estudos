@@ -3,38 +3,35 @@ import { memo } from 'react';
 import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { useCheckoutContext } from 'common/context/Checkout';
 
+function Produto({ nome, foto, id, valor, unidade }) {
+  const { checkout, adicionarProduto, removerProduto } = useCheckoutContext();
+  const produtoNoCarrinho = checkout?.find(item => item.id === id);
 
-function Produto({
-  nome,
-  foto,
-  id,
-  valor,
-  unidade
-}) {
   return (
-      <Container>
-        <div>
-          <img
-            src={`/assets/${foto}.png`}
-            alt={`foto de ${nome}`}
-          />
-          <p>
-            {nome} - R$ {valor?.toFixed(2)} <span>Kg</span>
-          </p>
-        </div>
-        <div>
-          <IconButton
-            color="secondary"
-          >
-            <RemoveIcon />
-          </IconButton>
-          <IconButton>
-            <AddIcon />
-          </IconButton>
-        </div>
-      </Container>
-  )
+    <Container>
+      <div>
+        <img src={`/assets/${foto}.png`} alt={`foto de ${nome}`} />
+        <p>
+          {nome} - R$ {valor?.toFixed(2)} <span>Kg</span>
+        </p>
+      </div>
+      <div>
+        <IconButton color="secondary" onClick={() => removerProduto(id)}>
+          <RemoveIcon />
+        </IconButton>
+        {produtoNoCarrinho?.unidade || 0}
+        <IconButton
+          color="primary"
+          onClick={() => adicionarProduto({ nome, foto, id, valor })}
+        >
+          <AddIcon />
+        </IconButton>
+      </div>
+    </Container>
+  );
 }
 
-export default memo(Produto)
+export default memo(Produto);
+

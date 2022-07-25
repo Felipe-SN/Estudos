@@ -4,7 +4,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import Router from 'routes';
-import { UserProvider } from 'common/context/User';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -23,9 +22,7 @@ root.render(
   <React.StrictMode>
     <StylesProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <UserProvider>
-          <Router />
-        </UserProvider>
+        <Router />
       </ThemeProvider>
     </StylesProvider>
   </React.StrictMode>
