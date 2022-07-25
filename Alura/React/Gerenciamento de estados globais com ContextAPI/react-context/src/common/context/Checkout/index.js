@@ -17,7 +17,7 @@ export const useCheckoutContext = () => {
   const { checkout, setCheckout } = useContext(CheckoutContext);
 
   const alterarQuantidade = (id, quantidade) => {
-    checkout.map(item => {
+    return checkout.map(item => {
       if (item.id === id) item.unidade += quantidade;
       return item;
     });

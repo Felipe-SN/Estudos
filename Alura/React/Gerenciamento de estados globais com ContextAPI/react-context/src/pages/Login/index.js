@@ -31,6 +31,7 @@ const Login = () => {
       </InputContainer>
       <Button
         color="primary"
+        disabled={nome.length < 4}
         onClick={() => navigate('/feira')}
         variant="contained"
       >
@@ -41,4 +42,3 @@ const Login = () => {
 };
 
 export default Login;
-
