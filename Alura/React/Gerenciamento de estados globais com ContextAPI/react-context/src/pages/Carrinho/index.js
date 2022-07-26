@@ -1,5 +1,7 @@
 import { Button, Snackbar, InputLabel } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
+import { useCheckoutContext } from 'common/context/Checkout';
+import Produto from 'components/Produto';
 import { useState } from 'react';
 import {
   Container,
@@ -10,10 +12,14 @@ import {
 
 const Carrinho = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const { checkout } = useCheckoutContext();
   return (
     <Container>
       <Voltar />
       <h2>Carrinho</h2>
+      {checkout.map(produto => (
+        <Produto {...produto} key={produto.id} />
+      ))}
       <PagamentoContainer>
         <InputLabel> Forma de Pagamento </InputLabel>
       </PagamentoContainer>
@@ -57,4 +63,3 @@ const Carrinho = () => {
 };
 
 export default Carrinho;
-
