@@ -1,20 +1,24 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 export const CheckoutContext = createContext({});
 CheckoutContext.displayName = 'Carrinho';
 
 export const CheckoutProvider = ({ children }) => {
   const [checkout, setCheckout] = useState([]);
+  const [productCounter, setProductCounter] = useState(0);
 
   return (
-    <CheckoutContext.Provider value={{ checkout, setCheckout }}>
+    <CheckoutContext.Provider
+      value={{ checkout, setCheckout, productCounter, setProductCounter }}
+    >
       {children}
     </CheckoutContext.Provider>
   );
 };
 
 export const useCheckoutContext = () => {
-  const { checkout, setCheckout } = useContext(CheckoutContext);
+  const { checkout, setCheckout, productCounter, setProductCounter } =
+    useContext(CheckoutContext);
 
   const alterarQuantidade = (id, quantidade) => {
     return checkout.map(item => {
@@ -42,5 +46,20 @@ export const useCheckoutContext = () => {
     setCheckout(alterarQuantidade(id, -1));
   };
 
-  return { checkout, setCheckout, adicionarProduto, removerProduto };
+  useEffect(() => {
+    const newCounter = checkout.reduce(
+      (counter, product) => counter + product.unidade,
+      0
+    );
+    setProductCounter(newCounter);
+  }, [checkout, setProductCounter]);
+
+  return {
+    adicionarProduto,
+    checkout,
+    productCounter,
+    removerProduto,
+    setCheckout,
+    setProductCounter,
+  };
 };
