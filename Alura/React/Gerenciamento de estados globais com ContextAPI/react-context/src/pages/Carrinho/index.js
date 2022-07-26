@@ -3,6 +3,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { useCheckoutContext } from 'common/context/Checkout';
 import Produto from 'components/Produto';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Container,
   Voltar,
@@ -12,10 +13,13 @@ import {
 
 const Carrinho = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
+
   const { checkout } = useCheckoutContext();
+  const navigate = useNavigate();
+
   return (
     <Container>
-      <Voltar />
+      <Voltar onClick={() => navigate(-1)} />
       <h2>Carrinho</h2>
       {checkout.map(produto => (
         <Produto {...produto} key={produto.id} />

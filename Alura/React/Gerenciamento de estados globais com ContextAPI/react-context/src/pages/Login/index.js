@@ -31,7 +31,7 @@ const Login = () => {
       </InputContainer>
       <Button
         color="primary"
-        disabled={nome.length < 4}
+        disabled={nome.length < 4 || saldo < 2}
         onClick={() => navigate('/feira')}
         variant="contained"
       >
