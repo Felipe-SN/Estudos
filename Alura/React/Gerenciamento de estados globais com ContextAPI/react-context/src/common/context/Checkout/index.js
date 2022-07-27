@@ -6,10 +6,18 @@ CheckoutContext.displayName = 'Carrinho';
 export const CheckoutProvider = ({ children }) => {
   const [checkout, setCheckout] = useState([]);
   const [productCounter, setProductCounter] = useState(0);
+  const [checkoutTotal, setCheckoutTotal] = useState(0);
 
   return (
     <CheckoutContext.Provider
-      value={{ checkout, setCheckout, productCounter, setProductCounter }}
+      value={{
+        checkout,
+        setCheckout,
+        productCounter,
+        setProductCounter,
+        checkoutTotal,
+        setCheckoutTotal,
+      }}
     >
       {children}
     </CheckoutContext.Provider>
@@ -17,8 +25,14 @@ export const CheckoutProvider = ({ children }) => {
 };
 
 export const useCheckoutContext = () => {
-  const { checkout, setCheckout, productCounter, setProductCounter } =
-    useContext(CheckoutContext);
+  const {
+    checkout,
+    setCheckout,
+    productCounter,
+    setProductCounter,
+    checkoutTotal,
+    setCheckoutTotal,
+  } = useContext(CheckoutContext);
 
   const alterarQuantidade = (id, quantidade) => {
     return checkout.map(item => {
@@ -47,19 +61,22 @@ export const useCheckoutContext = () => {
   };
 
   useEffect(() => {
-    const newCounter = checkout.reduce(
-      (counter, product) => counter + product.unidade,
-      0
+    const { newTotal, newCounter } = checkout.reduce(
+      (counter, product) => ({
+        newCounter: counter.newCounter + product.unidade,
+        newTotal: counter.newTotal + product.valor * product.unidade,
+      }),
+      { newCounter: 0, newTotal: 0 }
     );
     setProductCounter(newCounter);
-  }, [checkout, setProductCounter]);
+    setCheckoutTotal(newTotal);
+  }, [checkout, setProductCounter, setCheckoutTotal]);
 
   return {
     adicionarProduto,
     checkout,
+    checkoutTotal,
     productCounter,
     removerProduto,
-    setCheckout,
-    setProductCounter,
   };
 };
