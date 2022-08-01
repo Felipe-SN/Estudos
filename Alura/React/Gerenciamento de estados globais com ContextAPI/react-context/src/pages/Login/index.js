@@ -22,7 +22,7 @@ const Login = () => {
       <InputContainer>
         <InputLabel>Saldo</InputLabel>
         <Input
-          onChange={e => setSaldo(e.target.value)}
+          onChange={e => setSaldo(parseInt(e.target.value))}
           startAdornment={<InputAdornment position="start">R$</InputAdornment>}
           type="number"
           value={saldo}

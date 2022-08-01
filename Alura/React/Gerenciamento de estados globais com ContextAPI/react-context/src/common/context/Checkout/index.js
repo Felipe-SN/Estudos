@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { usePaymentContext } from '../Payment';
+import { useUserContext } from '../User';
 
 export const CheckoutContext = createContext({});
 CheckoutContext.displayName = 'Carrinho';
@@ -6,7 +8,7 @@ CheckoutContext.displayName = 'Carrinho';
 export const CheckoutProvider = ({ children }) => {
   const [checkout, setCheckout] = useState([]);
   const [productCounter, setProductCounter] = useState(0);
-  const [checkoutTotal, setCheckoutTotal] = useState(0);
+  const [checkoutTotalPrice, setCheckoutTotalPrice] = useState(0);
 
   return (
     <CheckoutContext.Provider
@@ -15,8 +17,8 @@ export const CheckoutProvider = ({ children }) => {
         setCheckout,
         productCounter,
         setProductCounter,
-        checkoutTotal,
-        setCheckoutTotal,
+        checkoutTotalPrice,
+        setCheckoutTotalPrice,
       }}
     >
       {children}
@@ -25,13 +27,16 @@ export const CheckoutProvider = ({ children }) => {
 };
 
 export const useCheckoutContext = () => {
+  const { paymentMethod } = usePaymentContext();
+  const { setSaldo } = useUserContext();
+
   const {
     checkout,
     setCheckout,
     productCounter,
     setProductCounter,
-    checkoutTotal,
-    setCheckoutTotal,
+    checkoutTotalPrice,
+    setCheckoutTotalPrice,
   } = useContext(CheckoutContext);
 
   const alterarQuantidade = (id, quantidade) => {
@@ -60,6 +65,11 @@ export const useCheckoutContext = () => {
     setCheckout(alterarQuantidade(id, -1));
   };
 
+  const makePurchase = () => {
+    setCheckout([]);
+    setSaldo(saldoAtual => saldoAtual - checkoutTotalPrice);
+  };
+
   useEffect(() => {
     const { newTotal, newCounter } = checkout.reduce(
       (counter, product) => ({
@@ -69,14 +79,15 @@ export const useCheckoutContext = () => {
       { newCounter: 0, newTotal: 0 }
     );
     setProductCounter(newCounter);
-    setCheckoutTotal(newTotal);
-  }, [checkout, setProductCounter, setCheckoutTotal]);
+    setCheckoutTotalPrice(newTotal * paymentMethod.juros);
+  }, [checkout, setProductCounter, setCheckoutTotalPrice, paymentMethod]);
 
   return {
     adicionarProduto,
     checkout,
-    checkoutTotal,
+    checkoutTotalPrice,
     productCounter,
     removerProduto,
+    makePurchase,
   };
 };

@@ -29,4 +29,3 @@ const Feira = () => {
 };
 
 export default Feira;
-
