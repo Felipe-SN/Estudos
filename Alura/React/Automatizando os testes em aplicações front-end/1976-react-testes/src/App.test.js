@@ -33,12 +33,12 @@ describe('Componente principal', () => {
     });
 
     it('De saque, a transação dos valores deve ser realizada', () => {
-      const { getByLabelText, getByTestId, getByText } = render(<App />);
+      render(<App />);
 
-      const botaoTransacao = getByText('Realizar operação');
-      const saldo = getByText('R$ 1000');
-      const transacao = getByLabelText('Saque');
-      const valor = getByTestId('valor');
+      const botaoTransacao = screen.getByText('Realizar operação');
+      const saldo = screen.getByText('R$ 1000');
+      const transacao = screen.getByLabelText('Saque');
+      const valor = screen.getByTestId('valor');
 
       expect(saldo.textContent).toBe('R$ 1000');
 
@@ -47,8 +47,6 @@ describe('Componente principal', () => {
       fireEvent.click(botaoTransacao);
 
       expect(saldo.textContent).toBe('R$ 990');
-      expect().toBe();
-      expect().toBe();
     });
   });
 });
