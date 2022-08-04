@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import App, { calcularNovoSaldo } from './App';
 
 describe('Componente principal', () => {
@@ -20,7 +20,7 @@ describe('Componente principal', () => {
     });
   });
 
-  describe('Ao realizar uma transação:', () => {
+  describe('Ao realizar uma operação:', () => {
     it('De saque, o saldo vai diminuir', () => {
       const valores = {
         transacao: 'saque',
@@ -30,6 +30,23 @@ describe('Componente principal', () => {
       const novoSaldo = calcularNovoSaldo(valores, 150);
 
       expect(novoSaldo).toBe(100);
+    });
+
+    it('De saque, a transação dos valores deve ser realizada', () => {
+      render(<App />);
+
+      const botaoTransacao = screen.getByText('Realizar operação');
+      const saldo = screen.getByText('R$ 1000');
+      const transacao = screen.getByLabelText('Saque');
+      const valor = screen.getByTestId('valor');
+
+      expect(saldo.textContent).toBe('R$ 1000');
+
+      fireEvent.click(transacao, { target: { value: 'saque' } });
+      fireEvent.change(valor, { target: { value: 10 } });
+      fireEvent.click(botaoTransacao);
+
+      expect(saldo.textContent).toBe('R$ 990');
     });
   });
 });
