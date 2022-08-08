@@ -1,6 +1,6 @@
 import React from 'react';
 import useExcluirEvento from 'state/hooks/useExcluirEvento';
-import { IEvento } from '../../interfaces/IEvento';
+import { IEvento } from 'interfaces/IEvento';
 import style from './Evento.module.scss';
 import EventoCheckbox from './EventoCheckbox';
 
