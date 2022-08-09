@@ -13,9 +13,6 @@ const Filtro: React.FC = () => {
 
     const filtro: IFiltroEventos = {};
 
-    filtro.data = null;
-    filtro.completo = null;
-
     if (data) filtro.data = new Date(data);
     if (estado) filtro.completo = JSON.parse(estado);
 
