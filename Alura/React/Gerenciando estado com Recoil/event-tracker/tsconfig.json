@@ -18,8 +18,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "baseUrl": "src",
     "jsx": "react-jsx",
-    "plugins": [{ "name": "typescript-plugin-css-modules" }]
+    "downlevelIteration": true,
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      }
+    ]
   },
   "include": [
     "src"
