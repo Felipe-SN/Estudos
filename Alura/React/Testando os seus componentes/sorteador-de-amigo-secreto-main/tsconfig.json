@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "baseUrl": "src",
+    "jsx": "react-jsx",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "baseUrl": "src",
-    "jsx": "react-jsx",
     "module": "esnext",
     "moduleResolution": "node",
+    "target": "es5",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
