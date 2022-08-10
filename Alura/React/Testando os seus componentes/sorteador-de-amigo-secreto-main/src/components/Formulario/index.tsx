@@ -8,7 +8,7 @@ const Formulario = () => {
         type="text"
         placeholder="Insira os nomes dos participantes"
       />
-      <button disabled={true} type="submit">
+      <button disabled type="submit">
         Adicionar
       </button>
     </form>
