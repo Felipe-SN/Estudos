@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import { RecoilRoot } from 'recoil';
 import Formulario from '.';
 
 describe('Teste de componente Formulario:', () => {
@@ -17,7 +18,11 @@ describe('Teste de componente Formulario:', () => {
   });
 
   test('Adicionar um participante caso exista um nome preenchido', () => {
-    render(<Formulario />);
+    render(
+      <RecoilRoot>
+        <Formulario />
+      </RecoilRoot>
+    );
     // selecionar o input no documento
     const input = screen.getByPlaceholderText(
       'Insira os nomes dos participantes'
