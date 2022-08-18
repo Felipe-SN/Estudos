@@ -1,14 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
-import useListaParticipantes from 'state/hooks/useListaParticipantes';
+import { useListaParticipantes } from 'state/hooks/useListaParticipantes';
 import ListaParticipantes from '.';
 
-jest.mock('state/hooks/useListaParticipantes');
+jest.mock('state/hooks/useListaParticipantes', () => ({
+  useListaParticipantes: jest.fn(),
+}));
 
 describe('Comportamento do componente ListaParticipantes', () => {
   describe('Faz o render da lista de participantes sem elementos', () => {
     beforeEach(() => {
-      (useListaParticipantes as jest.Mock).mockReturnValue(['Maria', 'José']);
+      (useListaParticipantes as jest.Mock).mockReturnValue([]);
     });
 
     test('A lista renderizada não deve conter elementos', () => {

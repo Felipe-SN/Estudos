@@ -1,11 +1,6 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { listaParticipantesState } from 'state/atom';
 
-const useListaParticipantes = () => {
-  const listaParticipantes = useRecoilValue(listaParticipantesState);
-  const setListaParticipantes = useSetRecoilState(listaParticipantesState);
-
-  return { listaParticipantes, setListaParticipantes };
+export const useListaParticipantes = () => {
+  return useRecoilValue(listaParticipantesState);
 };
-
-export default useListaParticipantes;

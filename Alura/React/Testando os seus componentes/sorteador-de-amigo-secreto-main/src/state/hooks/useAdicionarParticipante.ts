@@ -1,8 +1,10 @@
-import useListaParticipantes from './useListaParticipantes';
+import { useListaParticipantes } from './useListaParticipantes';
+import { useSetListaParticipantes } from './useSetListaParticipantes';
 import useMensagemErro from './useMensagemErro';
 
 const useAdicionarParticipante = () => {
-  const { listaParticipantes, setListaParticipantes } = useListaParticipantes();
+  const listaParticipantes = useListaParticipantes();
+  const setListaParticipantes = useSetListaParticipantes();
   const { setMensagemErro } = useMensagemErro();
 
   return (nomeParticipante: string) => {
