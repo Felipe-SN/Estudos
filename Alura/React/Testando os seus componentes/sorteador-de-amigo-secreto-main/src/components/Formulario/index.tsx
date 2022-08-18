@@ -1,3 +1,4 @@
+import ListaParticipantes from 'components/ListaParticipantes';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import useAdicionarParticipante from 'state/hooks/useAdicionarParticipante';
 import useMensagemErro from 'state/hooks/useMensagemErro';
@@ -21,19 +22,22 @@ const Formulario = () => {
   }, []);
 
   return (
-    <form onSubmit={adicionarParticipante}>
-      <input
-        onChange={e => setNomeParticipante(e.target.value)}
-        placeholder="Insira os nomes dos participantes"
-        ref={inputNome}
-        type="text"
-        value={nomeParticipante}
-      />
-      <button disabled={nomeParticipante.length < 3} type="submit">
-        Adicionar
-      </button>
-      {mensagemErro && <span role="alert">{mensagemErro}</span>}
-    </form>
+    <>
+      <form onSubmit={adicionarParticipante}>
+        <input
+          onChange={e => setNomeParticipante(e.target.value)}
+          placeholder="Insira os nomes dos participantes"
+          ref={inputNome}
+          type="text"
+          value={nomeParticipante}
+        />
+        <button disabled={nomeParticipante.length < 3} type="submit">
+          Adicionar
+        </button>
+        {mensagemErro && <span role="alert">{mensagemErro}</span>}
+      </form>
+      <ListaParticipantes />
+    </>
   );
 };
 

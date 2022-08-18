@@ -1,21 +1,25 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { listaParticipantesState } from 'state/atom';
+import useListaParticipantes from './useListaParticipantes';
 import useMensagemErro from './useMensagemErro';
 
 const useAdicionarParticipante = () => {
-  const setLista = useSetRecoilState<string[]>(listaParticipantesState);
+  const { listaParticipantes, setListaParticipantes } = useListaParticipantes();
   const { setMensagemErro } = useMensagemErro();
-  const listaDeParticipantes = useRecoilValue(listaParticipantesState);
 
   return (nomeParticipante: string) => {
-    if (listaDeParticipantes.includes(nomeParticipante)) {
+    const ListaEmUpperCase = listaParticipantes.map(nome => nome.toUpperCase());
+    const nomeParticipanteEmUpperCase = nomeParticipante.toUpperCase();
+
+    if (ListaEmUpperCase.includes(nomeParticipanteEmUpperCase)) {
       setMensagemErro('Nomes duplicados não são permitidos!');
       setTimeout(() => {
         setMensagemErro('');
       }, 3000);
       return;
     }
-    return setLista(listaAntiga => [...listaAntiga, nomeParticipante]);
+    return setListaParticipantes(listaAntiga => [
+      ...listaAntiga,
+      nomeParticipante,
+    ]);
   };
 };
 

@@ -1,8 +1,13 @@
+import useListaParticipantes from 'state/hooks/useListaParticipantes';
+
 const ListaParticipantes = () => {
+  const { listaParticipantes } = useListaParticipantes();
   return (
-    <div>
-      <div></div>
-    </div>
+    <ul>
+      {listaParticipantes?.map(participante => (
+        <li key={participante}>{participante}</li>
+      ))}
+    </ul>
   );
 };
 

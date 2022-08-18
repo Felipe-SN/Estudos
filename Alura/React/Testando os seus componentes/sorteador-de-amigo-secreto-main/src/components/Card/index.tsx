@@ -1,7 +1,7 @@
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
 import './styles.css';
 
-const Card: React.FC<PropsWithChildren> = ({ children }) => {
+const Card: React.FC<React.PropsWithChildren> = ({ children }) => {
   return <div className="card">{children}</div>;
 };
 
