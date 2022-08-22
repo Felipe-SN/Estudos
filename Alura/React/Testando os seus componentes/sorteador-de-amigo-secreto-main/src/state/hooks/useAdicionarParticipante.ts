@@ -1,10 +1,11 @@
 import { useListaParticipantes } from './useListaParticipantes';
-import { useSetListaParticipantes } from './useSetListaParticipantes';
 import useMensagemErro from './useMensagemErro';
+import { listaParticipantesState } from 'state/atom';
+import { useSetRecoilState } from 'recoil';
 
 const useAdicionarParticipante = () => {
   const listaParticipantes = useListaParticipantes();
-  const setListaParticipantes = useSetListaParticipantes();
+  const setListaParticipantes = useSetRecoilState(listaParticipantesState);
   const { setMensagemErro } = useMensagemErro();
 
   return (nomeParticipante: string) => {
