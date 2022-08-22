@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import useAdicionarParticipante from 'state/hooks/useAdicionarParticipante';
 import useMensagemErro from 'state/hooks/useMensagemErro';
+import './style.css';
 
 const Formulario = () => {
   const [nomeParticipante, setNomeParticipante] = useState<string>('');
@@ -34,7 +35,11 @@ const Formulario = () => {
           Adicionar
         </button>
       </div>
-      {mensagemErro && <span role="alert">{mensagemErro}</span>}
+      {mensagemErro && (
+        <span className="alerta erro" role="alert">
+          {mensagemErro}
+        </span>
+      )}
     </form>
   );
 };
