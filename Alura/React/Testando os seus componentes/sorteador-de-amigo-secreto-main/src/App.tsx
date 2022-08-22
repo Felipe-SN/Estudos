@@ -1,5 +1,6 @@
 import Cabecalho from 'components/Cabecalho';
-import Formulario from 'components/Formulario';
+import Card from 'components/Card';
+import Configuracao from 'pages/Configuracao';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
@@ -7,11 +8,13 @@ const App = () => {
   return (
     <BrowserRouter>
       <Cabecalho />
-      <RecoilRoot>
-        <Routes>
-          <Route path="/" element={<Formulario />} />
-        </Routes>
-      </RecoilRoot>
+      <Card>
+        <RecoilRoot>
+          <Routes>
+            <Route path="/" element={<Configuracao />} />
+          </Routes>
+        </RecoilRoot>
+      </Card>
     </BrowserRouter>
   );
 };
