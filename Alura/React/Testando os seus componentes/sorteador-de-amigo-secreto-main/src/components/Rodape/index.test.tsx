@@ -6,11 +6,15 @@ import Rodape from '.';
 jest.mock('state/hooks/useListaParticipantes', () => ({
   useListaParticipantes: jest.fn(),
 }));
-
 const mockNavigate = jest.fn();
+const mockSorteio = jest.fn();
 
 jest.mock('react-router-dom', () => ({
   useNavigate: () => mockNavigate,
+}));
+
+jest.mock('state/hooks/useSorteador', () => ({
+  useSorteador: () => mockSorteio,
 }));
 
 describe('Comportamento do componente Rodape', () => {
@@ -63,7 +67,8 @@ describe('Comportamento do componente Rodape', () => {
 
       fireEvent.click(botao);
 
-      expect(mockNavigate).toHaveBeenCalled();
+      expect(mockSorteio).toHaveBeenCalledTimes(1);
+      expect(mockNavigate).toHaveBeenCalledTimes(1);
       expect(mockNavigate).toHaveBeenCalledWith('/sorteio');
     });
   });
