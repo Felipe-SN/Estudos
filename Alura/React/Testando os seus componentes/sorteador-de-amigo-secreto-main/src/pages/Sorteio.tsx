@@ -2,6 +2,7 @@ import { useListaParticipantes } from 'state/hooks/useListaParticipantes';
 
 const Sorteio = () => {
   const listaParticipantes = useListaParticipantes();
+
   return (
     <section>
       <h2>Quem vai tirar o papelzinho?</h2>
