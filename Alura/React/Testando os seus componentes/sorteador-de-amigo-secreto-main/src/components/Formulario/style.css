@@ -1,17 +1,26 @@
+@import url('../UI/variables/index.css');
+
 .grupo-input-btn {
+  display: flex;
   margin-bottom: 32px;
+  width: 100%;
 }
 
 .grupo-input-btn input {
   border-bottom-left-radius: 45px;
   border-top-left-radius: 45px;
-  border: 2px solid #000000;
-  box-shadow: 2px 2px 0px 1px #000000;
+  border: 2px solid var(--cor-bordas);
+  box-shadow: 2px 2px 1px 0px var(--cor-bordas);
   box-sizing: border-box;
-  font-size: 20px;
-  height: 82px;
-  padding-left: 32px;
-  width: 70%;
+  font-size: 1rem;
+  height: var(--input-height);
+  max-width: 500px;
+}
+
+.grupo-input-btn input:placeholder-shown {
+  background-image: url('../../../public/img/addPerson.svg');
+  background-repeat: no-repeat;
+  color: #b3b3b3;
 }
 
 .grupo-input-btn input:focus {
@@ -22,14 +31,13 @@
   background-color: #c4c4c4;
   border-bottom-right-radius: 45px;
   border-top-right-radius: 45px;
-  border: 2px solid black;
-  box-shadow: 2px 2px 0px 1px #000000;
+  border: 2px solid var(--cor-bordas);
+  box-shadow: 2px 2px 1px 0px var(--cor-bordas);
   box-sizing: border-box;
-  color: #000000;
+  color: #444444;
   cursor: pointer;
-  font-size: 20px;
-  height: 82px;
-  width: 30%;
+  height: var(--input-height);
+  max-width: 227px;
 }
 
 .grupo-input-btn button:hover {
@@ -37,34 +45,54 @@
 }
 
 .grupo-input-btn button:disabled {
-  opacity: 0.6;
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .alerta.erro {
-  color: #842029;
   background-color: #f8d7da;
-  padding: 16px;
-  border: 1px solid #f5c2c7;
   border-radius: 8px;
+  border: 1px solid #f5c2c7;
+  color: #842029;
+  padding: 16px;
 }
 
 @media screen and (max-width: 800px) {
-  .alerta {
-    margin: 48px 0;
+  .grupo-input-btn {
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 17px;
   }
+
   .grupo-input-btn input {
-    display: block;
+    border-radius: 45px;
+    border: 1px solid var(--cor-bordas);
+    box-shadow: 2px 2px 0px var(--cor-bordas);
+    font-size: 14px;
+    height: var(--input-mobile-height);
+    margin-bottom: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    text-align: center;
     width: 100%;
-    border-radius: 45px;
-    box-shadow: 0px 2px 0px 1px #000000;
-    margin-bottom: 18px;
   }
+
+  .grupo-input-btn input:placeholder-shown {
+    background-position: calc(50% - 127px);
+    background-size: 1.4rem;
+    padding-left: 64px;
+  }
+
   .grupo-input-btn button {
-    display: block;
-    margin-top: 16px;
-    margin: 0 auto;
-    width: 220px;
     border-radius: 45px;
+    border: 1px solid var(--cor-bordas);
+    box-shadow: 2px 2px 0px var(--cor-bordas);
+    font-size: 1rem;
+    height: var(--input-mobile-height);
+    min-width: 155px;
+  }
+
+  .alerta {
+    margin: 24px 0;
   }
 }

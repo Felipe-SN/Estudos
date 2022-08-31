@@ -1,0 +1,147 @@
+@import url('../components/UI/variables/index.css');
+
+footer.sorteio {
+  display: flex;
+  margin-bottom: 64px;
+  margin-top: 64px;
+  place-content: center;
+}
+
+form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+select {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  cursor: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  grid-area: customSelect;
+  line-height: inherit;
+  margin: 0;
+  outline: none;
+  width: 100%;
+}
+
+.customSelect {
+  align-items: center;
+  border-radius: 35px;
+  border: 2px solid var(--cor-bordas);
+  box-shadow: 2px 2px 1px 0px var(--cor-bordas);
+  color: var(--cor-preenchimento);
+  display: grid;
+  font-size: 1rem;
+  grid-template-areas: 'customSelect';
+  height: 80px;
+  max-width: 476px;
+}
+
+.customSelect::after {
+  background-color: var(--cor-preenchimento);
+  clip-path: polygon(100% 0%, 0% 0%, 50% 100%);
+  content: '';
+  grid-area: customSelect;
+  height: 0.5rem;
+  justify-self: end;
+  pointer-events: none;
+  width: 1rem;
+}
+
+select:focus {
+  outline: none;
+}
+
+p {
+  color: var(--cor-preenchimento);
+}
+
+.botao-sortear {
+  background-color: var(--cor-secundaria);
+  border-radius: 45px;
+  border: 2px solid var(--cor-bordas);
+  box-shadow: 2px 2px 0px var(--cor-bordas);
+  color: var(--cor-texto-branco);
+  cursor: pointer;
+  display: flex;
+  font-size: 1rem;
+  font-weight: 600;
+  gap: 20px;
+  height: 80px;
+  justify-content: center;
+  place-items: center;
+  width: 300px;
+}
+
+.botao-sortear:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.botao-sortear:hover {
+  background-color: var(--cor-primaria);
+}
+
+.botao-sortear::before {
+  background-image: url('../../public/img/dice.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  content: '';
+  height: 35px;
+  width: 35px;
+}
+
+.resultado {
+  color: var(--cor-secundaria);
+}
+
+@media screen and (max-width: 800px) {
+  footer.sorteio {
+    margin-bottom: 60px;
+    margin-top: 20px;
+  }
+
+  .customSelect {
+    border: 1px solid var(--cor-bordas);
+    box-shadow: 2px 2px 0px var(--cor-bordas);
+    height: var(--input-mobile-height);
+    padding-left: 28px;
+    padding-right: 28px;
+    width: 100%;
+  }
+
+  .customSelect::after {
+    height: 8px;
+    width: 16px;
+  }
+
+  p {
+    font-size: 18px;
+    line-height: 27px;
+    margin-bottom: 21px;
+    margin-top: 32px;
+    padding-left: 25px;
+    padding-right: 25px;
+    text-align: center;
+  }
+
+  .botao-sortear {
+    gap: 13px;
+    height: 60px;
+    width: 155px;
+  }
+
+  .botao-sortear::before {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+  .resultado {
+    margin-bottom: 0px;
+    margin-top: 15px;
+  }
+}

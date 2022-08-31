@@ -1,41 +1,71 @@
-/* src/componentes/Rodape.css */
+@import url('../UI/variables/index.css');
+
 .rodape-configuracoes {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-evenly;
 }
 
 .botao {
-  width: 350px;
-  height: 80px;
-  font-size: 20px;
-  box-shadow: 2px 2px 0px 1px #000000;
+  background-color: var(--cor-secundaria);
   border-radius: 45px;
-  background-color: #fe652b;
-  color: #fff;
+  border: 2px solid var(--cor-bordas);
+  box-shadow: 4px 4px 0px var(--cor-bordas);
+  color: var(--cor-texto-branco);
   cursor: pointer;
+  display: flex;
+  font-size: 1.3rem;
+  font-weight: 500;
+  gap: 1.5rem;
+  height: 80px;
+  justify-content: center;
+  place-items: center;
+  width: 20rem;
+}
+
+.botao::before {
+  background-image: url('../../../public/img/play.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  content: '';
+  display: block;
+  height: 2rem;
+  width: 2rem;
 }
 
 .botao:disabled {
-  opacity: 0.6;
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .botao:hover {
-  background-color: #4b69fd;
+  background-color: var(--cor-primaria);
 }
 
 @media screen and (max-width: 800px) {
-  .botao {
-    width: 220px;
-    margin: 32px 0;
-  }
-
   .rodape-configuracoes {
     flex-direction: column;
+    margin-top: 18px;
   }
 
-  .rodape-configuracoes img {
-    margin-top: 32px;
+  .botao {
+    border: 1px solid var(--cor-bordas);
+    box-shadow: 2px 2px 0px var(--cor-bordas);
+    font-size: 1rem;
+    font-weight: 600;
+    height: 64px;
+    text-align: center;
+    width: 155px;
+  }
+
+  .botao::before {
+    display: none;
+  }
+
+  .imagem-sacolas {
+    height: 98px;
+    width: 127px;
   }
 }

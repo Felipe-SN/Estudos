@@ -20,9 +20,13 @@ const Rodape = () => {
         disabled={listaParticipantes.length < 3}
         onClick={() => iniciar()}
       >
-        iniciar brincadeira!
+        Iniciar brincadeira!
       </button>
-      <img src="/img/sacolas.png" alt="Sacolas de compras" />
+      <img
+        className="imagem-sacolas"
+        src="/img/sacolas.png"
+        alt="Sacolas de compras"
+      />
     </footer>
   );
 };
