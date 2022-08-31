@@ -34,7 +34,7 @@
   border: 2px solid var(--cor-bordas);
   box-shadow: 2px 2px 1px 0px var(--cor-bordas);
   box-sizing: border-box;
-  color: #444444;
+  color: var(--cor-preenchimento);
   cursor: pointer;
   height: var(--input-height);
   max-width: 227px;

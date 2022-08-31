@@ -12,8 +12,10 @@ const Sorteio = () => {
 
   const sortear = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (resultado.has(participanteDaVez))
+    if (resultado.has(participanteDaVez)) {
       setAmigoSecreto(resultado.get(participanteDaVez)!);
+      setTimeout(() => setAmigoSecreto(''), 5000);
+    }
   };
 
   return (
@@ -23,7 +25,6 @@ const Sorteio = () => {
         <form onSubmit={sortear}>
           <div className="customSelect">
             <select
-              className={participanteDaVez === 'default' ? 'valueDefault' : ''}
               id="participanteDaVez"
               name="participanteDaVez"
               onChange={e => setParticipanteDaVez(e.target.value)}

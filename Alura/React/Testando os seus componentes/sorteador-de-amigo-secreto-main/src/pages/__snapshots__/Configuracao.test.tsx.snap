@@ -7,7 +7,7 @@ exports[`A pagina de configuração Deve ser renderizada corretamente 1`] = `
   >
     <section>
       <h2>
-        Vamos Começar!
+        Vamos começar!
       </h2>
       <form>
         <div
@@ -34,10 +34,11 @@ exports[`A pagina de configuração Deve ser renderizada corretamente 1`] = `
           class="botao"
           disabled=""
         >
-          iniciar brincadeira!
+          Iniciar brincadeira!
         </button>
         <img
           alt="Sacolas de compras"
+          class="imagem-sacolas"
           src="/img/sacolas.png"
         />
       </footer>
