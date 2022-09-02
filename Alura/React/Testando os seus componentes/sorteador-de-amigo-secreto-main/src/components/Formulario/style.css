@@ -2,7 +2,8 @@
 
 .grupo-input-btn {
   display: flex;
-  margin-bottom: 32px;
+  justify-content: center;
+  margin-bottom: 30px;
   width: 100%;
 }
 
@@ -10,17 +11,26 @@
   border-bottom-left-radius: 45px;
   border-top-left-radius: 45px;
   border: 2px solid var(--cor-bordas);
-  box-shadow: 2px 2px 1px 0px var(--cor-bordas);
+  box-shadow: 4px 4px 0px var(--cor-bordas);
   box-sizing: border-box;
   font-size: 1rem;
   height: var(--input-height);
   max-width: 500px;
+  padding-left: 52px;
+  transition: ease-out 0.5s;
+  width: 100%;
+}
+
+.grupo-input-btn input::placeholder {
+  background-image: url('../../../public/img/addPerson.svg');
+  background-position: 52px;
+  background-repeat: no-repeat;
+  background-size: 24px;
+  color: rgba(0, 0, 0, 0.3);
 }
 
 .grupo-input-btn input:placeholder-shown {
-  background-image: url('../../../public/img/addPerson.svg');
-  background-repeat: no-repeat;
-  color: #b3b3b3;
+  padding-left: 107px;
 }
 
 .grupo-input-btn input:focus {
@@ -32,12 +42,14 @@
   border-bottom-right-radius: 45px;
   border-top-right-radius: 45px;
   border: 2px solid var(--cor-bordas);
-  box-shadow: 2px 2px 1px 0px var(--cor-bordas);
+  box-shadow: 4px 4px 0px var(--cor-bordas);
   box-sizing: border-box;
   color: var(--cor-preenchimento);
   cursor: pointer;
+  font-size: 1rem;
   height: var(--input-height);
   max-width: 227px;
+  width: 100%;
 }
 
 .grupo-input-btn button:hover {
@@ -68,19 +80,21 @@
     border-radius: 45px;
     border: 1px solid var(--cor-bordas);
     box-shadow: 2px 2px 0px var(--cor-bordas);
-    font-size: 14px;
+    font-size: 0.875rem;
     height: var(--input-mobile-height);
     margin-bottom: 10px;
     padding-left: 25px;
     padding-right: 25px;
     text-align: center;
-    width: 100%;
+  }
+
+  .grupo-input-btn input::placeholder {
+    background-position: calc(50% - 127px);
+    background-size: 22px;
   }
 
   .grupo-input-btn input:placeholder-shown {
-    background-position: calc(50% - 127px);
-    background-size: 1.4rem;
-    padding-left: 64px;
+    padding-left: 65px;
   }
 
   .grupo-input-btn button {

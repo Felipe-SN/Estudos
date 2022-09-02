@@ -1,10 +1,9 @@
 @import url('../components/UI/variables/index.css');
 
-footer.sorteio {
+.sorteio {
   display: flex;
-  margin-bottom: 64px;
-  margin-top: 64px;
-  place-content: center;
+  flex-direction: column;
+  place-items: center;
 }
 
 form {
@@ -15,7 +14,7 @@ form {
 
 select {
   appearance: none;
-  background-color: transparent;
+  background-color: inherit;
   border: none;
   color: inherit;
   cursor: inherit;
@@ -30,6 +29,7 @@ select {
 
 .customSelect {
   align-items: center;
+  background-color: #ffffff;
   border-radius: 35px;
   border: 2px solid var(--cor-bordas);
   box-shadow: 2px 2px 1px 0px var(--cor-bordas);
@@ -37,8 +37,11 @@ select {
   display: grid;
   font-size: 1rem;
   grid-template-areas: 'customSelect';
-  height: 80px;
+  height: 75px;
   max-width: 476px;
+  width: 100%;
+  padding-left: 32px;
+  padding-right: 32px;
 }
 
 .customSelect::after {
@@ -46,35 +49,43 @@ select {
   clip-path: polygon(100% 0%, 0% 0%, 50% 100%);
   content: '';
   grid-area: customSelect;
-  height: 0.5rem;
+  height: 8px;
   justify-self: end;
   pointer-events: none;
-  width: 1rem;
+  width: 16px;
 }
 
 select:focus {
   outline: none;
 }
 
-p {
+p.informativo {
   color: var(--cor-preenchimento);
+  font-size: 1.25rem;
+  line-height: 30px;
+  margin-bottom: 21px;
+  margin-top: 32px;
+  max-height: 55px;
+  max-width: 425px;
+  text-align: center;
 }
 
 .botao-sortear {
   background-color: var(--cor-secundaria);
   border-radius: 45px;
   border: 2px solid var(--cor-bordas);
-  box-shadow: 2px 2px 0px var(--cor-bordas);
+  box-shadow: 4px 4px 0px var(--cor-bordas);
   color: var(--cor-texto-branco);
   cursor: pointer;
   display: flex;
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  gap: 20px;
-  height: 80px;
+  gap: 17px;
+  height: var(--input-height);
   justify-content: center;
   place-items: center;
-  width: 300px;
+  max-width: 227px;
+  width: 100%;
 }
 
 .botao-sortear:disabled {
@@ -97,51 +108,58 @@ p {
 
 .resultado {
   color: var(--cor-secundaria);
+  font-size: 1.55rem;
+  margin-top: 19px;
+}
+
+footer.sorteio {
+  margin-top: 32px;
+}
+
+.aviao {
+  height: 136px;
+  width: 150px;
 }
 
 @media screen and (max-width: 800px) {
-  footer.sorteio {
-    margin-bottom: 60px;
-    margin-top: 20px;
-  }
-
   .customSelect {
     border: 1px solid var(--cor-bordas);
     box-shadow: 2px 2px 0px var(--cor-bordas);
     height: var(--input-mobile-height);
     padding-left: 28px;
     padding-right: 28px;
-    width: 100%;
   }
 
-  .customSelect::after {
-    height: 8px;
-    width: 16px;
-  }
-
-  p {
+  p.informativo {
+    width: 328px;
     font-size: 18px;
     line-height: 27px;
-    margin-bottom: 21px;
-    margin-top: 32px;
-    padding-left: 25px;
-    padding-right: 25px;
-    text-align: center;
   }
 
   .botao-sortear {
     gap: 13px;
+    font-size: 1rem;
+    box-shadow: 2px 2px 0px var(--cor-bordas);
     height: 60px;
     width: 155px;
   }
 
   .botao-sortear::before {
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 24px;
+    width: 24px;
   }
 
   .resultado {
-    margin-bottom: 0px;
-    margin-top: 15px;
+    font-size: 1.125rem;
+    margin-top: 19px;
+  }
+
+  footer.sorteio {
+    margin-top: 20px;
+  }
+
+  .aviao {
+    height: 114px;
+    width: 125px;
   }
 }

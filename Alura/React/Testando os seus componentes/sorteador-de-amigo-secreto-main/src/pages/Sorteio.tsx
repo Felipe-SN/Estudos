@@ -40,7 +40,9 @@ const Sorteio = () => {
               ))}
             </select>
           </div>
-          <p>Clique em sortear para ver quem é seu amigo secreto!</p>
+          <p className="informativo">
+            Clique em sortear para ver quem é seu amigo secreto!
+          </p>
           <button className="botao-sortear">Sortear!</button>
         </form>
         {amigoSecreto && (
