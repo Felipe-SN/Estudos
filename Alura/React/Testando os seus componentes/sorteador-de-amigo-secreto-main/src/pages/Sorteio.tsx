@@ -32,7 +32,7 @@ const Sorteio = () => {
               required
               value={participanteDaVez}
             >
-              <option disabled hidden value="default">
+              <option disabled value="default">
                 Selecione o seu nome
               </option>
               {listaParticipantes.map(participante => (
