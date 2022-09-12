@@ -1,12 +1,12 @@
 class Negociacoes {
     constructor() {
-        this.negociacoes = [];
+        this._negociacoes = [];
     }
     adiciona(negociacao) {
-        this.negociacoes.push(negociacao);
+        this._negociacoes.push(negociacao);
     }
     lista() {
-        return this.negociacoes;
+        return this._negociacoes;
     }
 }
 export default Negociacoes;
