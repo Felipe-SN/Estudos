@@ -28,9 +28,9 @@ class NegociaciacaoController {
         return (diaDaSemana > DiasDaSemana.DOMINGO && diaDaSemana < DiasDaSemana.SABADO);
     }
     limparFormulario() {
-        this._inputData.value = null;
-        this._inputQuantidade.value = null;
-        this._inputValor.value = null;
+        this._inputData.value = '';
+        this._inputQuantidade.value = '';
+        this._inputValor.value = '';
         this._inputData.focus();
     }
     atualizaView() {

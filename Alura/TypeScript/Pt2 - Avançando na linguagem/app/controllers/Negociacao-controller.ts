@@ -13,9 +13,11 @@ class NegociaciacaoController {
   private _mensagemView = new MensagemView('#mensagemView');
 
   constructor() {
-    this._inputData = document.querySelector('#data');
-    this._inputQuantidade = document.querySelector('#quantidade');
-    this._inputValor = document.querySelector('#valor');
+    this._inputData = document.querySelector('#data') as HTMLInputElement;
+    this._inputQuantidade = document.querySelector(
+      '#quantidade'
+    ) as HTMLInputElement;
+    this._inputValor = document.querySelector('#valor') as HTMLInputElement;
     this._negociacoesView.update(this._negociacoes);
   }
 
@@ -43,9 +45,9 @@ class NegociaciacaoController {
   }
 
   private limparFormulario(): void {
-    this._inputData.value = null;
-    this._inputQuantidade.value = null;
-    this._inputValor.value = null;
+    this._inputData.value = '';
+    this._inputQuantidade.value = '';
+    this._inputValor.value = '';
     this._inputData.focus();
   }
 
