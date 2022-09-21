@@ -1,10 +1,7 @@
-import inspect from '../decorators/inspect.js';
-import logarTempoExecucao from '../decorators/logar-tempo-execucao.js';
-
 abstract class View<T> {
   protected _elemento: HTMLElement;
 
-  constructor(seletor: string, escapar?: boolean) {
+  constructor(seletor: string) {
     const elemento = document.querySelector(seletor);
 
     if (elemento) {
@@ -16,8 +13,6 @@ abstract class View<T> {
 
   protected abstract template(model: T): string;
 
-  @logarTempoExecucao()
-  @inspect()
   update(model: T): void {
     let template = this.template(model);
 
