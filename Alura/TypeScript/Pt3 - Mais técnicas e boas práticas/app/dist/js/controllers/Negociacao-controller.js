@@ -10,6 +10,7 @@ import logarTempoExecucao from '../decorators/logar-tempo-execucao.js';
 import { DiasDaSemana } from '../enums/dias-da-semana.js';
 import Negociacao from '../models/Negociacao.js';
 import Negociacoes from '../models/Negociacoes.js';
+import NegociacoesServices from '../services/negociacoes-services.js';
 import MensagemView from '../views/Mensagem-view.js';
 import NegociacoesView from '../views/Negociacoes-view.js';
 class NegociaciacaoController {
@@ -17,6 +18,7 @@ class NegociaciacaoController {
         this._negociacoes = new Negociacoes();
         this._negociacoesView = new NegociacoesView('#negociacoesView');
         this._mensagemView = new MensagemView('#mensagemView');
+        this._negociacoesServices = new NegociacoesServices();
         this._negociacoesView.update(this._negociacoes);
     }
     adiciona() {
@@ -28,6 +30,16 @@ class NegociaciacaoController {
             return;
         }
         this._mensagemView.update('Apenas negociações em dias uteis são aceitas!');
+    }
+    importarDados() {
+        this._negociacoesServices
+            .obterNegociacoesDoDia()
+            .then(negociacoesImportadas => {
+            negociacoesImportadas.forEach(negociacao => {
+                this._negociacoes.adiciona(negociacao);
+            });
+            this._negociacoesView.update(this._negociacoes);
+        });
     }
     ehDiaUtil(data) {
         const diaDaSemana = data.getDay();

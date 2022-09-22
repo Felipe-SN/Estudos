@@ -4,6 +4,7 @@ import logarTempoExecucao from '../decorators/logar-tempo-execucao.js';
 import { DiasDaSemana } from '../enums/dias-da-semana.js';
 import Negociacao from '../models/Negociacao.js';
 import Negociacoes from '../models/Negociacoes.js';
+import NegociacoesServices from '../services/negociacoes-services.js';
 import MensagemView from '../views/Mensagem-view.js';
 import NegociacoesView from '../views/Negociacoes-view.js';
 
@@ -17,6 +18,7 @@ class NegociaciacaoController {
   private _negociacoes = new Negociacoes();
   private _negociacoesView = new NegociacoesView('#negociacoesView');
   private _mensagemView = new MensagemView('#mensagemView');
+  private _negociacoesServices = new NegociacoesServices();
 
   constructor() {
     this._negociacoesView.update(this._negociacoes);
@@ -38,6 +40,17 @@ class NegociaciacaoController {
       return;
     }
     this._mensagemView.update('Apenas negociações em dias uteis são aceitas!');
+  }
+
+  importarDados(): void {
+    this._negociacoesServices
+      .obterNegociacoesDoDia()
+      .then(negociacoesImportadas => {
+        negociacoesImportadas.forEach(negociacao => {
+          this._negociacoes.adiciona(negociacao);
+        });
+        this._negociacoesView.update(this._negociacoes);
+      });
   }
 
   private ehDiaUtil(data: Date): boolean {
