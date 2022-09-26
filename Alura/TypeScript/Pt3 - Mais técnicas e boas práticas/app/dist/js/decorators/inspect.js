@@ -12,3 +12,4 @@ const inspect = () => {
     };
 };
 export default inspect;
+//# sourceMappingURL=inspect.js.map

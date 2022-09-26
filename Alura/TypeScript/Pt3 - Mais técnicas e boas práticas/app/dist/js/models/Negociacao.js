@@ -4,13 +4,6 @@ class Negociacao {
         this.quantidade = quantidade;
         this.valor = valor;
     }
-    get data() {
-        const data = new Date(this._data.getTime());
-        return data;
-    }
-    get volume() {
-        return this.quantidade * this.valor;
-    }
     static criaDe(dataString, quantidadeString, valorString) {
         const regExp = /-/g;
         const date = new Date(dataString.replace(regExp, ','));
@@ -18,5 +11,26 @@ class Negociacao {
         const valor = parseFloat(valorString);
         return new Negociacao(date, quantidade, valor);
     }
+    paraTexto() {
+        return `
+    Data: ${this.data}
+    Quantidade: ${this.quantidade}
+    Valor: ${this.valor}
+    Volume: ${this.volume}
+    `;
+    }
+    ehIgual(negociacao) {
+        return (this.data.getDate() === negociacao.data.getDate() &&
+            this.data.getMonth() === negociacao.data.getMonth() &&
+            this.data.getFullYear() === negociacao.data.getFullYear());
+    }
+    get data() {
+        const data = new Date(this._data.getTime());
+        return data;
+    }
+    get volume() {
+        return this.quantidade * this.valor;
+    }
 }
 export default Negociacao;
+//# sourceMappingURL=Negociacao.js.map

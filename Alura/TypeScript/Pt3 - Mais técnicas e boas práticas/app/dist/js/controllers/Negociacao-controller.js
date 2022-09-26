@@ -7,10 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import domInjector from '../decorators/dom-injector.js';
 import inspect from '../decorators/inspect.js';
 import logarTempoExecucao from '../decorators/logar-tempo-execucao.js';
-import { DiasDaSemana } from '../enums/dias-da-semana.js';
+import DiasDaSemana from '../enums/dias-da-semana.js';
 import Negociacao from '../models/Negociacao.js';
 import Negociacoes from '../models/Negociacoes.js';
 import NegociacoesServices from '../services/negociacoes-services.js';
+import imprimir from '../utils/imprimir.js';
 import MensagemView from '../views/Mensagem-view.js';
 import NegociacoesView from '../views/Negociacoes-view.js';
 class NegociaciacaoController {
@@ -25,7 +26,8 @@ class NegociaciacaoController {
         const negociacao = Negociacao.criaDe(this._inputData.value, this._inputQuantidade.value, this._inputValor.value);
         if (this.ehDiaUtil(negociacao.data)) {
             this._negociacoes.adiciona(negociacao);
-            this.atualizaView();
+            imprimir(negociacao, this._negociacoes);
+            this.atualizaView('Negociação adicionada com sucesso!');
             this.limparFormulario();
             return;
         }
@@ -34,11 +36,14 @@ class NegociaciacaoController {
     importarDados() {
         this._negociacoesServices
             .obterNegociacoesDoDia()
-            .then(negociacoesImportadas => {
-            negociacoesImportadas.forEach(negociacao => {
+            .then(negociacoesImportadasDeHoje => negociacoesImportadasDeHoje.filter(negociacoesImportadasDeHoje => !this._negociacoes
+            .lista()
+            .some(negociacao => negociacao.ehIgual(negociacoesImportadasDeHoje))))
+            .then(negociacoesImportadasDeHoje => {
+            negociacoesImportadasDeHoje.forEach(negociacao => {
                 this._negociacoes.adiciona(negociacao);
             });
-            this._negociacoesView.update(this._negociacoes);
+            this.atualizaView('Negociações importadas com sucesso!');
         });
     }
     ehDiaUtil(data) {
@@ -51,9 +56,10 @@ class NegociaciacaoController {
         this._inputValor.value = '';
         this._inputData.focus();
     }
-    atualizaView() {
+    atualizaView(mensagem) {
         this._negociacoesView.update(this._negociacoes);
-        this._mensagemView.update('Negociação adicionada com sucesso!');
+        if (mensagem)
+            this._mensagemView.update(mensagem);
     }
 }
 __decorate([
@@ -70,3 +76,4 @@ __decorate([
     inspect()
 ], NegociaciacaoController.prototype, "adiciona", null);
 export default NegociaciacaoController;
+//# sourceMappingURL=Negociacao-controller.js.map

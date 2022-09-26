@@ -14,3 +14,4 @@ form.addEventListener('submit', event => {
 btnImporta.addEventListener('click', () => {
     controller.importarDados();
 });
+//# sourceMappingURL=app.js.map

@@ -13,3 +13,4 @@ class View {
     }
 }
 export default View;
+//# sourceMappingURL=View.js.map

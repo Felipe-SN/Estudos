@@ -10,3 +10,4 @@ const escapar = (target, propertyKey, descriptor) => {
     return descriptor;
 };
 export default escapar;
+//# sourceMappingURL=escapar.js.map

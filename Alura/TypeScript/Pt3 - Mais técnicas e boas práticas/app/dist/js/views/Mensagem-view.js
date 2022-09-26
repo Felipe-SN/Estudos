@@ -5,3 +5,4 @@ class MensagemView extends View {
     }
 }
 export default MensagemView;
+//# sourceMappingURL=Mensagem-view.js.map

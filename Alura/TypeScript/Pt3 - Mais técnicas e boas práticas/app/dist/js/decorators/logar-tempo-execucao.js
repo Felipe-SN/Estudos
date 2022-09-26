@@ -18,3 +18,4 @@ const logarTempoExecucao = (emSegundos = false) => {
     };
 };
 export default logarTempoExecucao;
+//# sourceMappingURL=logar-tempo-execucao.js.map

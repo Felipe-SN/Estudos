@@ -1,4 +1,4 @@
-export var DiasDaSemana;
+var DiasDaSemana;
 (function (DiasDaSemana) {
     DiasDaSemana[DiasDaSemana["DOMINGO"] = 0] = "DOMINGO";
     DiasDaSemana[DiasDaSemana["SEGUNDA"] = 1] = "SEGUNDA";
@@ -8,3 +8,5 @@ export var DiasDaSemana;
     DiasDaSemana[DiasDaSemana["SEXTA"] = 5] = "SEXTA";
     DiasDaSemana[DiasDaSemana["SABADO"] = 6] = "SABADO";
 })(DiasDaSemana || (DiasDaSemana = {}));
+export default DiasDaSemana;
+//# sourceMappingURL=dias-da-semana.js.map

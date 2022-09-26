@@ -1,10 +1,11 @@
 import domInjector from '../decorators/dom-injector.js';
 import inspect from '../decorators/inspect.js';
 import logarTempoExecucao from '../decorators/logar-tempo-execucao.js';
-import { DiasDaSemana } from '../enums/dias-da-semana.js';
+import DiasDaSemana from '../enums/dias-da-semana.js';
 import Negociacao from '../models/Negociacao.js';
 import Negociacoes from '../models/Negociacoes.js';
 import NegociacoesServices from '../services/negociacoes-services.js';
+import imprimir from '../utils/imprimir.js';
 import MensagemView from '../views/Mensagem-view.js';
 import NegociacoesView from '../views/Negociacoes-view.js';
 
@@ -35,7 +36,8 @@ class NegociaciacaoController {
 
     if (this.ehDiaUtil(negociacao.data)) {
       this._negociacoes.adiciona(negociacao);
-      this.atualizaView();
+      imprimir(negociacao, this._negociacoes);
+      this.atualizaView('Negociação adicionada com sucesso!');
       this.limparFormulario();
       return;
     }
@@ -45,11 +47,21 @@ class NegociaciacaoController {
   importarDados(): void {
     this._negociacoesServices
       .obterNegociacoesDoDia()
-      .then(negociacoesImportadas => {
-        negociacoesImportadas.forEach(negociacao => {
+      .then(negociacoesImportadasDeHoje =>
+        negociacoesImportadasDeHoje.filter(
+          negociacoesImportadasDeHoje =>
+            !this._negociacoes
+              .lista()
+              .some(negociacao =>
+                negociacao.ehIgual(negociacoesImportadasDeHoje)
+              )
+        )
+      )
+      .then(negociacoesImportadasDeHoje => {
+        negociacoesImportadasDeHoje.forEach(negociacao => {
           this._negociacoes.adiciona(negociacao);
         });
-        this._negociacoesView.update(this._negociacoes);
+        this.atualizaView('Negociações importadas com sucesso!');
       });
   }
 
@@ -67,9 +79,9 @@ class NegociaciacaoController {
     this._inputData.focus();
   }
 
-  private atualizaView(): void {
+  private atualizaView(mensagem?: string): void {
     this._negociacoesView.update(this._negociacoes);
-    this._mensagemView.update('Negociação adicionada com sucesso!');
+    if (mensagem) this._mensagemView.update(mensagem);
   }
 }
 

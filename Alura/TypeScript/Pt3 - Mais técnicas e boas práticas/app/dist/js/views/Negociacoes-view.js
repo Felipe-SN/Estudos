@@ -42,3 +42,4 @@ __decorate([
     escapar
 ], NegociacoesView.prototype, "template", null);
 export default NegociacoesView;
+//# sourceMappingURL=Negociacoes-view.js.map
