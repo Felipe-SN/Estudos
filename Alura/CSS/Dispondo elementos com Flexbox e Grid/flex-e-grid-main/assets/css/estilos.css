@@ -10,15 +10,15 @@ body {
 }
 
 .cabecalho {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   background-color: #1d232a;
-  padding-top: 8px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.16);
+  display: flex;
+  justify-content: space-between;
   padding-bottom: 8px;
   padding-left: 16px;
   padding-right: 16px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.16);
+  padding-top: 8px;
 }
 
 .cabecalho__menu i::before {
@@ -40,11 +40,14 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  max-width: 300px;
   opacity: 0;
+  position: absolute;
   transition: all ease-out 1s;
   translate: -100vw;
   visibility: hidden;
   width: 75vw;
+  z-index: 10;
 }
 
 .menu-lateral--ativo {
@@ -54,9 +57,9 @@ body {
 }
 
 .menu-lateral__logo {
-  width: 110px;
   align-self: center;
   padding: 16px;
+  width: 118px;
 }
 
 .menu-lateral__link {
@@ -68,9 +71,9 @@ body {
 }
 
 .menu-lateral__link--ativo {
+  border-left: 8px solid #fff;
   color: #fff;
   padding-left: 56px;
-  border-left: 8px solid #fff;
 }
 
 .menu-lateral__link::before {
@@ -104,4 +107,81 @@ body {
 
 .menu-lateral__link--pinturas::before {
   content: '\e90a';
+}
+
+.principal {
+  padding-bottom: 24px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 24px;
+}
+
+.titulo-pagina {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.card {
+  background-color: #2c343a;
+  border-radius: 15px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.card__conteudo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 16px;
+}
+
+.card__destaque {
+  grid-column: span 2;
+}
+
+.card__titulo {
+  font-size: 1.2rem;
+  font-weight: 700;
+  grid-column: span 2;
+}
+
+.card__perfil {
+  color: #95999c;
+  font-size: 0.9rem;
+  grid-column: span 2;
+}
+
+.card__info {
+  align-items: center;
+  color: #95999c;
+  display: flex;
+  gap: 8px;
+}
+
+.card__info--tempo::before {
+  content: '\e90c';
+}
+
+.card__info--visualizacoes::before {
+  content: '\e90f';
+}
+
+.card__botao {
+  align-items: center;
+  background-color: #0480dc;
+  border-radius: 10px;
+  display: flex;
+  font-size: 0.9rem;
+  gap: 8px;
+  height: 40px;
+  justify-content: center;
+  width: 40px;
+}
+
+.card__botao--play::before {
+  content: '\e90b';
+  font-size: 24px;
+}
+
+.card__botao--destaque {
+  grid-column: span 2;
+  width: 100%;
 }

@@ -8,30 +8,33 @@ Toda a estilização que será usada no projeto dentro do figma.
 
 ```html
 Open Sans:
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap"
+/>
 ```
 
 ## Cores
 
-corpo: `#1D232A`
-
-cabeçalho: `#1D232A`
+botão: `#0480DC`
 
 cabeçalho mobile: `#15191C`
 
-menu lateral: `#15191C`
+cabeçalho: `#1D232A`
 
 cartão: `#2C343A`
 
-fonte: `#FFFFFF`
+corpo: `#1D232A`
 
 fonte alternativa: `#95999C`
 
+fonte: `#FFFFFF`
+
 links: `#0480DC`
 
-botão: `#0480DC`
+menu lateral: `#15191C`
 
 sombras: `0px 4px 4px rgba(0, 0, 0, 0.16)`
 
@@ -41,8 +44,8 @@ Estão dentro do arquivo de fonte `icones.ttf`. Para usar, primeiro importe a fo
 
 ```css
 @font-face {
-    font-family: 'icones';
-    src: url(../font/icones.ttf);
+  font-family: 'icones';
+  src: url(../font/icones.ttf);
 }
 ```
 
@@ -80,24 +83,24 @@ Visualizacao = `\e90f`
 
 ## Espaçamentos
 
-Espaço interno botão: `8px`
+Espaçamento entre o título do cartão de recentes e seus itens: `24px`
+
+Espaçamento interno do corpo: `16px`
 
 Espaço entre elementos do botão: `8px`
 
 Espaço entre elementos: `16px/8px`
 
-Espaçamento interno do corpo: `16px`
-
-Espaçamento entre o título do cartão de recentes e seus itens: `24px`
+Espaço interno botão: `8px`
 
 ## Tamanhos
 
-Tamanho do dispositivo mobile: `360px`
-
-Tamanho do dispositivo desktop: `1440px`
-
-Largura máxima do conteúdo principal: `1120px`
+Altura mínima de um cartão: `320px`
 
 Largura máxima de um cartão desktop: `256px`
 
-Altura mínima de um cartão: `320px`
+Largura máxima do conteúdo principal: `1120px`
+
+Tamanho do dispositivo desktop: `1440px`
+
+Tamanho do dispositivo mobile: `360px`
