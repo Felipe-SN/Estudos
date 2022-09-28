@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
+    <title>HZC | Home</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -11,7 +12,7 @@
     />
     <link rel="stylesheet" href="assets/css/reset.css" />
     <link rel="stylesheet" href="assets/css/estilos.css" />
-    <title>HZC | Home</title>
+    <script src="js/index.js" defer></script>
   </head>
   <body>
     <header class="cabecalho">
@@ -23,9 +24,36 @@
         src="assets/img/logo.svg"
         alt="Logotipo da HZC"
       />
-      <button class="cabecalho__notificacao" aria-label="Notificação">
+      <button
+        onclick="alert('Notificação')"
+        class="cabecalho__notificacao"
+        aria-label="Notificação"
+      >
         <i></i>
       </button>
     </header>
+    <nav class="menu-lateral">
+      <img
+        src="assets/img/logo.svg"
+        alt="Logotipo da HZC"
+        class="menu-lateral__logo"
+      />
+      <a href="#" class="menu-lateral__link menu-lateral__link--inicio">
+        Início
+      </a>
+      <a href="#" class="menu-lateral__link menu-lateral__link--videos">
+        Vídeos
+      </a>
+      <a href="#" class="menu-lateral__link menu-lateral__link--picos">Picos</a>
+      <a href="#" class="menu-lateral__link menu-lateral__link--integrantes">
+        Integrantes
+      </a>
+      <a href="#" class="menu-lateral__link menu-lateral__link--camisas">
+        Camisas
+      </a>
+      <a href="#" class="menu-lateral__link menu-lateral__link--pinturas">
+        Pinturas
+      </a>
+    </nav>
   </body>
 </html>
