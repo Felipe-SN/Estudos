@@ -1,7 +1,12 @@
+@font-face {
+  font-family: 'icones';
+  src: url(../font/icones.ttf);
+}
+
 body {
   background-color: #1d232a;
   color: #fff;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Open Sans', 'icones', sans-serif;
 }
 
 .cabecalho {
@@ -14,4 +19,18 @@ body {
   padding-left: 16px;
   padding-right: 16px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.16);
+}
+
+.cabecalho__menu i::before {
+  content: '\e904';
+  font-size: 24px;
+}
+
+.cabecalho__logo {
+  width: 40px;
+}
+
+.cabecalho__notificacao i::before {
+  content: '\e906';
+  font-size: 24px;
 }
