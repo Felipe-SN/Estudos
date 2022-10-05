@@ -1,0 +1,44 @@
+:root {
+  --branco-principal: #ffffff;
+  --cinza-secundaria: #c0c0c0;
+  --azul-btn: #167bf7;
+  --cor-fundo: #00030c;
+}
+
+body {
+  background-color: var(--cor-fundo);
+  color: var(--branco-principal);
+}
+
+.principal {
+  background-image: url(../img/Background.png);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: grid;
+  row-gap: 22px;
+  justify-items: center;
+  grid-template-columns: auto 1fr;
+  padding-left: 54px;
+  padding-right: 54px;
+}
+
+.principal h1 {
+  font-size: 28px;
+  font-weight: 700;
+  grid-column: 1;
+  letter-spacing: 0em;
+  line-height: 34px;
+  align-self: flex-end;
+  max-width: 588px;
+  text-align: center;
+}
+
+.principal img {
+  grid-column: 1;
+}
+
+.container {
+  box-sizing: border-box;
+  height: 100vh;
+}
