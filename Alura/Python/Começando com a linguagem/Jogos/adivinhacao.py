@@ -13,9 +13,15 @@ print('Você Digitou: ', chute_str)
 
 chute_int = int(chute_str)
 
-if (chute_int == numero_secreto):
-    print('Você Acertou,', chute_int, 'é o Numero Correto!')
-else:
-    print('Você Errou,', chute_int, 'Não é o Numero Correto!')
+acertou = chute_int == numero_secreto
+chute_foi_maior = chute_int > numero_secreto
+chute_foi_menor = chute_int < numero_secreto
 
-print('Fim d Jogo!')
+if (acertou):
+    print('Você Acertou,', chute_int, 'é o Numero Correto!')
+elif (chute_foi_maior):
+    print('Você Errou,', chute_int, 'é maior que o Numero Correto!')
+elif (chute_foi_menor):
+    print('Você Errou,', chute_int, 'é menor que o Numero Correto!')
+
+print('Fim de Jogo!')
