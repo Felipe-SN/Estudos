@@ -2,7 +2,6 @@ import random
 
 
 def jogar():
-    print('')
     print('*************************************')
     print('* Bem-vindo ao Jogo de Adivinhação! *')
     print('*************************************', end='\n\n')
@@ -12,9 +11,9 @@ def jogar():
     pontos = 1000
 
     print('Qual nível de dificuldade?')
-    print('(1) Fácil\n(2) Médio\n(3) Difícil', end='\n\n')
+    print('(1) Fácil\n(2) Médio\n(3) Difícil')
 
-    dificuldade = int(input('Defina a dificuldade: '))
+    dificuldade = int(input('\nDefina a dificuldade: '))
 
     if (dificuldade == 1):
         total_de_tentativas = 20
