@@ -1,7 +1,17 @@
+@import url(cabecalho/index.css);
+@import url(banner/index.css);
+
 :root {
-  --cor-de-fundo: #ebecee;
+  --cor-cinza: #ebecee;
+  --cor-laranja: #eb9b00;
+  --cor-branco: #ffffff;
+  --gradiente-azul: linear-gradient(97.54deg, #002f52 35.49%, #326589 165.37%);
+  --fonte-principal: 'Poppins', sans-serif;
 }
 
 body {
-  background-color: var(--cor-de-fundo);
+  background-color: var(--cor-cinza);
+  font-family: var(--fonte-principal);
+  font-size: 1rem;
+  font-weight: 400;
 }
