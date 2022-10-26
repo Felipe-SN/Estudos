@@ -1,0 +1,92 @@
+.card {
+  background: var(--cor-branco);
+  border-radius: 0.625rem;
+  box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+  margin: 1.5rem;
+  padding-bottom: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 1.5rem;
+}
+
+.card__description {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.card__description--autor {
+  margin-bottom: 2rem;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 11.188rem;
+}
+
+.description__estrelas {
+  background-image: url(../../../img/Star-1.svg);
+  background-position: center;
+  background-repeat: space;
+  background-size: contain;
+  height: 1rem;
+  width: 5.625rem;
+}
+
+.description__titulo {
+  color: var(--cor-laranja);
+  font-weight: 700;
+  line-height: 1.5rem;
+}
+
+.description__titulo-livro,
+.description__nome-perfil {
+  color: var(--cor-azul);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.688rem;
+}
+
+.description__texto {
+  font-size: 0.875rem;
+  line-height: 1.313rem;
+  width: 9.25rem;
+}
+
+.description__img {
+  align-self: flex-start;
+}
+
+.card__buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons {
+  align-items: center;
+  display: flex;
+}
+
+.buttons__item:first-child {
+  margin-left: 0.625rem;
+}
+
+.buttons__item:last-child {
+  margin-left: 1.75rem;
+}
+
+.buttons__saiba-mais {
+  align-items: center;
+  background-color: var(--cor-laranja);
+  box-sizing: border-box;
+  color: var(--cor-branco);
+  display: flex;
+  font-weight: 700;
+  justify-content: center;
+  min-height: 3rem;
+  min-width: 10.063rem;
+  text-decoration: none;
+}

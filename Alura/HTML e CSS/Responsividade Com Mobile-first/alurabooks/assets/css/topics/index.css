@@ -1,0 +1,35 @@
+.topics {
+  background: var(--gradiente-azul);
+  padding-bottom: 1.5rem;
+  padding-top: 1.5rem;
+  text-align: center;
+}
+
+.topics__titulo {
+  color: var(--cor-branco);
+  font-weight: 300;
+  margin-bottom: 2rem;
+}
+
+.topics__lista {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.topics__itens {
+  background-color: var(--cor-laranja);
+}
+
+.topics__link {
+  display: inline-block;
+  color: var(--cor-branco);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  padding-bottom: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 1rem;
+}

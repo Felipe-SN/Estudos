@@ -1,12 +1,18 @@
 @import url(cabecalho/index.css);
 @import url(banner/index.css);
+@import url(carrossel/index.css);
+@import url(carrossel/card/index.css);
+@import url(topics/index.css);
+@import url(contato/index.css);
+@import url(footer/index.css);
 
 :root {
+  --cor-azul: #002f52;
+  --cor-branco: #ffffff;
   --cor-cinza: #ebecee;
   --cor-laranja: #eb9b00;
-  --cor-branco: #ffffff;
-  --gradiente-azul: linear-gradient(97.54deg, #002f52 35.49%, #326589 165.37%);
   --fonte-principal: 'Poppins', sans-serif;
+  --gradiente-azul: linear-gradient(97.54deg, #002f52 35.49%, #326589 165.37%);
 }
 
 body {

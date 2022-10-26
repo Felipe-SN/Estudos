@@ -26,19 +26,23 @@
 .banner__busca {
   background-color: transparent;
   border-radius: 1.5rem;
-  color: var(--cor-branco);
   border: 1px solid var(--cor-branco);
-  width: 100%;
+  color: var(--cor-branco);
   padding: 1rem;
+  width: 100%;
 }
 
 .banner__busca::placeholder {
-  font-family: var(--fonte-principal);
-  font-weight: 400;
-  font-size: 0.9rem;
-  opacity: 1;
-  text-align: center;
   background-image: url(../../img/Lupa.svg);
+  background-position: 4.125rem center;
   background-repeat: no-repeat;
-  background-position: 3.5rem center;
+  color: var(--cor-branco);
+  font-family: var(--fonte-principal);
+  font-size: 0.9rem;
+  font-weight: 400;
+  opacity: 1;
+}
+
+.banner__busca:placeholder-shown {
+  padding-left: 6.25rem;
 }

@@ -1,0 +1,11 @@
+.footer {
+  background-color: var(--cor-branco);
+  padding-bottom: 1.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 1rem;
+}
+
+.footer__titulo {
+  line-height: 1.5rem;
+}
