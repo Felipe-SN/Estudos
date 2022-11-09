@@ -90,3 +90,11 @@
   min-width: 10.063rem;
   text-decoration: none;
 }
+
+@media screen and (min-width: 1024px) {
+  .card {
+    width: 36.75rem;
+  }
+}
+
+@media screen and (min-width: 1728) {}

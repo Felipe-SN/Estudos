@@ -46,3 +46,29 @@
 .banner__busca:placeholder-shown {
   padding-left: 6.25rem;
 }
+
+@media screen and (min-width: 1024px) {
+  .banner__titulo {
+    font-size: 2.25rem;
+  }
+
+  .banner__texto {
+    width: auto;
+  }
+
+  .banner__busca {
+    max-width: 29.75rem;
+  }
+
+  .banner__busca::placeholder {
+    background-position: 6.125rem center;
+    font-size: 1rem;
+  }
+
+  .banner__busca:placeholder-shown {
+    padding-left: 8.25rem;
+  }
+}
+
+@media screen and (min-width: 1728px) {
+}

@@ -33,3 +33,31 @@
   padding-right: 1.5rem;
   padding-top: 1rem;
 }
+
+@media screen and (min-width: 1024px) {
+  .topics {
+    padding-bottom: 2rem;
+    padding-left: 6rem;
+    padding-right: 6rem;
+    padding-top: 2rem;
+  }
+
+  .topics__lista {
+    gap: 1.5rem;
+  }
+
+  .topics__titulo {
+    font-size: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .topics__link {
+    font-size: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 1728) {}
