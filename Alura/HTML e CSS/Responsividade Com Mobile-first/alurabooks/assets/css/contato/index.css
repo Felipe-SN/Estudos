@@ -1,0 +1,125 @@
+.contato {
+  align-items: center;
+  background-color: var(--cor-branco);
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 1.5rem;
+}
+
+.contato__container {
+  box-sizing: border-box;
+}
+
+.contato__titulo,
+.contato__texto {
+  background: var(--gradiente-azul);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.contato__titulo {
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.contato__texto {
+  font-weight: 300;
+  line-height: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.contato__email__border {
+  background: var(--gradiente-azul);
+  border-radius: 1.5rem;
+  display: flex;
+  height: fit-content;
+  min-width: 20.375rem;
+  padding: 0.063rem;
+  place-items: center;
+  width: 100%;
+}
+
+.contato__email {
+  background-color: var(--cor-branco);
+  border-radius: 1.5rem;
+  border: none;
+  padding-bottom: 0.875rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.875rem;
+  width: 100%;
+}
+
+.contato__email::placeholder {
+  background: url(../../img/Mail.svg);
+  background-position: 1.5rem center;
+  background-repeat: no-repeat;
+  color: var(--cor-azul);
+  font-family: var(--fonte-principal);
+  opacity: 1;
+}
+
+.contato__email:placeholder-shown {
+  padding-left: 3.625rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .contato {
+    padding-bottom: 3.375rem;
+    padding-top: 1.875rem;
+  }
+
+  .contato__container {
+    align-items: center;
+    column-gap: 5rem;
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    grid-template-rows: repeat(2, max-content);
+    row-gap: 1rem;
+  }
+
+  .contato__titulo,
+  .contato__texto {
+    margin: 0;
+  }
+
+  .contato__titulo {
+    font-size: 1.5rem;
+    grid-column: span 1;
+    grid-row: span 1;
+    line-height: 2.25rem;
+    max-width: 19.25rem;
+  }
+
+  .contato__texto {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    max-width: 19.25rem;
+  }
+
+  .contato__email__border {
+    grid-column: 2 / 3;
+    grid-row: span 2;
+  }
+}
+
+@media screen and (min-width: 1728px) {
+  .contato {
+    padding-bottom: 4rem;
+    padding-top: 4rem;
+  }
+
+  .contato__container {
+    column-gap: 1.5rem;
+  }
+
+  .contato__titulo {
+    max-width: max-content;
+  }
+
+  .contato__email__border {
+    min-width: 21.875rem;
+  }
+}

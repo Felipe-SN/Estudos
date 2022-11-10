@@ -1,0 +1,90 @@
+.banner {
+  background: var(--gradiente-azul);
+  color: var(--cor-branco);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 2rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 2rem;
+  place-items: center;
+  text-align: center;
+}
+
+.banner__titulo {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.banner__texto {
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  margin-top: 0.5rem;
+  width: 19.75rem;
+}
+
+.banner__busca {
+  background-color: transparent;
+  border-radius: 1.5rem;
+  border: 1px solid var(--cor-branco);
+  color: var(--cor-branco);
+  padding: 1rem;
+  width: 100%;
+}
+
+.banner__busca::placeholder {
+  background-image: url(../../img/Lupa.svg);
+  background-position: 4.125rem center;
+  background-repeat: no-repeat;
+  color: var(--cor-branco);
+  font-family: var(--fonte-principal);
+  font-size: 0.9rem;
+  font-weight: 400;
+  opacity: 1;
+}
+
+.banner__busca:placeholder-shown {
+  padding-left: 6.25rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .banner {
+    padding-bottom: 5.25rem;
+    padding-top: 5.25rem;
+  }
+
+  .banner__titulo {
+    font-size: 2.25rem;
+  }
+
+  .banner__texto {
+    width: auto;
+  }
+
+  .banner__busca {
+    max-width: 29.75rem;
+  }
+
+  .banner__busca::placeholder {
+    background-position: 6.125rem center;
+    font-size: 1rem;
+  }
+
+  .banner__busca:placeholder-shown {
+    padding-left: 8.25rem;
+  }
+}
+
+@media screen and (min-width: 1728px) {
+  .banner__busca {
+    max-width: 36.625rem;
+  }
+
+  .banner__busca::placeholder {
+    background-position: 9.625rem center;
+  }
+
+  .banner__busca:placeholder-shown {
+    padding-left: 11.75rem;
+  }
+}

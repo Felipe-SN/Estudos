@@ -1,0 +1,140 @@
+.carrossel,
+.carrossel__container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.carrossel__titulo {
+  align-self: flex-start;
+  background-color: var(--cor-branco);
+  color: var(--cor-laranja);
+  font-size: 1.125rem;
+  font-weight: 700;
+  padding-bottom: 0.5rem;
+  padding-top: 1.25rem;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.swiper {
+  max-width: 26.75rem;
+  overflow: hidden;
+  width: 100vw;
+}
+
+.swiper-slide {
+  box-sizing: border-box;
+  min-width: 11.125rem;
+  width: 11.125rem;
+}
+
+.swiper-slide img {
+  width: 100%;
+}
+
+.swiper-pagination {
+  margin-bottom: 1rem;
+  margin-top: 0.75rem;
+  position: initial;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--gradiente-azul);
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .carrossel__titulo {
+    font-size: 1.625rem;
+    padding-bottom: 1rem;
+    padding-top: 3.25rem;
+  }
+
+  .swiper {
+    max-width: 50rem;
+  }
+
+  .swiper-pagination {
+    margin-bottom: 4.875rem;
+    margin-top: 2rem;
+  }
+
+  .swiper-slide {
+    margin-left: 2.313rem;
+    margin-right: 2.313rem;
+    width: 12rem !important;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    background: var(--gradiente-azul);
+    border-radius: 50%;
+    display: flex;
+    filter: var(--filtro-sombra);
+    height: 3rem;
+    top: 16.406rem;
+    width: 3rem;
+  }
+
+  .swiper-button-prev {
+    left: 0.5rem;
+  }
+
+  .swiper-button-next {
+    right: 0.5rem;
+  }
+
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    content: url(../../img/Arrow.svg);
+    font-size: 0rem;
+  }
+
+  .swiper-button-prev::after {
+    scale: -1 1;
+  }
+}
+
+@media screen and (min-width: 1728px) {
+  .carrossel__container {
+    align-items: center;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: auto;
+    height: 19.875rem;
+    margin-bottom: 7.875rem;
+    margin-top: 4.625rem;
+  }
+
+  .swiper {
+    max-width: 46rem;
+  }
+
+  .swiper-pagination {
+    margin-bottom: 2rem;
+    margin-top: 0;
+  }
+
+  .swiper-pagination-bullet {
+    height: 0.75rem;
+    width: 0.75rem;
+  }
+
+  .swiper-slide {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    width: 11.25rem !important;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    top: 10.5rem;
+  }
+}
