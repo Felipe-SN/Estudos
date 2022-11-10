@@ -22,6 +22,7 @@
   height: 1.5rem;
   width: 2.25rem;
 }
+
 .cabecalho__menu-hamburger--ativo::before {
   filter: saturate(0) brightness(100);
 }
@@ -31,17 +32,15 @@
   color: var(--cor-branco);
 }
 
-.cabecalho__container__titulo {
+.cabecalho__container__titulo,
+.menus__lista,
+.cabecalho__container__texto {
   display: none;
 }
 
 .menus {
   position: absolute;
   top: 100%;
-}
-
-.menus__lista {
-  display: none;
 }
 
 .cabecalho__container {
@@ -105,7 +104,10 @@
     padding-left: 4.25rem;
     padding-right: 4.25rem;
   }
-  .cabecalho__menu-hamburger {
+
+  .cabecalho__menu-hamburger,
+  .cabecalho__lista-menu__titulo,
+  .cabecalho__container__img--transparente {
     display: none;
   }
 
@@ -119,10 +121,6 @@
   .cabecalho__lista-menu--ativo {
     opacity: 1;
     visibility: visible;
-  }
-
-  .cabecalho__lista-menu__titulo {
-    display: none;
   }
 
   .cabecalho__lista-menu__link:active,
@@ -177,14 +175,21 @@
     text-decoration: none;
   }
 
-  .cabecalho__container__img--transparente {
-    display: none;
-  }
-
-  .cabecalho__container__img--sacola-desktop {
+  .cabecalho__container__link--sacola-desktop {
     margin-right: 2.75rem;
   }
 }
 
 @media screen and (min-width: 1728px) {
+  .cabecalho__container__link {
+    align-items: center;
+    display: flex;
+  }
+
+  .cabecalho__container__texto {
+    color: var(--cor-preto);
+    display: block;
+    font-size: 1.25rem;
+    text-decoration: none;
+  }
 }

@@ -58,6 +58,10 @@ const swiper = new Swiper('.swiper', {
   spaceBetween: 20,
   breakpoints: {
     1024: {
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
       spaceBetween: 0,
     },
   },

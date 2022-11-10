@@ -14,8 +14,8 @@
 .topics__lista {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 1rem;
+  justify-content: center;
 }
 
 .topics__itens {
@@ -23,27 +23,36 @@
 }
 
 .topics__link {
-  display: inline-block;
   color: var(--cor-branco);
+  display: inline-block;
   font-size: 0.875rem;
   font-weight: 700;
-  text-decoration: none;
   padding-bottom: 1rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   padding-top: 1rem;
+  text-decoration: none;
 }
 
 @media screen and (min-width: 1024px) {
   .topics {
-    padding-bottom: 2rem;
-    padding-left: 6rem;
-    padding-right: 6rem;
-    padding-top: 2rem;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
   }
 
   .topics__lista {
     gap: 1.5rem;
+    max-width: 50rem;
+  }
+
+  .topics__itens:nth-child(1) {
+    order: -2;
+  }
+
+  .topics__itens:nth-child(7) {
+    order: -1;
   }
 
   .topics__titulo {
@@ -60,4 +69,8 @@
   }
 }
 
-@media screen and (min-width: 1728) {}
+@media screen and (min-width: 1728px) {
+  .topics {
+    padding: 4rem;
+  }
+}
