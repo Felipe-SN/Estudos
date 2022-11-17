@@ -35,7 +35,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "alurabooks-ds",
+  "name": "alurabooks001-ds",
   "author": "Felipe-SN",
   "module": "dist/alurabooks-ds.esm.js",
   "size-limit": [
