@@ -25,6 +25,8 @@ Then run either Storybook or the example playground:
 Run inside another terminal:
 
 ```bash
+export NODE_OPTIONS=--openssl-legacy-provider
+
 yarn storybook
 ```
 
