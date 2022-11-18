@@ -16,3 +16,4 @@
 
 export * from '../src/components/AbButton';
 export * from '../src/components/AbCard';
+export * from './components/AbTag';

@@ -7,15 +7,12 @@ type TypeAbCard = typeof AbCard;
 export default {
   title: 'components/AbCard',
   component: AbCard,
-  argTypes: {
-    children: {
-      control: {},
-    },
-  },
 } as ComponentMeta<TypeAbCard>;
 
 const Template: ComponentStory<TypeAbCard> = args => <AbCard {...args} />;
 
 export const Default = Template.bind({});
 
-Default.args = {};
+Default.args = {
+  children: 'Content will be showed here!',
+};

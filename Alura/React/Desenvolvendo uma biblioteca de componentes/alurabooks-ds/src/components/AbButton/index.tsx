@@ -1,12 +1,12 @@
 import { colors } from '../UI/variables';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
+import ChildrenInterface from '../../interfaces/ChildrenInterface';
 
-export interface ButtonProps {
+export interface ButtonProps extends ChildrenInterface {
   text?: string;
   variantType?: 'Primary' | 'Secondary';
   onClick?: () => void;
-  children?: ReactNode;
 }
 
 const StyledButton = styled.button<ButtonProps>`

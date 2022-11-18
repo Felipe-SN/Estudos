@@ -1,10 +1,7 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import ChildrenInterface from '../../interfaces/ChildrenInterface';
 import { colors } from '../UI/variables';
-
-interface CardProps {
-  children?: ReactNode;
-}
 
 const StyledCard = styled.div`
   background-color: ${colors.branca};
@@ -18,8 +15,6 @@ const StyledCard = styled.div`
   place-items: center;
 `;
 
-export const AbCard = ({ children }: CardProps) => (
-  <StyledCard>
-    {children || 'Não foi possível coletar as informações'}
-  </StyledCard>
+export const AbCard = ({ children }: ChildrenInterface) => (
+  <StyledCard>{children}</StyledCard>
 );
