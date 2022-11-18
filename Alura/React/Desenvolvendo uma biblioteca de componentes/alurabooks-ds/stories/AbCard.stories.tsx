@@ -9,9 +9,7 @@ export default {
   component: AbCard,
   argTypes: {
     children: {
-      control: {
-        type: 'text',
-      },
+      control: {},
     },
   },
 } as ComponentMeta<TypeAbCard>;
