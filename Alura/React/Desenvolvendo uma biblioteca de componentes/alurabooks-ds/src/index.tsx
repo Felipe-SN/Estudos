@@ -14,6 +14,6 @@
 //   return <div>{children || `the snozzberries taste like snozzberries`}</div>;
 // };
 
-export * from '../src/components/AbButton';
-export * from '../src/components/AbCard';
+export * from './components/AbButton';
+export * from './components/AbCard';
 export * from './components/AbTag';
