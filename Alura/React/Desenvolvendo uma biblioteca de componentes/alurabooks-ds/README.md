@@ -26,18 +26,18 @@
         <li><a href="#instalação">Instalação</a></li>
       </ul>
     </li>
-    <li><a href="#desenvolvedores/contribuintes">Desenvolvedores/Contribuintes</a></li>
+    <li><a href="#desenvolvedores">Desenvolvedores</a></li>
     <li><a href="#licença">Licença</a></li>
   </ol>
 </details>
 
 ## Descrição do projeto
 
-Descrição breve do projeto compondo um paragrafo ou dois.
+Esta biblioteca tem foco em manter uma determinada estrutura visual para futuras implementações de componentes, features e afins no projeto AluraBooks.
 
 ### Construído Com
 
-[![React][react.js]][react-url]
+<img src="https://img.shields.io/badge/-React-grey?style=for-the-badge&logo=REACT"/>
 
 ## Lista de Componentes Disponíveis
 
@@ -62,28 +62,14 @@ Descrição breve do projeto compondo um paragrafo ou dois.
   </li>
 </ul>
 
-## como rodar a aplicação
-
-Clone os arquivos do projeto
-
-Rode no terminal:
-
-```bash
-npm start || yarn start
-```
-
-Isso ira fazer a build para `/dist` e ira rodar o projeto em modo watch sendo assim qualquer edição salva dentro de `src` causará um rebuild na `/dist`.
-
-Rede em outro terminal:
-
-```bash
-yarn storybook
-```
+## Como Utilizar a Biblioteca
 
 ### Pré-requisitos
 
 :warning: [Node](https://nodejs.org/en/download/)
+
 :warning: [React](https://reactjs.org/docs/getting-started.html#try-react)
+
 :warning: [Styled-Components](https://styled-components.com/docs/basics)
 
 ### Instalação
@@ -91,17 +77,23 @@ yarn storybook
 Rode no terminal:
 
 ```bash
-npm i alurabooks001-ds@latest  || yarn add alurabooks001-ds@latest
+npm i alurabooks001-ds@latest || yarn add alurabooks001-ds@latest
 ```
 
-## Desenvolvedores/Contribuintes
+## Desenvolvedores
 
-| [<img src="https://avatars.githubusercontent.com/u/92861892?s=400&v=4" width=115><br><sub>Felipe Santos</sub>](https://github.com/Felipe-SN) | :---: |
+<div>
+  <a href="https://github.com/Felipe-SN">
+    <img src="https://avatars.githubusercontent.com/u/92861892?s=400&v=4" width=115>
+    <br>
+    <sub>Felipe Santos</sub>
+  </a>
+</div>
 
 ## Licença
 
 The [MIT License]() (MIT)
 
-<p align="center">[<a href="#readme-top">Voltar ao topo</a>]</p>
-
 Copyright :copyright: 2022 - AluraBooks-DS
+
+<p align="center">[<a href="#readme-top">Voltar ao topo</a>]</p>
