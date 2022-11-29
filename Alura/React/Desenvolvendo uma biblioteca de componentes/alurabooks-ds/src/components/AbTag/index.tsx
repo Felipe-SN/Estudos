@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ChildrenInterface from '../../interfaces/ChildrenInterface';
-import { colors } from '../UI/variables';
+import { colors, fonts } from '../UI/variables';
 
 export interface AbTagProps extends ChildrenInterface {
   text?: string;
@@ -11,6 +11,7 @@ const StyledTag = styled.div`
   background-color: ${colors.mostarda};
   color: ${colors.branca};
   display: flex;
+  font-family: ${fonts.ArialSansSerif};
   font-size: 1.5rem;
   font-weight: 700;
   padding-bottom: 1.5rem;

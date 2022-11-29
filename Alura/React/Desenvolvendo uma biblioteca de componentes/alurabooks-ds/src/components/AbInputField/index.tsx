@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors } from '../UI/variables';
+import { colors, fonts } from '../UI/variables';
 
 const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
+  font-family: ${fonts.ArialSansSerif};
   gap: 0.625rem;
 `;
 

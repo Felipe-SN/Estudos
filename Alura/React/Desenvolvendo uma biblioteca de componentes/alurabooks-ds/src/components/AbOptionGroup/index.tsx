@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { colors } from '../UI/variables';
+import { colors, fonts } from '../UI/variables';
 
 const StyledSection = styled.section<{ selectedID: boolean }>`
   ${props =>
@@ -17,6 +17,7 @@ const StyledSection = styled.section<{ selectedID: boolean }>`
   box-sizing: border-box;
   cursor: pointer;
   display: grid;
+  font-family: ${fonts.ArialSansSerif};
   gap: 0.5rem;
   grid-template-columns: auto;
   grid-template-rows: repeat(3, auto);
