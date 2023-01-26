@@ -217,7 +217,7 @@ const NavigationBar = () => {
   const [windowSize, setWindowSize] = useState<number>(window.screen.width);
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
   const { isLogged } = useIsLoggedState();
-  const { setModalIsOpen } = useModalOpenState();
+  const { setModalIsOpen, setModalSingInIsOpen } = useModalOpenState();
 
   window.addEventListener('resize', () => {
     setMenuIsOpen(false);
@@ -225,6 +225,7 @@ const NavigationBar = () => {
   });
 
   const singInUser = (): void => {
+    setModalSingInIsOpen(true);
     setModalIsOpen(true);
   };
 

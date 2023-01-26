@@ -1,9 +1,16 @@
 import { useRecoilState } from 'recoil';
-import { ModalOpenState } from 'state/atom';
+import { modalOpenState, modalSingInOpenState } from 'state/atom';
 
 const useModalOpenState = () => {
-  const [modalIsOpen, setModalIsOpen] = useRecoilState(ModalOpenState);
-  return { modalIsOpen, setModalIsOpen };
+  const [modalIsOpen, setModalIsOpen] = useRecoilState(modalOpenState);
+  const [modalSingInIsOpen, setModalSingInIsOpen] =
+    useRecoilState(modalSingInOpenState);
+  return {
+    modalIsOpen,
+    setModalIsOpen,
+    modalSingInIsOpen,
+    setModalSingInIsOpen,
+  };
 };
 
 export default useModalOpenState;

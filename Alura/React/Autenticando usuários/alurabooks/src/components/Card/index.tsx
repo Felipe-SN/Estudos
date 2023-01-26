@@ -1,8 +1,11 @@
 import { colors } from 'components/UI/variables';
-import IChildren from 'interfaces/IChildren';
 import styled from 'styled-components';
 
-interface CardProps extends IChildren {
+interface CardProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
   className?: string;
 }
 

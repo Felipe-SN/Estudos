@@ -3,6 +3,8 @@ import InputField from 'components/InputField';
 import IDHelper from 'helpers/IDHelper';
 import { useState } from 'react';
 import CEPSearch from 'Services/CEPSearch';
+import userRegister from 'Services/userRegister';
+import useModalOpenState from 'state/hooks/useModalOpenState';
 import styled from 'styled-components';
 import Modal from '..';
 
@@ -49,82 +51,135 @@ const ModalSingUp = () => {
   const [cepValue, setCepValue] = useState<string>('');
   const [passwordValue, setPasswordValue] = useState<string>('');
   const [PassConfirmValue, setPassConfirmValue] = useState<string>('');
+  const { setModalIsOpen } = useModalOpenState();
+
+  const handleOnBlur = async (value: string) => {
+    const data = await CEPSearch(value);
+    if (data) {
+      setAddressValue(`${data.logradouro},  - ${data.bairro}`);
+      setComplementValue(data.complemento);
+    }
+  };
+
+  const clearFields = () => {
+    setNameValue('');
+    setEmailValue('');
+    setAddressValue('');
+    setComplementValue('');
+    setCepValue('');
+    setPasswordValue('');
+    setPassConfirmValue('');
+    setModalIsOpen(false);
+  };
+
+  const handleOnsubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const newUser = {
+      email: emailValue,
+      senha: passwordValue,
+      nome: nameValue,
+      endereco: addressValue,
+      complemento: complementValue,
+      cep: cepValue,
+    };
+
+    userRegister(newUser, clearFields);
+  };
 
   return (
     <Modal title="cadastro">
-      <StyledForm onSubmit={event => ''}>
+      <StyledForm onSubmit={event => handleOnsubmit(event)}>
         <CustomInput
           gridArea="name"
           index={IDHelper()}
           inputLabel="nome"
+          minLength={3}
+          onChange={e => setNameValue(e.target.value)}
+          pattern="^(?=.*[a-z])(?=.{1,}[ ]\b)(?=.*[A-Z]).{3,}$"
           placeholder="Seu nome completo"
           required={true}
           type="text"
           value={nameValue}
-          onChange={e => setNameValue(e.target.value)}
         />
         <CustomInput
           gridArea="email"
           hasIcon={false}
           index={IDHelper()}
           inputLabel="email"
+          onChange={e => setEmailValue(e.target.value)}
           placeholder="seuemail@maneiro.com.br"
           required={true}
           type="email"
           value={emailValue}
-          onChange={e => setEmailValue(e.target.value)}
         />
         <CustomInput
           gridArea="address"
           index={IDHelper()}
           inputLabel="endereço"
+          minLength={5}
+          onChange={e => setAddressValue(e.target.value)}
           placeholder="Sua rua e número"
           required={true}
           type="text"
           value={addressValue}
-          onChange={e => setAddressValue(e.target.value)}
         />
         <CustomInput
           gridArea="complement"
           index={IDHelper()}
           inputLabel="complemento"
+          onChange={e => setComplementValue(e.target.value)}
           placeholder="Apto/casa, bloco, referência"
           type="text"
           value={complementValue}
-          onChange={e => setComplementValue(e.target.value)}
         />
         <CustomInput
           gridArea="cep"
           index={IDHelper()}
           inputLabel="CEP"
+          maxLength={8}
+          onBlur={() => handleOnBlur(cepValue)}
+          onChange={e => setCepValue(e.target.value)}
+          pattern="[\d]{5}-?[\d]{3}"
           placeholder="00000-000"
           required={true}
           type="text"
           value={cepValue}
-          onChange={e => setCepValue(e.target.value)}
-          onBlur={() => CEPSearch(cepValue!)}
         />
         <CustomInput
           gridArea="password"
           index={IDHelper()}
           inputLabel="Senha"
+          maxLength={32}
+          minLength={8}
+          onChange={e => setPasswordValue(e.target.value)}
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+_])(?!.*[\s]).{6,16}$"
           placeholder="************"
           required={true}
+          title="A senha deve conter entre 8 e 32 caracteres, deve conter pelo menos uma letra minuscula, uma letra maiúscula, um numero e um carácter especial."
           type="password"
           value={passwordValue}
-          onChange={e => setPasswordValue(e.target.value)}
         />
         <CustomInput
           gridArea="passConfirm"
           index={IDHelper()}
           inputLabel="Confirmar senha"
+          maxLength={32}
+          minLength={8}
+          onChange={e => setPassConfirmValue(e.target.value)}
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+_])(?!.*[\s]).{6,16}$"
           placeholder="************"
           required={true}
+          title="As senhas digitadas devem coincidir"
           type="password"
           value={PassConfirmValue}
-          onChange={e => setPassConfirmValue(e.target.value)}
         />
-        <ButtonSingUp>Cadastrar</ButtonSingUp>
+        <ButtonSingUp
+          disabled={
+            passwordValue.length < 8 || passwordValue !== PassConfirmValue
+          }
+        >
+          Cadastrar
+        </ButtonSingUp>
       </StyledForm>
     </Modal>
   );

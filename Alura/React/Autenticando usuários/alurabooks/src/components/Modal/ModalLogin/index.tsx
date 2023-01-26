@@ -3,6 +3,7 @@ import InputField from 'components/InputField';
 import { colors } from 'components/UI/variables';
 import IDHelper from 'helpers/IDHelper';
 import { Link } from 'react-router-dom';
+import useModalOpenState from 'state/hooks/useModalOpenState';
 import styled from 'styled-components';
 import Modal from '..';
 
@@ -62,9 +63,15 @@ const SingUpText = styled.p`
 `;
 
 const ModalLogin = () => {
+  const { setModalSingInIsOpen } = useModalOpenState();
+
+  const openSingUp = () => {
+    setModalSingInIsOpen(false);
+  };
+
   return (
     <Modal title="Login">
-      <StyledForm onSubmit={event => ''}>
+      <StyledForm onSubmit={event => event.preventDefault()}>
         <InputsArea>
           <CustomInput
             index={IDHelper()}
@@ -87,7 +94,7 @@ const ModalLogin = () => {
       </StyledForm>
       <SingUpArea>
         <SingUpText>Ainda não tem uma conta?</SingUpText>
-        <ModalButton>Criar conta</ModalButton>
+        <ModalButton onClick={openSingUp}>Criar conta</ModalButton>
       </SingUpArea>
     </Modal>
   );

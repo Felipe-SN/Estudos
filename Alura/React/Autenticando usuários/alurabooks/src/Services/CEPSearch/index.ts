@@ -1,14 +1,32 @@
+import axios from 'axios';
+
+export interface ResponseProps {
+  logradouro: string;
+  complemento: string;
+  bairro: string;
+  localidade: string;
+  uf: string;
+  ibge: string;
+  gia: string;
+  ddd: string;
+  siafi: string;
+  erro?: boolean;
+}
+
 const CEPSearch = async (valueCEP: string) => {
-  const regExCEP = /^[0-9]{5}-[0-9]{3}$/;
-  if (regExCEP.test(valueCEP)) {
-    const searchValue = `https://viacep.com.br/ws/${valueCEP}/json/`;
-    const response = await fetch(searchValue);
-    console.log(response);
-    console.log(response.json());
-    if (!response.ok) return 'CEP invalido';
-    return response.json();
+  const cepFormatted = valueCEP.replace(/\D/g, '');
+  const regExCEP = new RegExp(/^[\d]{5}-?[\d]{3}$/, 'gi');
+  const searchValue = `https://viacep.com.br/ws/${cepFormatted}/json/`;
+  if (regExCEP.test(cepFormatted)) {
+    const data: ResponseProps = await (await axios.get(searchValue)).data;
+    if (data.erro) {
+      alert('CEP Invalido');
+      return;
+    }
+    return data;
   }
-  return 'Formato de CEP invalido';
+  alert('Formato de CEP invalido');
+  return;
 };
 
 export default CEPSearch;

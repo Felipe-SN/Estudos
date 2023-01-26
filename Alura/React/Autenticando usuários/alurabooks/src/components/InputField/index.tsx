@@ -42,6 +42,16 @@ const StyledInput = styled.input<InputFieldProps>`
     line-height: 1.5rem;
   }
 
+  /* invalid outline removed for password inputs */
+  ${props =>
+    props.type !== 'password' &&
+    css`
+      :not(:placeholder-shown):invalid {
+        outline-style: solid;
+        outline-color: red;
+      }
+    `}
+
   /* variant type alterations */
   ${props => {
     if (props.inputVariable === 'secondary') {
@@ -106,8 +116,12 @@ const PasswordWrapper = styled.div<PasswordProps>`
   padding-right: 1.5rem;
 
   :focus-within {
-    outline: auto;
+    outline-style: auto;
     outline-width: 0.125rem;
+    :has(input:not(:placeholder-shown):invalid) {
+      outline-style: solid;
+      outline-color: red;
+    }
   }
 
   ::placeholder {
@@ -211,11 +225,16 @@ const InputField = ({
   index,
   inputLabel,
   inputVariable = 'primary',
+  maxLength,
+  minLength,
   onBlur,
   onChange,
+  pattern,
   placeholder,
   required = false,
+  title,
   type,
+  value,
 }: InputFieldProps) => {
   const [iconTransparent, setIconTransparent] = useState<boolean>(false);
   const passwordRef = useRef<any>(PasswordField);
@@ -243,11 +262,15 @@ const InputField = ({
           <PasswordField
             className={className}
             id={`input${type}${index}`}
+            maxLength={maxLength}
+            minLength={minLength}
             onBlur={onBlur}
             onChange={onChange}
+            pattern={pattern}
             placeholder={placeholder}
             ref={passwordRef}
             required={required}
+            title={title}
             type={type}
           />
           <EyeIcon
@@ -261,11 +284,16 @@ const InputField = ({
           hasIcon={hasIcon}
           id={`input${type}${index}`}
           inputVariable={inputVariable}
+          maxLength={maxLength}
+          minLength={minLength}
           onBlur={onBlur}
           onChange={onChange}
+          pattern={pattern}
           placeholder={placeholder}
           required={required}
           type={type}
+          title={title}
+          value={value}
         />
       )}
     </InputPosition>

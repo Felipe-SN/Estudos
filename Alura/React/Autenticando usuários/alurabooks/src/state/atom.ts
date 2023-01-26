@@ -5,7 +5,12 @@ export const isLoggedState = atom<boolean>({
   default: false,
 });
 
-export const ModalOpenState = atom<boolean>({
-  key: 'ModalOpenState',
+export const modalOpenState = atom<boolean>({
+  key: 'modalOpenState',
+  default: false,
+});
+
+export const modalSingInOpenState = atom<boolean>({
+  key: 'modalSingInOpenState',
   default: false,
 });
