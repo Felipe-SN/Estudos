@@ -1,5 +1,6 @@
 import Button from 'components/Button';
 import { colors } from 'components/UI/variables';
+import useModalOpenState from 'state/hooks/useModalOpenState';
 import styled from 'styled-components';
 
 const PositionDiv = styled.div`
@@ -36,6 +37,13 @@ const ButtonsDiv = styled.div`
 `;
 
 const SingUp = () => {
+  const { setModalIsOpen, setModalSingInIsOpen } = useModalOpenState();
+
+  const openModal = (isSingIn: boolean) => {
+    setModalSingInIsOpen(isSingIn);
+    setModalIsOpen(true);
+  };
+
   return (
     <PositionDiv>
       <TextDiv>
@@ -45,8 +53,10 @@ const SingUp = () => {
         </p>
       </TextDiv>
       <ButtonsDiv>
-        <Button variantType="Secondary">Criar conta</Button>
-        <Button>Fazer login</Button>
+        <Button variantType="Secondary" onClick={() => openModal(false)}>
+          Criar conta
+        </Button>
+        <Button onClick={() => openModal(true)}>Fazer login</Button>
       </ButtonsDiv>
     </PositionDiv>
   );

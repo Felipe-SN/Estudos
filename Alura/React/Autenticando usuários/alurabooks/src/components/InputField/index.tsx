@@ -272,6 +272,7 @@ const InputField = ({
             required={required}
             title={title}
             type={type}
+            value={value}
           />
           <EyeIcon
             iconIsTransparent={iconTransparent}
@@ -291,8 +292,8 @@ const InputField = ({
           pattern={pattern}
           placeholder={placeholder}
           required={required}
-          type={type}
           title={title}
+          type={type}
           value={value}
         />
       )}

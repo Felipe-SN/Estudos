@@ -3,7 +3,7 @@ import InputField from 'components/InputField';
 import IDHelper from 'helpers/IDHelper';
 import { useState } from 'react';
 import CEPSearch from 'Services/CEPSearch';
-import userRegister from 'Services/userRegister';
+import serviceApiCommunication from 'Services/serviceApiCommunication';
 import useModalOpenState from 'state/hooks/useModalOpenState';
 import styled from 'styled-components';
 import Modal from '..';
@@ -42,6 +42,8 @@ const ButtonSingUp = styled(Button)`
   padding-top: 0.5rem;
   width: fit-content;
 `;
+
+const { register } = serviceApiCommunication();
 
 const ModalSingUp = () => {
   const [nameValue, setNameValue] = useState<string>('');
@@ -83,7 +85,7 @@ const ModalSingUp = () => {
       cep: cepValue,
     };
 
-    userRegister(newUser, clearFields);
+    register(newUser, clearFields);
   };
 
   return (

@@ -2,7 +2,9 @@ import Button from 'components/Button';
 import InputField from 'components/InputField';
 import { colors } from 'components/UI/variables';
 import IDHelper from 'helpers/IDHelper';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import serviceApiCommunication from 'Services/serviceApiCommunication';
 import useModalOpenState from 'state/hooks/useModalOpenState';
 import styled from 'styled-components';
 import Modal from '..';
@@ -62,8 +64,28 @@ const SingUpText = styled.p`
   line-height: 1.875rem;
 `;
 
+const { login } = serviceApiCommunication();
+
 const ModalLogin = () => {
-  const { setModalSingInIsOpen } = useModalOpenState();
+  const { setModalSingInIsOpen, setModalIsOpen } = useModalOpenState();
+  const [emailValue, setEmailValue] = useState<string>('');
+  const [passValue, setPassValue] = useState<string>('');
+
+  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const user = {
+      email: emailValue,
+      senha: passValue,
+    };
+
+    const clearFields = () => {
+      setEmailValue('');
+      setPassValue('');
+      setModalIsOpen(false);
+    };
+
+    login(user, clearFields);
+  };
 
   const openSingUp = () => {
     setModalSingInIsOpen(false);
@@ -71,22 +93,26 @@ const ModalLogin = () => {
 
   return (
     <Modal title="Login">
-      <StyledForm onSubmit={event => event.preventDefault()}>
+      <StyledForm onSubmit={e => handleOnSubmit(e)}>
         <InputsArea>
           <CustomInput
             index={IDHelper()}
             hasIcon={false}
             inputLabel="Email"
             type="email"
+            onChange={e => setEmailValue(e.target.value)}
             placeholder="seuemail@maneiro.com.br"
             required={true}
+            value={emailValue}
           />
           <CustomInput
             index={IDHelper()}
             inputLabel="Senha"
             type="password"
+            onChange={e => setPassValue(e.target.value)}
             placeholder="************"
             required={true}
+            value={passValue}
           />
         </InputsArea>
         <ResetPassword to={'!#'}>Esqueci minha senha</ResetPassword>
