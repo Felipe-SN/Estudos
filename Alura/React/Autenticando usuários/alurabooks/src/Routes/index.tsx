@@ -1,6 +1,7 @@
-import ConfigurationPage from "pages/ConfigurationPage";
-import Home from "pages/Home";
-import { Route, Routes as Paths } from "react-router-dom";
+import ConfigurationPage from 'pages/ConfigurationPage';
+import Home from 'pages/Home';
+import NotFound from 'pages/NotFound';
+import { Route, Routes as Paths } from 'react-router-dom';
 
 const Routes = () => {
   return (
@@ -8,7 +9,7 @@ const Routes = () => {
       <Route path="/" element={<ConfigurationPage />}>
         <Route index element={<Home />} />
       </Route>
-      <Route path="*" element={<h2>ERROR 404</h2>} />
+      <Route path="*" element={<NotFound />} />
     </Paths>
   );
 };

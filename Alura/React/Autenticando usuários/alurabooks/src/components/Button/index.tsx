@@ -54,13 +54,15 @@ const Button = ({
   disabled,
   onClick,
   variantType = 'Primary',
+  title,
 }: ButtonProps) => {
   return (
     <StyledButton
       className={className}
+      disabled={disabled}
       onClick={onClick}
       variantType={variantType}
-      disabled={disabled}
+      title={title}
     >
       {children}
     </StyledButton>
