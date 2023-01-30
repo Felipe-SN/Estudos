@@ -1,6 +1,6 @@
-import ConfigurationPage from 'pages/ConfigurationPage';
-import Home from 'pages/Home';
-import { Route, Routes as Paths } from 'react-router-dom';
+import ConfigurationPage from "pages/ConfigurationPage";
+import Home from "pages/Home";
+import { Route, Routes as Paths } from "react-router-dom";
 
 const Routes = () => {
   return (

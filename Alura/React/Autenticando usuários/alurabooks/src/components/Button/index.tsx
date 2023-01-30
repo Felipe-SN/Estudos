@@ -1,16 +1,6 @@
 import { colors, fonts } from 'components/UI/variables';
 import styled, { css } from 'styled-components';
 
-interface ButtonProps
-  extends React.DetailedHTMLProps<
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  > {
-  className?: string;
-  onClick?: () => void;
-  variantType?: 'Primary' | 'Secondary';
-}
-
 const StyledButton = styled.button<ButtonProps>`
   /* background style by variant */
   background-color: ${props =>
@@ -49,6 +39,14 @@ const StyledButton = styled.button<ButtonProps>`
     cursor: not-allowed;
   }
 `;
+
+interface ButtonProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
+  variantType?: 'Primary' | 'Secondary';
+}
 
 const Button = ({
   children,

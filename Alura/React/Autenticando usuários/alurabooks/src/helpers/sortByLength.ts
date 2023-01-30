@@ -1,4 +1,4 @@
-import categories from 'data/categorias.json';
+import categories from "data/categorias.json";
 
 type Category = typeof categories[0];
 

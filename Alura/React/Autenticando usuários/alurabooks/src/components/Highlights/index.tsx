@@ -1,10 +1,10 @@
-import icons from 'data/icons.json';
-import Card from 'components/Card';
-import IBook from 'interfaces/IBook';
-import { useState } from 'react';
-import Button from 'components/Button';
-import styled, { css } from 'styled-components';
-import { colors } from 'components/UI/variables';
+import icons from "data/icons.json";
+import Card from "components/Card";
+import IBook from "interfaces/IBook";
+import { useState } from "react";
+import Button from "components/Button";
+import styled, { css } from "styled-components";
+import { colors } from "components/UI/variables";
 
 const StyledSection = styled.section`
   display: grid;
@@ -53,7 +53,7 @@ const StyledBook = styled.li<StyledBookProps>`
     transition-property: width;
     transition-timing-function: ease-in-out;
     width: 11.25rem;
-    ${props =>
+    ${(props) =>
       props.selectedID &&
       css`
         width: 16.375rem;
@@ -65,10 +65,10 @@ const StyledCard = styled(Card)`
   align-content: stretch;
   gap: 1rem;
   grid-template-areas:
-    'about icons'
-    'title title'
-    'desc desc'
-    'price buy-button';
+    "about icons"
+    "title title"
+    "desc desc"
+    "price buy-button";
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(4, auto);
   height: 100%;
@@ -190,7 +190,7 @@ const Highlight = ({ books, title }: HighlightsProps) => {
       <h2>{title}</h2>
       <div>
         <BooksHighlighted>
-          {books.map(book => (
+          {books.map((book) => (
             <StyledBook
               key={book.id}
               selectedID={book.id === selectedBook.id}
@@ -218,9 +218,9 @@ const Highlight = ({ books, title }: HighlightsProps) => {
           <StyledPrice>
             <em>A partir de:</em>
             <strong>
-              {Intl.NumberFormat('pt-br', {
-                style: 'currency',
-                currency: 'BRL',
+              {Intl.NumberFormat("pt-br", {
+                style: "currency",
+                currency: "BRL",
               }).format(selectedBook.price)}
             </strong>
           </StyledPrice>

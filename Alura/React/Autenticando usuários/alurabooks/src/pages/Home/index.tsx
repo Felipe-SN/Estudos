@@ -1,10 +1,10 @@
-import Banner from 'components/Banner';
-import books from 'data/books.json';
-import categories from 'data/categorias.json';
-import Highlight from 'components/Highlights';
-import TagSection from 'components/TagSection';
-import sortByLength from 'helpers/sortByLength';
-import NewsLetter from 'components/NewsLatter';
+import Banner from "components/Banner";
+import books from "data/books.json";
+import categories from "data/categorias.json";
+import Highlight from "components/Highlights";
+import TagSection from "components/TagSection";
+import sortByLength from "helpers/sortByLength";
+import NewsLetter from "components/NewsLatter";
 
 const Home = () => {
   return (

@@ -1,8 +1,8 @@
-import { colors } from 'components/UI/variables';
-import useModalOpenState from 'state/hooks/useModalOpenState';
-import styled from 'styled-components';
-import images from 'data/images.json';
-import icons from 'data/icons.json';
+import { colors } from "components/UI/variables";
+import useModalOpenState from "state/hooks/useModalOpenState";
+import styled from "styled-components";
+import images from "data/images.json";
+import icons from "data/icons.json";
 
 const WindowBlur = styled.div`
   background-color: ${colors.cinzaFundoModal};
@@ -21,7 +21,7 @@ const ModalWindow = styled.div`
   box-sizing: border-box;
   display: grid;
   grid-column-gap: 3.5rem;
-  grid-template-areas: 'sideImg contentSide';
+  grid-template-areas: "sideImg contentSide";
   grid-template-columns: repeat(2, max-content);
   grid-template-rows: 100%;
   height: fit-content;
@@ -52,7 +52,7 @@ const ContentSide = styled.div`
   display: grid;
   grid-area: contentSide;
   grid-row-gap: 2rem;
-  grid-template-areas: 'title xButton' 'children children';
+  grid-template-areas: "title xButton" "children children";
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, min-content);
 `;

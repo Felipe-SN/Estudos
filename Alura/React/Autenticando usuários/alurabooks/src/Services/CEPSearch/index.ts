@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 export interface ResponseProps {
   logradouro: string;
@@ -14,18 +14,18 @@ export interface ResponseProps {
 }
 
 const CEPSearch = async (valueCEP: string) => {
-  const cepFormatted = valueCEP.replace(/\D/g, '');
-  const regExCEP = new RegExp(/^[\d]{5}-?[\d]{3}$/, 'gi');
+  const cepFormatted = valueCEP.replace(/\D/g, "");
+  const regExCEP = new RegExp(/^[\d]{5}-?[\d]{3}$/, "gi");
   const searchValue = `https://viacep.com.br/ws/${cepFormatted}/json/`;
   if (regExCEP.test(cepFormatted)) {
     const data: ResponseProps = await (await axios.get(searchValue)).data;
     if (data.erro) {
-      alert('CEP Invalido');
+      alert("CEP Invalido");
       return;
     }
     return data;
   }
-  alert('Formato de CEP invalido');
+  alert("Formato de CEP invalido");
   return;
 };
 
