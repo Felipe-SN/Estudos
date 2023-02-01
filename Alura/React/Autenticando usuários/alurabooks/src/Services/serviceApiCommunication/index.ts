@@ -1,4 +1,5 @@
 import http from 'http/instance';
+import sessionTokenManagement from 'Services/sessionTokenManagement';
 
 type NewUserProps = {
   email: string;
@@ -13,6 +14,8 @@ type UserProps = {
   email: string;
   senha: string;
 };
+
+const token = sessionTokenManagement();
 
 const serviceApiCommunication = () => {
   const register = (user: NewUserProps, auxFunction: () => void) => {
@@ -33,7 +36,7 @@ const serviceApiCommunication = () => {
       .post('login', user)
       .then(response => {
         const ACCESS_TOKEN = response.data.access_token;
-        sessionStorage.setItem('token', ACCESS_TOKEN);
+        token.set(ACCESS_TOKEN);
         auxFunction();
       })
       .catch(error => {

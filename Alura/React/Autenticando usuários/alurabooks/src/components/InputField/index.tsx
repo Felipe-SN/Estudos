@@ -162,6 +162,7 @@ const PasswordWrapper = styled.div<PasswordProps>`
 `;
 
 const PasswordField = styled(StyledInput)`
+  appearance: none !important;
   background: transparent !important;
   border-radius: 1.5rem;
   border: none !important;
@@ -170,6 +171,10 @@ const PasswordField = styled(StyledInput)`
 
   :focus {
     outline: none;
+  }
+
+  ::-ms-reveal {
+    display: none;
   }
 `;
 

@@ -87,10 +87,6 @@ const ModalLogin = () => {
     login(user, clearFields);
   };
 
-  const openSingUp = () => {
-    setModalSingInIsOpen(false);
-  };
-
   return (
     <Modal title="Login">
       <StyledForm onSubmit={e => handleOnSubmit(e)}>
@@ -120,7 +116,9 @@ const ModalLogin = () => {
       </StyledForm>
       <SingUpArea>
         <SingUpText>Ainda não tem uma conta?</SingUpText>
-        <ModalButton onClick={openSingUp}>Criar conta</ModalButton>
+        <ModalButton onClick={() => setModalSingInIsOpen(false)}>
+          Criar conta
+        </ModalButton>
       </SingUpArea>
     </Modal>
   );
