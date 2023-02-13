@@ -1,5 +1,5 @@
 import http from 'http/instance';
-import sessionTokenManagement from 'Services/sessionTokenManagement';
+import sessionTokenHelper from 'helpers/sessionTokenHelper';
 
 type NewUserProps = {
   email: string;
@@ -15,7 +15,7 @@ type UserProps = {
   senha: string;
 };
 
-const token = sessionTokenManagement();
+const { token } = sessionTokenHelper();
 
 const serviceApiCommunication = () => {
   const register = (user: NewUserProps, auxFunction: () => void) => {
@@ -35,13 +35,12 @@ const serviceApiCommunication = () => {
     http
       .post('login', user)
       .then(response => {
-        const ACCESS_TOKEN = response.data.access_token;
-        token.set(ACCESS_TOKEN);
+        token.set(response.data.access_token);
         auxFunction();
       })
       .catch(error => {
-        const message = error?.response?.data?.message;
-        if (message) return alert(message);
+        if (error?.response?.data?.message)
+          return alert(error?.response?.data?.message);
         return alert('Ocorreu um erro inesperado ao efetuar login');
       });
   };

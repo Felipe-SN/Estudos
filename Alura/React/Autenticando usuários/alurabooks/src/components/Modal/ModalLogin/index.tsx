@@ -2,9 +2,11 @@ import Button from 'components/Button';
 import InputField from 'components/InputField';
 import { colors } from 'components/UI/variables';
 import IDHelper from 'helpers/IDHelper';
+import sessionTokenHelper from 'helpers/sessionTokenHelper';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import serviceApiCommunication from 'Services/serviceApiCommunication';
+import useIsLoggedState from 'state/hooks/useIsLoggedState';
 import useModalOpenState from 'state/hooks/useModalOpenState';
 import styled from 'styled-components';
 import Modal from '..';
@@ -65,9 +67,11 @@ const SingUpText = styled.p`
 `;
 
 const { login } = serviceApiCommunication();
+const { token } = sessionTokenHelper();
 
 const ModalLogin = () => {
   const { setModalSingInIsOpen, setModalIsOpen } = useModalOpenState();
+  const { setIsLogged } = useIsLoggedState();
   const [emailValue, setEmailValue] = useState<string>('');
   const [passValue, setPassValue] = useState<string>('');
 
@@ -78,13 +82,14 @@ const ModalLogin = () => {
       senha: passValue,
     };
 
-    const clearFields = () => {
+    const onSuccessfulSubmit = () => {
       setEmailValue('');
       setPassValue('');
       setModalIsOpen(false);
+      setIsLogged(token.get({ tokenVerify: true }) !== null);
     };
 
-    login(user, clearFields);
+    login(user, onSuccessfulSubmit);
   };
 
   return (

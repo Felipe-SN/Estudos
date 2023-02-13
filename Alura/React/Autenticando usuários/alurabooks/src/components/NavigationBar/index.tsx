@@ -224,7 +224,8 @@ const NavigationBar = () => {
     setWindowSize(window.screen.width);
   });
 
-  const singInUser = (): void => {
+  const handleUserIconClick = (): void => {
+    if (isLogged) return;
     setModalSingInIsOpen(true);
     setModalIsOpen(true);
   };
@@ -301,7 +302,7 @@ const NavigationBar = () => {
             </button>
           </>
         )}
-        <button onClick={() => singInUser()}>
+        <button onClick={() => handleUserIconClick()}>
           <img alt="Meu perfil" src={icons.user} />
           <p>{isLogged ? 'Meu perfil' : 'Login'}</p>
         </button>
