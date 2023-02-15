@@ -1,17 +1,52 @@
 import ConfigurationPage from 'pages/ConfigurationPage';
 import Home from 'pages/Home';
 import NotFound from 'pages/NotFound';
-import { Route, Routes as Paths } from 'react-router-dom';
+import ProfileArea from 'pages/ProfileArea';
+import Requests from 'pages/ProfileArea/Requests';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-const Routes = () => {
+const routes = createBrowserRouter([
+  {
+    element: <ConfigurationPage />,
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
+      {
+        path: 'perfil',
+        element: <ProfileArea />,
+        children: [
+          {
+            path: 'pedidos',
+            element: <Requests />,
+          },
+          {
+            path: 'trocas',
+            element: <Requests />,
+          },
+          {
+            path: 'cupons',
+            element: <Requests />,
+          },
+          {
+            path: 'detalhes',
+            element: <Requests />,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: '*',
+    element: <NotFound />,
+  },
+]);
+
+const RoutesProvider = () => {
   return (
-    <Paths>
-      <Route path="/" element={<ConfigurationPage />}>
-        <Route index element={<Home />} />
-      </Route>
-      <Route path="*" element={<NotFound />} />
-    </Paths>
+    <RouterProvider router={routes} fallbackElement={<h3>CARREGANDO...</h3>} />
   );
 };
 
-export default Routes;
+export default RoutesProvider;

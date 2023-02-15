@@ -1,23 +1,30 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import img from 'data/images.json';
 import { colors } from 'components/UI/variables';
 import InputField from 'components/InputField';
 
-const StyledBanner = styled.section`
-  background-image: url(${img.banner});
+const StyledBanner = styled.section<{ variantType?: 'img' | 'gradient' }>`
+  background-image: ${colors.gradienteAzul};
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   box-sizing: border-box;
+  color: ${colors.branca};
   display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: repeat(3, max-content);
-  height: 100vh;
   max-height: 23.5rem;
+  padding: 2rem;
   place-content: center;
   place-items: center;
-  width: 100vw;
-  color: ${colors.branca};
+  width: 100%;
+
+  ${props =>
+    props.variantType === 'img' &&
+    css`
+      background-image: url(${img.banner});
+      grid-template-columns: auto;
+      grid-template-rows: repeat(3, max-content);
+      height: 100vh;
+    `}
 
   > h2 {
     font-weight: 700;
@@ -39,16 +46,22 @@ const CustomInput = styled(InputField)`
 `;
 
 type BannerProps = {
-  title?: string;
+  haveSearchField?: boolean;
   subTitle?: string;
-  haveSearchField: boolean;
+  title?: string;
+  variantType?: 'img' | 'gradient';
 };
 
-const Banner = ({ title, subTitle, haveSearchField }: BannerProps) => {
+const Banner = ({
+  title,
+  subTitle,
+  haveSearchField = false,
+  variantType = 'img',
+}: BannerProps) => {
   return (
-    <StyledBanner>
-      <h2>{title}</h2>
-      <p>{subTitle}</p>
+    <StyledBanner variantType={variantType}>
+      {title && <h2>{title}</h2>}
+      {subTitle && <p>{subTitle}</p>}
       {haveSearchField && (
         <CustomInput
           inputVariable="secondary"

@@ -5,6 +5,7 @@ import icons from 'data/icons.json';
 import styled, { css } from 'styled-components';
 import useIsLoggedState from 'state/hooks/useIsLoggedState';
 import useModalOpenState from 'state/hooks/useModalOpenState';
+import { Link } from 'react-router-dom';
 
 const StyledNavBar = styled.nav`
   background-color: ${colors.branca};
@@ -58,38 +59,51 @@ const HamburgerButton = styled.button`
       filter: saturate(0) brightness(100);
     }
   }
-`;
 
-const PageTitle = styled.h1`
-  font-family: ${fonts.josefin};
-  font-size: 1.875rem;
-  margin-right: 2.5rem;
-
-  & > b {
-    font-weight: 700;
+  @media screen and (min-width: 1024px) {
+    display: none;
   }
 `;
 
-const NavBarDeskOptions = styled.ul<MenuStateProps>`
-  display: grid;
-  align-items: center;
-  column-gap: 1.375rem;
-  grid-template-columns: repeat(3, max-content);
+const PageTitle = styled.h1`
+  display: none;
 
-  > li > * {
-    background-color: transparent;
-    font-size: 1rem;
-    color: ${colors.preto};
-    padding: 0.625rem;
-    border: none;
-    text-decoration: none;
+  @media screen and (min-width: 1024px) {
+    display: block;
+    font-family: ${fonts.josefin};
+    font-size: 1.875rem;
+    margin-right: 2.5rem;
 
-    &:hover {
-      background: ${colors.gradienteAzul};
-      color: ${colors.branca};
+    & > strong {
+      font-weight: 700;
     }
-    &:focus {
-      outline: none;
+  }
+`;
+
+const NavBarDeskOptions = styled.ul`
+  display: none;
+
+  @media screen and (min-width: 1024px) {
+    display: grid;
+    align-items: center;
+    column-gap: 1.375rem;
+    grid-template-columns: repeat(3, max-content);
+
+    > li > * {
+      background-color: transparent;
+      font-size: 1rem;
+      color: ${colors.preto};
+      padding: 0.625rem;
+      border: none;
+      text-decoration: none;
+
+      &:hover {
+        background: ${colors.gradienteAzul};
+        color: ${colors.branca};
+      }
+      &:focus {
+        outline: none;
+      }
     }
   }
 
@@ -112,7 +126,7 @@ const CategoryList = styled.ul<MenuStateProps>`
   transition-property: visibility, opacity;
   transition-duration: 500ms;
 
-  ${(props: MenuStateProps) =>
+  ${props =>
     props.isOpen
       ? css`
           visibility: visible;
@@ -156,10 +170,10 @@ const CategoryList = styled.ul<MenuStateProps>`
 `;
 
 const RightWrapper = styled(LeftWrapper)<MenuStateProps>`
-  column-gap: 1.875rem;
+  column-gap: 4rem;
   justify-content: flex-end;
 
-  ${(props: MenuStateProps) => {
+  ${props => {
     if (props.isLogged)
       return css`
         @media screen and (min-width: 1024px) {
@@ -171,39 +185,80 @@ const RightWrapper = styled(LeftWrapper)<MenuStateProps>`
       grid-template-columns: max-content;
     `;
   }}
+`;
 
-  & > {
-    button {
-      align-items: center;
-      background-color: transparent;
-      border-radius: 50%;
-      border: none;
-      box-sizing: border-box;
-      column-gap: 0.5rem;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      padding: 0;
+const IconButtons = styled.button<{ isLogged?: boolean }>`
+  align-items: center;
+  background-color: transparent;
+  border-radius: 1.5rem;
+  border: none;
+  box-sizing: border-box;
+  column-gap: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  padding: 0;
 
-      > p {
-        display: none;
-        font-size: 1.25rem;
+  > p {
+    display: none;
+    font-size: 1.25rem;
 
-        @media screen and (min-width: 1024px) {
-          ${(props: MenuStateProps) =>
-            props.isLogged
-              ? css`
-                  display: none;
-                `
-              : css`
-                  display: block;
-                `}
-        }
+    @media screen and (min-width: 1024px) {
+      ${props =>
+        props.isLogged
+          ? css`
+              display: none;
+            `
+          : css`
+              display: block;
+            `}
+    }
 
-        @media screen and (min-width: 1728px) {
-          display: block;
-        }
-      }
+    @media screen and (min-width: 1728px) {
+      display: block;
+    }
+  }
+
+  &.deskHide {
+    @media screen and (min-width: 1024px) {
+      display: none;
+    }
+  }
+
+  &.userIcon {
+    position: relative;
+  }
+`;
+
+const CustomLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
+
+const UserMenuOptions = styled.ul`
+  background-color: ${colors.branca};
+  position: absolute;
+  top: 3.5rem;
+  transition-duration: 500ms;
+  transition-property: visibility, opacity;
+  width: max-content;
+
+  > li {
+    background: ${colors.gradienteAzul};
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    padding-bottom: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 1rem;
+    text-decoration: none;
+
+    &:hover {
+      background: ${colors.gradienteAzul};
+      -webkit-text-fill-color: ${colors.branca};
+      color: ${colors.branca};
     }
   }
 `;
@@ -214,71 +269,61 @@ interface MenuStateProps {
 }
 
 const NavigationBar = () => {
-  const [windowSize, setWindowSize] = useState<number>(window.screen.width);
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+  const [userMenuIsOpen, setUserMenuIsOpen] = useState<boolean>(false);
   const { isLogged } = useIsLoggedState();
   const { setModalIsOpen, setModalSingInIsOpen } = useModalOpenState();
 
-  window.addEventListener('resize', () => {
-    setMenuIsOpen(false);
-    setWindowSize(window.screen.width);
-  });
-
   const handleUserIconClick = (): void => {
-    if (isLogged) return;
+    if (isLogged) return setUserMenuIsOpen(!userMenuIsOpen);
+
     setModalSingInIsOpen(true);
     setModalIsOpen(true);
   };
 
-  const handleClickOnMenus = (): void => {
-    if (menuIsOpen) {
-      setMenuIsOpen(false);
-      return;
-    }
-    setMenuIsOpen(true);
+  const handleMenusInteractions = (toggle?: boolean): void => {
+    if (toggle) return setMenuIsOpen(!menuIsOpen);
+    setMenuIsOpen(false);
   };
 
   return (
     <StyledNavBar>
       <LeftWrapper>
-        {windowSize < 1024 && (
-          <HamburgerButton
-            aria-label="Menu"
-            aria-expanded={menuIsOpen}
-            aria-controls={CategoryList}
-            onClick={() => handleClickOnMenus()}
-          />
-        )}
-        <img alt="Logo da AluraBooks" src={icons.logo} />
-        {windowSize >= 1024 && (
-          <PageTitle>
-            <b>Alura</b>Books
-          </PageTitle>
-        )}
+        <HamburgerButton
+          aria-label="Menu"
+          aria-expanded={menuIsOpen}
+          aria-controls={CategoryList}
+          onClick={() => handleMenusInteractions(true)}
+        />
+        <Link to={'/'}>
+          <img alt="Logo da AluraBooks" src={icons.logo} />
+        </Link>
+        <PageTitle>
+          <strong>Alura</strong>Books
+        </PageTitle>
         <div>
-          {windowSize >= 1024 && (
-            <NavBarDeskOptions>
-              <li>
-                <button
-                  aria-expanded={menuIsOpen}
-                  aria-controls={CategoryList}
-                  onClick={() => handleClickOnMenus()}
-                >
-                  CATEGORIAS
-                </button>
-              </li>
-              {isLogged && (
-                <>
-                  <li>
-                    <a href="#!">FAVORITOS</a>
-                  </li>
-                  <li>
-                    <a href="#!">MINHA ESTANTE</a>
-                  </li>
-                </>
-              )}
-            </NavBarDeskOptions>
-          )}
+          <NavBarDeskOptions>
+            <li>
+              <button
+                aria-expanded={menuIsOpen}
+                aria-controls={CategoryList}
+                onClick={() => handleMenusInteractions(true)}
+                onBlur={() => handleMenusInteractions()}
+              >
+                CATEGORIAS
+              </button>
+            </li>
+            {isLogged && (
+              <>
+                <li>
+                  <CustomLink to={'#'}>FAVORITOS</CustomLink>
+                </li>
+                <li>
+                  <CustomLink to={'#'}>MINHA ESTANTE</CustomLink>
+                </li>
+              </>
+            )}
+          </NavBarDeskOptions>
           <CategoryList isOpen={menuIsOpen}>
             {categories.map(category => (
               <li key={category.name}>
@@ -291,21 +336,33 @@ const NavigationBar = () => {
       <RightWrapper isLogged={isLogged}>
         {isLogged && (
           <>
-            {isLogged && windowSize < 1024 && (
-              <button>
-                <img alt="Meus favoritos" src={icons.favoritos} />
-              </button>
-            )}
-            <button>
+            <IconButtons as={CustomLink} className="deskHide" to={'#'}>
+              <img alt="Meus favoritos" src={icons.favoritos} />
+            </IconButtons>
+            <IconButtons as={CustomLink} isLogged={isLogged} to={'#'}>
               <img alt="Carrinho de compras" src={icons.sacola} />
               <p>Minha sacola</p>
-            </button>
+            </IconButtons>
           </>
         )}
-        <button onClick={() => handleUserIconClick()}>
+        <IconButtons
+          aria-controls={UserMenuOptions}
+          aria-expanded={userMenuIsOpen}
+          className="userIcon"
+          isLogged={isLogged}
+          onClick={() => handleUserIconClick()}
+        >
           <img alt="Meu perfil" src={icons.user} />
           <p>{isLogged ? 'Meu perfil' : 'Login'}</p>
-        </button>
+          {userMenuIsOpen && (
+            <UserMenuOptions>
+              <li>Minha conta</li>
+              <li>Meus pedidos</li>
+              <li>Preferências</li>
+              <li>Logout</li>
+            </UserMenuOptions>
+          )}
+        </IconButtons>
       </RightWrapper>
     </StyledNavBar>
   );

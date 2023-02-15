@@ -17,3 +17,13 @@ export const modalSingInOpenState = atom<boolean>({
   key: 'modalSingInOpenState',
   default: false,
 });
+
+export const profileAreaTitleState = atom<string>({
+  key: 'profileAreaTitleState',
+  default: '',
+});
+
+export const profileMenuTitleState = atom<string>({
+  key: 'profileMenuTitleState',
+  default: '',
+});

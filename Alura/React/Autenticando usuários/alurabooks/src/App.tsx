@@ -1,16 +1,13 @@
 import GlobalStyle from 'components/GlobalStyle';
-import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import Routes from 'Routes';
+import RoutesProvider from 'Routes';
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <RecoilRoot>
-        <GlobalStyle />
-        <Routes />
-      </RecoilRoot>
-    </BrowserRouter>
+    <RecoilRoot>
+      <GlobalStyle />
+      <RoutesProvider />
+    </RecoilRoot>
   );
 };
 

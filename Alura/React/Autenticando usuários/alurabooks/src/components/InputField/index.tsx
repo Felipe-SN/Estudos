@@ -280,8 +280,10 @@ const InputField = ({
             value={value}
           />
           <EyeIcon
+            type="button"
             iconIsTransparent={iconTransparent}
             onClick={event => changeVisibility(event)}
+            tabIndex={-1}
           />
         </PasswordWrapper>
       ) : (

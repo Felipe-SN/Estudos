@@ -2,6 +2,7 @@ export const colors = {
   azul: '#002F52',
   branca: '#FFFFFF',
   cinza: '#858585',
+  cinzaBordaLista: '#C4C4C4',
   cinzaEscuro: '#474646',
   cinzaFundoModal: '#656565D9',
   cinzaTransparente: '#0000008A',
