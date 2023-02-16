@@ -1,5 +1,5 @@
-import { colors } from "components/UI/variables";
-import { createGlobalStyle } from "styled-components";
+import { colors } from 'components/UI/variables';
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -53,6 +53,23 @@ q::before, q::after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+@media screen and (min-width: 1024px) {
+	.deskHide {
+		display: none;
+	}
+
+	.midDeskHide {
+		display: none;
+	}
+
+}
+
+@media screen and (min-width: 1728px) {
+  .midDeskHide {
+    display: block;
+  }
 }
 `;
 

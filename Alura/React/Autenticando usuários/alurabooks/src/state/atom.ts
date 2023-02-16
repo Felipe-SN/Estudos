@@ -27,3 +27,13 @@ export const profileMenuTitleState = atom<string>({
   key: 'profileMenuTitleState',
   default: '',
 });
+
+export const navCategoryListState = atom<boolean>({
+  key: 'navCategoryListState',
+  default: false,
+});
+
+export const navUserMenuState = atom<boolean>({
+  key: 'navUserMenuState',
+  default: false,
+});
