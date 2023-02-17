@@ -123,21 +123,23 @@ const NavBarDeskOptions = styled.ul`
 `;
 
 const RightWrapper = styled(LeftWrapper)<MenuStateProps>`
-  column-gap: 4rem;
+  column-gap: 1.875rem;
   justify-content: flex-end;
 
-  ${props => {
-    if (props.isLogged)
-      return css`
-        @media screen and (min-width: 1024px) {
-          grid-template-columns: repeat(2, max-content);
-        }
-      `;
+  @media screen and (min-width: 1024px) {
+    column-gap: 4rem;
+  }
 
-    return css`
-      grid-template-columns: max-content;
-    `;
-  }}
+  ${props =>
+    props.isLogged
+      ? css`
+          @media screen and (min-width: 1024px) {
+            grid-template-columns: repeat(2, max-content);
+          }
+        `
+      : css`
+          grid-template-columns: max-content;
+        `}
 `;
 
 const IconButtons = styled.button<{ isLogged?: boolean }>`
@@ -156,17 +158,6 @@ const IconButtons = styled.button<{ isLogged?: boolean }>`
     display: none;
     font-size: 1.25rem;
 
-    @media screen and (min-width: 1024px) {
-      ${props =>
-        props.isLogged
-          ? css`
-              display: none;
-            `
-          : css`
-              display: block;
-            `}
-    }
-
     @media screen and (min-width: 1728px) {
       display: block;
     }
@@ -174,6 +165,23 @@ const IconButtons = styled.button<{ isLogged?: boolean }>`
 
   &.userIcon {
     position: relative;
+
+    > p {
+      @media screen and (min-width: 1024px) {
+        ${props =>
+          props.isLogged
+            ? css`
+                display: none;
+              `
+            : css`
+                display: block;
+              `}
+
+        @media screen and (min-width: 1728px) {
+          display: block;
+        }
+      }
+    }
   }
 `;
 

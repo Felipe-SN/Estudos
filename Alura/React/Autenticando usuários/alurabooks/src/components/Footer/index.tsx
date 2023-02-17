@@ -57,7 +57,9 @@ const Footer = () => {
           <li key={category.id}>{category.categoryTitle}</li>
           {category.itens.map(item => (
             <li key={item.id}>
-              <StyledLink imgURL={item.imgURL}>{item.name}</StyledLink>
+              <StyledLink href="#" imgURL={item.imgURL}>
+                {item.name}
+              </StyledLink>
             </li>
           ))}
         </StyledList>

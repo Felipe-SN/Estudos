@@ -6,6 +6,7 @@ import styled, { css } from 'styled-components';
 const CategoryMenu = styled.ul<{ isOpen?: boolean }>`
   background-color: ${colors.branca};
   position: absolute;
+  left: 0;
   top: 5rem;
   transition-duration: 500ms;
   transition-property: visibility, opacity;

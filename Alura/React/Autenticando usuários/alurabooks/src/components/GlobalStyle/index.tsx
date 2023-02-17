@@ -32,6 +32,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
+	overflow-x: hidden;
 	box-sizing: border-box;
 	background-color: ${colors.pageBg};
 	height: 100vh;

@@ -43,7 +43,7 @@ const ButtonSingUp = styled(Button)`
   width: fit-content;
 `;
 
-const { register } = serviceApiCommunication();
+const { userCalls } = serviceApiCommunication();
 
 const ModalSingUp = () => {
   const [nameValue, setNameValue] = useState<string>('');
@@ -85,7 +85,7 @@ const ModalSingUp = () => {
       cep: cepValue,
     };
 
-    register(newUser, clearFields);
+    userCalls.register(newUser, clearFields);
   };
 
   return (

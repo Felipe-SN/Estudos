@@ -7,9 +7,18 @@ const UserMenu = styled.ul`
   background-color: ${colors.branca};
   max-width: 8.75rem;
   position: absolute;
+  left: calc(100vw - 8.75rem);
   top: 5rem;
   transition-duration: 500ms;
   width: max-content;
+
+  @media screen and (min-width: 1024px) {
+    left: calc(100vw - 10.375rem);
+  }
+
+  @media screen and (min-width: 1728px) {
+    left: auto;
+  }
 
   > li {
     > * {

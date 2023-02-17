@@ -1,9 +1,11 @@
 import useProfileAreaTitleState from 'state/hooks/useProfileAreaTitleState';
-import requests from 'data/requests.json';
 import Button from 'components/Button';
 import styled from 'styled-components';
 import { colors } from 'components/UI/variables';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import serviceApiCommunication from 'Services/serviceApiCommunication';
+import IRequest from 'interfaces/IRequest';
+import { dateFormatter, priceFormatter } from 'helpers/formatters';
 
 const RequestsList = styled.ul`
   max-height: 31.75rem;
@@ -39,6 +41,15 @@ const RequestItem = styled.li`
     border-bottom-style: solid;
     border-bottom-width: 0.063rem;
   }
+
+  .buttonsArea {
+    align-self: end;
+    display: flex;
+    gap: 1rem;
+    grid-column: 2/3;
+    grid-row: 1/1;
+    justify-self: end;
+  }
 `;
 
 const DetailItem = styled.li`
@@ -50,23 +61,31 @@ const DetailItem = styled.li`
 `;
 
 const DetailButton = styled(Button)`
-  align-self: end;
-  grid-column: 2/3;
-  justify-self: end;
   padding-bottom: 0.5rem;
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.5rem;
 `;
 
+const { requestsCalls } = serviceApiCommunication();
+
 const Requests = () => {
+  const [requests, setRequests] = useState<IRequest[]>([]);
   const { setProfileAreaTitle, setProfileMenuTitle } =
     useProfileAreaTitleState();
 
   useEffect(() => {
     setProfileMenuTitle('Pedidos');
     setProfileAreaTitle('Meus pedidos');
+    requestsCalls.get().then(response => setRequests(response));
   }, [setProfileAreaTitle, setProfileMenuTitle]);
+
+  const excludeRequest = (requestID: number) => {
+    requestsCalls.delete(requestID);
+    setRequests(oldRequests =>
+      oldRequests.filter(request => request.id !== requestID)
+    );
+  };
 
   return (
     <RequestsList>
@@ -78,31 +97,23 @@ const Requests = () => {
             </DetailItem>
             <DetailItem>
               {'Data do pedido: '}
-              <strong>
-                {Intl.DateTimeFormat('pt-br', { dateStyle: 'short' }).format(
-                  new Date(request.data)
-                )}
-              </strong>
+              <strong>{dateFormatter(new Date(request.data))}</strong>
             </DetailItem>
             <DetailItem>
               {'Valor total: '}
-              <strong>
-                {Intl.NumberFormat('pt-br', {
-                  currency: 'BRL',
-                  style: 'currency',
-                }).format(request.total)}
-              </strong>
+              <strong>{priceFormatter(request.total)}</strong>
             </DetailItem>
             <DetailItem>
               {'Entrega realizada em: '}
-              <strong>
-                {Intl.DateTimeFormat('pt-br', { dateStyle: 'short' }).format(
-                  new Date(request.entrega)
-                )}
-              </strong>
+              <strong>{dateFormatter(new Date(request.entrega))}</strong>
             </DetailItem>
           </ul>
-          <DetailButton>Detalhes</DetailButton>
+          <div className="buttonsArea">
+            <DetailButton onClick={() => excludeRequest(request.id)}>
+              Excluir
+            </DetailButton>
+            <DetailButton>Detalhes</DetailButton>
+          </div>
         </RequestItem>
       ))}
     </RequestsList>

@@ -66,7 +66,7 @@ const SingUpText = styled.p`
   line-height: 1.875rem;
 `;
 
-const { login } = serviceApiCommunication();
+const { userCalls } = serviceApiCommunication();
 const { token } = sessionTokenHelper();
 
 const ModalLogin = () => {
@@ -89,7 +89,7 @@ const ModalLogin = () => {
       setIsLogged(token.get({ tokenVerify: true }) !== null);
     };
 
-    login(user, onSuccessfulSubmit);
+    userCalls.login(user, onSuccessfulSubmit);
   };
 
   return (
