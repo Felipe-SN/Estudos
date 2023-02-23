@@ -1,5 +1,7 @@
 import { colors, fonts } from 'components/UI/variables';
+import sessionTokenHelper from 'helpers/sessionTokenHelper';
 import { Link } from 'react-router-dom';
+import useIsLoggedState from 'state/hooks/useIsLoggedState';
 import useNavBarMenusState from 'state/hooks/useNavBarMenusState';
 import styled from 'styled-components';
 
@@ -52,8 +54,17 @@ const UserMenu = styled.ul`
   }
 `;
 
+const { token } = sessionTokenHelper();
+
 const UserMenuOptions = () => {
   const { userMenuOpen } = useNavBarMenusState();
+  const { setIsLogged } = useIsLoggedState();
+
+  const onLogout = () => {
+    token.remove();
+    setIsLogged(false);
+  };
+
   return (
     <>
       {userMenuOpen && (
@@ -68,7 +79,7 @@ const UserMenuOptions = () => {
             <Link to={'#'}>Preferências</Link>
           </li>
           <li>
-            <button>Logout</button>
+            <button onClick={onLogout}>Logout</button>
           </li>
         </UserMenu>
       )}
