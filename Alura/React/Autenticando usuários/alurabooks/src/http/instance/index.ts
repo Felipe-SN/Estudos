@@ -31,7 +31,7 @@ http.interceptors.response.use(
     if (error instanceof AxiosError) {
       if (error.response?.status === 401) {
         alert(`Erro de autenticação: ${error.response.data.message}`);
-        router.navigate('/');
+        router.navigate('/', { replace: true });
         return Promise.reject();
       }
       alert(`Erro no processo solicitado: ${error?.response?.data.message}`);
