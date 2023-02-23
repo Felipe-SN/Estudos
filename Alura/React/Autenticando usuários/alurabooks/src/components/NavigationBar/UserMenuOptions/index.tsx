@@ -1,6 +1,7 @@
 import { colors, fonts } from 'components/UI/variables';
 import sessionTokenHelper from 'helpers/sessionTokenHelper';
 import { Link } from 'react-router-dom';
+import { router } from 'Routes';
 import useIsLoggedState from 'state/hooks/useIsLoggedState';
 import useNavBarMenusState from 'state/hooks/useNavBarMenusState';
 import styled from 'styled-components';
@@ -63,6 +64,7 @@ const UserMenuOptions = () => {
   const onLogout = () => {
     token.remove();
     setIsLogged(false);
+    router.navigate('/', { replace: true });
   };
 
   return (
