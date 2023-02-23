@@ -3,9 +3,12 @@ import Home from 'pages/Home';
 import NotFound from 'pages/NotFound';
 import ProfileArea from 'pages/ProfileArea';
 import Requests from 'pages/ProfileArea/Requests';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  RouterProvider as Provider,
+} from 'react-router-dom';
 
-const routes = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     element: <ConfigurationPage />,
     children: [
@@ -43,10 +46,6 @@ const routes = createBrowserRouter([
   },
 ]);
 
-const RoutesProvider = () => {
-  return (
-    <RouterProvider router={routes} fallbackElement={<h3>CARREGANDO...</h3>} />
-  );
+export const RouterProvider = () => {
+  return <Provider router={router} fallbackElement={<h3>CARREGANDO...</h3>} />;
 };
-
-export default RoutesProvider;

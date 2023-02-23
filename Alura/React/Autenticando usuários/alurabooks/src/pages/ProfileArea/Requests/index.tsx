@@ -1,11 +1,11 @@
-import useProfileAreaTitleState from 'state/hooks/useProfileAreaTitleState';
-import Button from 'components/Button';
-import styled from 'styled-components';
 import { colors } from 'components/UI/variables';
-import { useEffect, useState } from 'react';
-import serviceApiCommunication from 'Services/serviceApiCommunication';
-import IRequest from 'interfaces/IRequest';
 import { dateFormatter, priceFormatter } from 'helpers/formatters';
+import { useEffect, useState } from 'react';
+import Button from 'components/Button';
+import IRequest from 'interfaces/IRequest';
+import serviceApiCommunication from 'Services/serviceApiCommunication';
+import styled from 'styled-components';
+import useProfileAreaTitleState from 'state/hooks/useProfileAreaTitleState';
 
 const RequestsList = styled.ul`
   max-height: 31.75rem;
