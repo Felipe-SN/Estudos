@@ -1,0 +1,26 @@
+[
+  {
+    "img": "/img/livros/Book25.svg",
+    "id": 1,
+    "title": "Apache Kafka e Spring Boot",
+    "resume": "Comunicação assíncrona entre microsserviços",
+    "author": "Eduardo Felipe Zambom Santana",
+    "price": 27.75
+  },
+  {
+    "img": "/img/livros/Book26.svg",
+    "id": 2,
+    "title": "JavaScript Assertivo",
+    "resume": "Testes e qualidade de código em todas as camadas de aplicação",
+    "author": "Gabriel Ramos",
+    "price": 28.86
+  },
+  {
+    "img": "/img/livros/Book27.svg",
+    "id": 3,
+    "title": "Liderança em Design",
+    "resume": "Habilidades de gestão para alavancar sua carreira",
+    "author": "Victor Zann",
+    "price": 29.97
+  }
+]
