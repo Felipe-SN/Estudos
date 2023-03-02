@@ -5,7 +5,7 @@
   grid-template-areas: 'logo links busca icones';
   height: 100px;
   padding: 0 120px;
-  position: absolute;
+  position: absolute; //Bug no Outlet causado por esta linha.
   width: 100vw;
   z-index: 1;
   @media (max-width: $tablet) {
