@@ -1,5 +1,5 @@
 import { iconProps } from 'components/UI/variables';
-import { ReactComponent as Logo } from 'assets/img/logo.svg';
+import { logo } from 'data/img.json';
 import { RiShoppingCart2Line, RiShoppingCartFill } from 'react-icons/ri';
 import Busca from 'components/Busca';
 import classNames from 'classnames';
@@ -8,7 +8,7 @@ import styles from './NavBar.module.scss';
 export default function NavBar() {
   return (
     <nav className={styles.nav}>
-      <Logo className={styles.logo} />
+      <img src={logo} className={styles.logo} alt="logo da Trato Tech" />
       <div className={styles.links}>
         <div>
           <a

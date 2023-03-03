@@ -1,13 +1,24 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import PaginaStandard from 'components/PaginaStandard';
+import Home from 'Pages/Home';
+import Categoria from 'Pages/Categoria';
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     element: <PaginaStandard />,
+    path: '/',
     children: [
       {
-        path: '/',
-        element: <span>TESTE</span>,
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: '/categoria/:nomeCategoria',
+        element: <Categoria />,
+      },
+      {
+        path: '/carrinho',
+        element: <Home />,
       },
     ],
   },
