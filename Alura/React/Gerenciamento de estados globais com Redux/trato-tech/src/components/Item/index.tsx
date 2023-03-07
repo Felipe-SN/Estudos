@@ -1,19 +1,40 @@
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { FaCartPlus } from 'react-icons/fa';
 import { iconProps } from 'components/UI/variables';
+import { mudarCarrinho } from 'store/reducers/carrinho';
 import { mudarFavorito } from 'store/reducers/itens';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { valorMoeda } from 'helpers/formatadores';
+import classNames from 'classnames';
 import styles from './Item.module.scss';
-import { useAppDispatch } from 'store/hooks';
+
+type ItemProps = {
+  carrinho?: boolean;
+  categoria: string;
+  descricao: string;
+  favorito: boolean;
+  foto: string;
+  id: string;
+  preco: number;
+  titulo: string;
+};
 
 export default function Item(props: ItemProps) {
-  const { titulo, descricao, foto, preco, favorito, id } = props;
+  const { titulo, descricao, foto, preco, favorito, id, carrinho } = props;
+  const noCarrinho = useAppSelector(state =>
+    state.carrinho.some(itemCarrinho => itemCarrinho.id === id)
+  );
   const dispatch = useAppDispatch();
 
   const resolverFavorito = () => dispatch(mudarFavorito(id));
+  const resolverCarrinho = () => dispatch(mudarCarrinho(id));
 
   return (
-    <div className={styles.item}>
+    <div
+      className={classNames(styles.item, {
+        [styles.itemNoCarrinho]: carrinho,
+      })}
+    >
       <div className={styles.itemImagem}>
         <img src={foto} alt={titulo} />
       </div>
@@ -43,8 +64,9 @@ export default function Item(props: ItemProps) {
 
             <FaCartPlus
               {...iconProps}
-              color={iconProps.size === 22 ? '#1875E8' : '#041833'}
+              color={noCarrinho ? '#1875E8' : '#041833'}
               className={styles.itemAcao}
+              onClick={resolverCarrinho}
             />
           </div>
         </div>
@@ -52,13 +74,3 @@ export default function Item(props: ItemProps) {
     </div>
   );
 }
-
-type ItemProps = {
-  titulo: string;
-  descricao: string;
-  foto: string;
-  favorito: boolean;
-  preco: number;
-  id: string;
-  categoria: string;
-};

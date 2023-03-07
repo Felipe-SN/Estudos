@@ -1,21 +1,29 @@
 import { iconProps } from 'components/UI/variables';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { logo } from 'data/img.json';
 import { RiShoppingCart2Line, RiShoppingCartFill } from 'react-icons/ri';
 import Busca from 'components/Busca';
 import classNames from 'classnames';
 import styles from './NavBar.module.scss';
+import { router } from 'routes';
 
 export default function NavBar() {
+  const location = useLocation();
+
   return (
     <nav className={styles.nav}>
-      <img src={logo} className={styles.logo} alt="logo da Trato Tech" />
+      <img
+        src={logo}
+        className={styles.logo}
+        alt="logo da Trato Tech"
+        onClick={() => router.navigate('/')}
+      />
       <div className={styles.links}>
         <div>
           <Link
             to={'/'}
             className={classNames(styles.link, {
-              [styles.selected]: window.location.pathname === '/',
+              [styles.selected]: location.pathname === '/',
             })}
           >
             Página inicial
@@ -27,7 +35,7 @@ export default function NavBar() {
       </div>
       <div className={styles.icones}>
         <Link to={'/carrinho'}>
-          {window.location.pathname === '/carrinho' ? (
+          {location.pathname === '/carrinho' ? (
             <RiShoppingCartFill {...iconProps} />
           ) : (
             <RiShoppingCart2Line {...iconProps} />

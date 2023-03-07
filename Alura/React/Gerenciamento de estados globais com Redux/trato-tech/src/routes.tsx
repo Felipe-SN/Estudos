@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import PaginaStandard from 'components/PaginaStandard';
 import Home from 'Pages/Home';
 import Categoria from 'Pages/Categoria';
+import Carrinho from 'Pages/Carrinho';
 
 export const router = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/carrinho',
-        element: <Home />,
+        element: <Carrinho />,
       },
     ],
   },

@@ -1,27 +1,29 @@
+import ComImagem from './ComImagem';
+import SemImagem from './SemImagem';
 import styles from './Header.module.scss';
 
-type HeaderProps = {
-  titulo: string;
-  descricao: string;
+export type HeaderProps = {
   className?: string;
-  imagem: string;
+  descricao: string;
+  imagem?: string;
+  titulo: string;
 };
 
-export default function Header({
-  titulo,
-  descricao,
-  className = '',
-  imagem,
-}: HeaderProps) {
+export default function Header(props: HeaderProps) {
+  const { className, descricao, imagem, titulo } = props;
+
   return (
-    <header className={`${styles.header} ${className}`}>
-      <div className={styles.headerTexto}>
-        <h1>{titulo}</h1>
-        <h2>{descricao}</h2>
-      </div>
-      <div className={styles.headerImagem}>
-        <img src={imagem} alt={titulo} />
-      </div>
+    <header className={styles.header}>
+      {imagem ? (
+        <ComImagem
+          titulo={titulo}
+          descricao={descricao}
+          imagem={imagem}
+          className={className}
+        />
+      ) : (
+        <SemImagem titulo={titulo} descricao={descricao} />
+      )}
     </header>
   );
 }
