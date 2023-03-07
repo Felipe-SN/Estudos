@@ -1,8 +1,9 @@
-import { useAppSelector } from 'store/hooks';
+import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { valorMoeda } from 'helpers/formatadores';
 import Header from 'components/Header';
 import Item from 'components/Item';
 import styles from './Carrinho.module.scss';
+import { resetCarrinho } from 'store/reducers/carrinho';
 
 type CheckoutList = {
   categoria: string;
@@ -16,16 +17,21 @@ type CheckoutList = {
 }[];
 
 export default function Carrinho() {
-  const carrinho = useAppSelector(state => {
+  const dispatch = useAppDispatch();
+  const { carrinho, total } = useAppSelector(state => {
+    let total = 0;
     const carrinhoReduce = state.carrinho.reduce(
       (itens: CheckoutList, itemNoCarrinho) => {
         const item = state.itens.find(item => item.id === itemNoCarrinho.id);
-        item && itens.push({ ...item, quantidade: itemNoCarrinho.quantidade });
+        if (item) {
+          total += item.preco * itemNoCarrinho.quantidade;
+          itens.push({ ...item, quantidade: itemNoCarrinho.quantidade });
+        }
         return itens;
       },
       []
     );
-    return carrinhoReduce;
+    return { carrinho: carrinhoReduce, total };
   });
 
   return (
@@ -41,9 +47,15 @@ export default function Carrinho() {
         <div className={styles.total}>
           <strong>Resumo da compra</strong>
           <span>
-            Subtotal: <strong>{valorMoeda(0.0)}</strong>
+            Subtotal: <strong>{valorMoeda(total)}</strong>
           </span>
         </div>
+        <button
+          className={styles.finalizar}
+          onClick={() => dispatch(resetCarrinho())}
+        >
+          Finalizar compra
+        </button>
       </div>
     </div>
   );
