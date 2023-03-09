@@ -6,6 +6,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "strict": true,
+    "baseUrl": "src"
   },
   "include": [
     "vite.config.ts"

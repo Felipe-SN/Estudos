@@ -3,6 +3,7 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "src",
+    "noImplicitAny": true,
     "esModuleInterop": false,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
@@ -20,9 +21,16 @@
     "strict": true,
     "target": "ESNext",
     "useDefineForClassFields": true,
+    "types": [
+      "vite-plugin-svgr/client",
+      "node"
+    ]
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules"
   ],
   "references": [
     {
