@@ -6,12 +6,18 @@ import { useAppSelector } from 'store/hooks';
 
 export default function Categoria() {
   const { nomeCategoria } = useParams();
-  const { categoria, itens } = useAppSelector(state => ({
-    categoria: state.categorias.find(
-      categoria => categoria.id === nomeCategoria
-    ),
-    itens: state.itens.filter(item => item.categoria === nomeCategoria),
-  }));
+  const { categoria, itens } = useAppSelector(state => {
+    const regExp = new RegExp(state.busca, 'i');
+
+    return {
+      categoria: state.categorias.find(
+        categoria => categoria.id === nomeCategoria
+      ),
+      itens: state.itens.filter(
+        item => item.categoria === nomeCategoria && item.titulo.match(regExp)
+      ),
+    };
+  });
 
   return (
     <div>

@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
+import buscaSlice from './reducers/busca';
 import carrinhoSlice from './reducers/carrinho';
 import categoriasSlice from './reducers/categorias';
 import itensSlice from './reducers/itens';
@@ -11,6 +12,7 @@ export const store = configureStore({
     carrinho: carrinhoSlice,
     categorias: categoriasSlice,
     itens: itensSlice,
+    busca: buscaSlice,
   },
 });
 

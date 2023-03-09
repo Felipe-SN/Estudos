@@ -1,31 +1,25 @@
+import { resetCarrinho } from 'store/reducers/carrinho';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { valorMoeda } from 'helpers/formatadores';
+import IObjetoItem from 'interfaces/IObjetoItem';
 import Header from 'components/Header';
 import Item from 'components/Item';
 import styles from './Carrinho.module.scss';
-import { resetCarrinho } from 'store/reducers/carrinho';
 
-type CheckoutList = {
-  categoria: string;
-  descricao: string;
-  favorito: boolean;
-  foto: string;
-  id: string;
-  preco: number;
-  titulo: string;
-  quantidade: number;
-}[];
+type CheckoutList = IObjetoItem[];
 
 export default function Carrinho() {
   const dispatch = useAppDispatch();
   const { carrinho, total } = useAppSelector(state => {
     let total = 0;
+    const regExp = new RegExp(state.busca, 'i');
     const carrinhoReduce = state.carrinho.reduce(
       (itens: CheckoutList, itemNoCarrinho) => {
         const item = state.itens.find(item => item.id === itemNoCarrinho.id);
         if (item) {
           total += item.preco * itemNoCarrinho.quantidade;
-          itens.push({ ...item, quantidade: itemNoCarrinho.quantidade });
+          if (item.titulo.match(regExp))
+            itens.push({ ...item, quantidade: itemNoCarrinho.quantidade });
         }
         return itens;
       },

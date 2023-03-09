@@ -10,27 +10,16 @@ import { mudarCarrinho, mudarQuantidade } from 'store/reducers/carrinho';
 import { mudarFavorito } from 'store/reducers/itens';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { valorMoeda } from 'helpers/formatadores';
+import IObjetoItem from 'interfaces/IObjetoItem';
 import classNames from 'classnames';
 import styles from './Item.module.scss';
-
-type ItemProps = {
-  carrinho?: boolean;
-  categoria: string;
-  descricao: string;
-  favorito: boolean;
-  foto: string;
-  id: string;
-  preco: number;
-  quantidade: number;
-  titulo: string;
-};
 
 const IconQuantidadeProps = {
   size: 32,
   color: '#1875E8',
 };
 
-export default function Item(props: ItemProps) {
+export default function Item(props: IObjetoItem) {
   const { titulo, descricao, foto, preco, favorito, id, carrinho, quantidade } =
     props;
   const dispatch = useAppDispatch();
@@ -41,8 +30,9 @@ export default function Item(props: ItemProps) {
   const resolverFavorito = () => dispatch(mudarFavorito(id));
   const resolverCarrinho = () => dispatch(mudarCarrinho(id));
   const resolverQuantidade = (numero: number) => {
-    if (quantidade >= 1 || numero > 0)
-      dispatch(mudarQuantidade({ id, quantidade: numero }));
+    if (quantidade)
+      if (quantidade >= 1 || numero > 0)
+        dispatch(mudarQuantidade({ id, quantidade: numero }));
   };
 
   return (
