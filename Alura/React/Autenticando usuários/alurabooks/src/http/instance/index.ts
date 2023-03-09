@@ -34,7 +34,7 @@ http.interceptors.response.use(
         router.navigate('/', { replace: true });
         return Promise.reject();
       }
-      alert(`Erro no processo solicitado: ${error?.response?.data.message}`);
+      alert(`Erro no processo solicitado: ${error.message}`);
     }
     return Promise.reject(error);
   }

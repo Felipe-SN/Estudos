@@ -16,7 +16,7 @@ const ConfigurationPage = () => {
       {modalSingInIsOpen ? <ModalLogin /> : <ModalSingUp />}
       <NavigationBar />
       <Outlet />
-      <TagSection categories={sortByLength(categories)} />
+      <TagSection categories={sortByLength(categories, 'name')} />
       <NewsLetter />
       <Footer />
     </main>

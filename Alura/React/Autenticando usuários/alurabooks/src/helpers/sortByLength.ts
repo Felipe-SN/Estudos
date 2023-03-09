@@ -1,15 +1,11 @@
-import categories from "data/categorias.json";
-
-type Category = typeof categories[0];
-
-const sortByLength = (categories: Category[]) => {
-  return categories.sort((a, b) => {
-    const lengthA = a.name.length;
-    const lengthB = b.name.length;
+const sortByLength = <T, P extends keyof T>(array: T[], prop: P) => {
+  return array.sort((a, b) => {
+    const lengthA = (a[prop] as string | []).length;
+    const lengthB = (b[prop] as string | []).length;
 
     if (lengthA < lengthB) return -1;
-    if (lengthA === lengthB) return 0;
-    return 1;
+    if (lengthA > lengthB) return 1;
+    return 0;
   });
 };
 
