@@ -1,8 +1,12 @@
-export const tipoData = (date: Date) =>
+const data = (date: Date) =>
   Intl.DateTimeFormat('pt-br', { dateStyle: 'short' }).format(date);
 
-export const valorMoeda = (price: number) =>
+const valorMoeda = (price: number) =>
   Intl.NumberFormat('pt-br', {
     currency: 'BRL',
     style: 'currency',
   }).format(price);
+
+const formatadores = { valorMoeda, data };
+
+export default formatadores;

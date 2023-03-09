@@ -1,8 +1,8 @@
 import { resetCarrinho } from 'store/reducers/carrinho';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
-import { valorMoeda } from 'helpers/formatadores';
-import IObjetoItem from 'interfaces/IObjetoItem';
+import formatadores from 'helpers/formatadores';
 import Header from 'components/Header';
+import IObjetoItem from 'interfaces/IObjetoItem';
 import Item from 'components/Item';
 import styles from './Carrinho.module.scss';
 
@@ -41,7 +41,7 @@ export default function Carrinho() {
         <div className={styles.total}>
           <strong>Resumo da compra</strong>
           <span>
-            Subtotal: <strong>{valorMoeda(total)}</strong>
+            Subtotal: <strong>{formatadores.valorMoeda(total)}</strong>
           </span>
         </div>
         <button

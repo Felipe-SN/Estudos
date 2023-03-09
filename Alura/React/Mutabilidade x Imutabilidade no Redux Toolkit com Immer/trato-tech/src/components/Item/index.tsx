@@ -9,9 +9,9 @@ import { iconProps } from 'components/UI/variables';
 import { mudarCarrinho, mudarQuantidade } from 'store/reducers/carrinho';
 import { mudarFavorito } from 'store/reducers/itens';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { valorMoeda } from 'helpers/formatadores';
-import IObjetoItem from 'interfaces/IObjetoItem';
 import classNames from 'classnames';
+import formatadores from 'helpers/formatadores';
+import IObjetoItem from 'interfaces/IObjetoItem';
 import styles from './Item.module.scss';
 
 const IconQuantidadeProps = {
@@ -50,7 +50,9 @@ export default function Item(props: IObjetoItem) {
           <p>{descricao}</p>
         </div>
         <div className={styles.itemInfo}>
-          <div className={styles.itemPreco}>{valorMoeda(preco)}</div>
+          <div className={styles.itemPreco}>
+            {formatadores.valorMoeda(preco)}
+          </div>
           <div className={styles.itemAcoes}>
             {favorito ? (
               <AiFillHeart
