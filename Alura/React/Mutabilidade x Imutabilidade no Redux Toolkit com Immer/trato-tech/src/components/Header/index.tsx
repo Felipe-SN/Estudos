@@ -7,10 +7,11 @@ export type HeaderProps = {
   descricao: string;
   imagem?: string;
   titulo: string;
+  children?: React.ReactNode;
 };
 
 export default function Header(props: HeaderProps) {
-  const { className, descricao, imagem, titulo } = props;
+  const { className, descricao, imagem, titulo, children } = props;
 
   return (
     <header className={styles.header}>
@@ -20,9 +21,13 @@ export default function Header(props: HeaderProps) {
           descricao={descricao}
           imagem={imagem}
           className={className}
-        />
+        >
+          {children}
+        </ComImagem>
       ) : (
-        <SemImagem titulo={titulo} descricao={descricao} />
+        <SemImagem titulo={titulo} descricao={descricao}>
+          {children}
+        </SemImagem>
       )}
     </header>
   );

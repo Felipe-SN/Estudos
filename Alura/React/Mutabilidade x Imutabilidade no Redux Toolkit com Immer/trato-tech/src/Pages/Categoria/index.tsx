@@ -1,8 +1,10 @@
+import { useAppSelector } from 'store/hooks';
 import { useParams } from 'react-router-dom';
 import Header from 'components/Header';
-import styles from './Categoria.module.scss';
 import Item from 'components/Item';
-import { useAppSelector } from 'store/hooks';
+import styles from './Categoria.module.scss';
+import Button from 'components/Button';
+import { router } from 'routes';
 
 export default function Categoria() {
   const { nomeCategoria } = useParams();
@@ -26,7 +28,11 @@ export default function Categoria() {
           titulo={categoria.nome}
           descricao={categoria.descricao}
           imagem={categoria.header}
-        />
+        >
+          <Button onClick={() => router.navigate(`/anuncie/${nomeCategoria}`)}>
+            Quero anunciar
+          </Button>
+        </Header>
       )}
       {itens && (
         <div className={styles.itens}>

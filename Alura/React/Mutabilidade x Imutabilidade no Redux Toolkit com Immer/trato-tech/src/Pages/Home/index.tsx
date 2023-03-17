@@ -1,12 +1,12 @@
-import Header from 'components/Header';
-import styles from './Home.module.scss';
 import { clock } from 'data/img.json';
 import { router } from 'routes';
-import { useSelector } from 'react-redux';
-import { RootState } from 'store';
+import { useAppSelector } from 'store/hooks';
+import Button from 'components/Button';
+import Header from 'components/Header';
+import styles from './Home.module.scss';
 
 export default function Home() {
-  const categorias = useSelector((state: RootState) => state.categorias);
+  const categorias = useAppSelector(state => state.categorias);
 
   return (
     <div>
@@ -15,7 +15,11 @@ export default function Home() {
         descricao="Compre diversos tipos de produtos no melhor site do Brasil!"
         imagem={clock}
         className={styles.header}
-      />
+      >
+        <Button onClick={() => router.navigate(`/anuncie`)}>
+          Quero anunciar
+        </Button>
+      </Header>
       <div className={styles.categorias}>
         <div>
           <h1>Categorias</h1>

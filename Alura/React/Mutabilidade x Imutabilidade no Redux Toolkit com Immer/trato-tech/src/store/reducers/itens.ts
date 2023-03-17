@@ -15,16 +15,7 @@ const itensSlice = createSlice({
       });
     },
     cadastrarItem: (state, { payload }) => {
-      const novoItem = {
-        titulo: payload.nome,
-        descricao: payload.descricao,
-        foto: payload.imagem,
-        favorito: false,
-        preco: payload.preco,
-        id: uuid(),
-        categoria: payload.categoria,
-      };
-      return [...state, novoItem];
+      state.push({ ...payload, favorito: false, id: uuid() });
     },
   },
 });

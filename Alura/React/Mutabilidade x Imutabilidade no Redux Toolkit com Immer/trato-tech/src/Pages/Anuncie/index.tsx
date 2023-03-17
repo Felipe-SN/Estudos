@@ -1,6 +1,7 @@
 import { cadastrarItem } from 'store/reducers/itens';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import Button from 'components/Button';
 import Header from 'components/Header';
 import MensagensDeErroForm from 'helpers/mensagensDeErroForm';
@@ -8,6 +9,7 @@ import styles from './Anuncie.module.scss';
 
 export default function Anuncie() {
   const dispatch = useAppDispatch();
+  const { nomeCategoria = '' } = useParams();
   const categorias = useAppSelector(state =>
     state.categorias.map(({ nome, id }) => ({ nome, id }))
   );
@@ -17,10 +19,10 @@ export default function Anuncie() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      categoria: '',
-      nome: '',
+      categoria: nomeCategoria,
+      titulo: '',
       descricao: '',
-      imagem: '',
+      foto: '',
       preco: undefined,
     },
   });
@@ -38,15 +40,15 @@ export default function Anuncie() {
       />
       <form className={styles.formulario} onSubmit={handleSubmit(cadastrar)}>
         <input
-          {...register('nome', { required: true, minLength: minLengthValue })}
-          className={errors.nome && styles.inputErro}
+          {...register('titulo', { required: true, minLength: minLengthValue })}
+          className={errors.titulo && styles.inputErro}
           alt="Nome do produto"
           placeholder="Nome do produto"
           type="text"
         />
-        {errors.nome && (
+        {errors.titulo && (
           <span role="alert" className={styles.mensagemErro}>
-            {MensagensDeErroForm(errors.nome.type, minLengthValue)}
+            {MensagensDeErroForm(errors.titulo.type, minLengthValue)}
           </span>
         )}
         <input
@@ -65,19 +67,20 @@ export default function Anuncie() {
           </span>
         )}
         <input
-          {...register('imagem', { required: true, minLength: minLengthValue })}
-          className={errors.imagem && styles.inputErro}
+          {...register('foto', { required: true, minLength: minLengthValue })}
+          className={errors.foto && styles.inputErro}
           alt="URL da imagem do produto"
           placeholder="URL da imagem do produto"
           type="text"
         />
-        {errors.imagem && (
+        {errors.foto && (
           <span role="alert" className={styles.mensagemErro}>
-            {MensagensDeErroForm(errors.imagem.type, minLengthValue)}
+            {MensagensDeErroForm(errors.foto.type, minLengthValue)}
           </span>
         )}
         <select
           {...register('categoria', { required: true })}
+          disabled={nomeCategoria !== ''}
           className={errors.categoria && styles.inputErro}
           title="Categoria do produto"
         >
@@ -96,7 +99,11 @@ export default function Anuncie() {
           </span>
         )}
         <input
-          {...register('preco', { required: true, min: 1 })}
+          {...register('preco', {
+            required: true,
+            min: 1,
+            valueAsNumber: true,
+          })}
           className={errors.preco && styles.inputErro}
           placeholder="Preço do produto"
           type="number"
