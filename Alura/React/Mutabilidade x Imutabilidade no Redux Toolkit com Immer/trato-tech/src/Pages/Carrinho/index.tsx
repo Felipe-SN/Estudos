@@ -1,5 +1,6 @@
 import { resetCarrinho } from 'store/reducers/carrinho';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
+import Button from 'components/Button';
 import formatadores from 'helpers/formatadores';
 import Header from 'components/Header';
 import IObjetoItem from 'interfaces/IObjetoItem';
@@ -44,12 +45,9 @@ export default function Carrinho() {
             Subtotal: <strong>{formatadores.valorMoeda(total)}</strong>
           </span>
         </div>
-        <button
-          className={styles.finalizar}
-          onClick={() => dispatch(resetCarrinho())}
-        >
+        <Button onClick={() => dispatch(resetCarrinho())}>
           Finalizar compra
-        </button>
+        </Button>
       </div>
     </div>
   );
