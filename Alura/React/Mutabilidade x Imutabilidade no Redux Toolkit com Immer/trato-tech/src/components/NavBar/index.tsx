@@ -2,10 +2,10 @@ import { iconProps } from 'components/UI/variables';
 import { Link, useLocation } from 'react-router-dom';
 import { logo } from 'data/img.json';
 import { RiShoppingCart2Line, RiShoppingCartFill } from 'react-icons/ri';
+import { router } from 'routes';
 import Busca from 'components/Busca';
 import classNames from 'classnames';
 import styles from './NavBar.module.scss';
-import { router } from 'routes';
 
 export default function NavBar() {
   const location = useLocation();

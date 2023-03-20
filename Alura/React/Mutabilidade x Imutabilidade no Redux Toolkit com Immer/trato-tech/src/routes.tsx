@@ -9,9 +9,7 @@ export const router = createBrowserRouter([
   {
     element: <PaginaStandard />,
     path: '/',
-    errorElement: (
-      <h2>{'Ocorreu um erro! 😵‍💫 404 Recurso solicitado não encontrado'}</h2>
-    ),
+    errorElement: <h2>{'Erro 404!!😵‍💫 Recurso solicitado não encontrado'}</h2>,
     children: [
       { index: true, element: <Home /> },
       { path: '/anuncie', element: <Anuncie /> },

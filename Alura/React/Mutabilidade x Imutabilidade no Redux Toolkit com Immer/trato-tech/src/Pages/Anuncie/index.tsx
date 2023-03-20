@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Button';
 import Header from 'components/Header';
+import Input from 'components/Input';
 import MensagensDeErroForm from 'helpers/mensagensDeErroForm';
 import styles from './Anuncie.module.scss';
 
@@ -39,7 +40,7 @@ export default function Anuncie() {
         descricao="Anuncie seu produto no melhor site do Brasil"
       />
       <form className={styles.formulario} onSubmit={handleSubmit(cadastrar)}>
-        <input
+        <Input
           {...register('titulo', { required: true, minLength: minLengthValue })}
           className={errors.titulo && styles.inputErro}
           alt="Nome do produto"
@@ -51,7 +52,7 @@ export default function Anuncie() {
             {MensagensDeErroForm(errors.titulo.type, minLengthValue)}
           </span>
         )}
-        <input
+        <Input
           {...register('descricao', {
             required: true,
             minLength: minLengthValue,
@@ -66,7 +67,7 @@ export default function Anuncie() {
             {MensagensDeErroForm(errors.descricao.type, minLengthValue)}
           </span>
         )}
-        <input
+        <Input
           {...register('foto', { required: true, minLength: minLengthValue })}
           className={errors.foto && styles.inputErro}
           alt="URL da imagem do produto"
@@ -98,7 +99,7 @@ export default function Anuncie() {
             {MensagensDeErroForm(errors.categoria.type)}
           </span>
         )}
-        <input
+        <Input
           {...register('preco', {
             required: true,
             min: 1,

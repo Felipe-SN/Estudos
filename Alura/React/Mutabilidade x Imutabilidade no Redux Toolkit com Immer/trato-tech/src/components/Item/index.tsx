@@ -1,16 +1,20 @@
 import {
-  AiOutlineHeart,
+  AiFillEdit,
   AiFillHeart,
-  AiFillPlusCircle,
   AiFillMinusCircle,
+  AiFillPlusCircle,
+  AiOutlineCheck,
+  AiOutlineHeart,
 } from 'react-icons/ai';
 import { FaCartPlus } from 'react-icons/fa';
 import { iconProps } from 'components/UI/variables';
 import { mudarCarrinho, mudarQuantidade } from 'store/reducers/carrinho';
-import { mudarFavorito } from 'store/reducers/itens';
+import { editarItem, mudarFavorito } from 'store/reducers/itens';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { useState } from 'react';
 import classNames from 'classnames';
 import formatadores from 'helpers/formatadores';
+import Input from 'components/Input';
 import IObjetoItem from 'interfaces/IObjetoItem';
 import styles from './Item.module.scss';
 
@@ -23,6 +27,8 @@ export default function Item(props: IObjetoItem) {
   const { titulo, descricao, foto, preco, favorito, id, carrinho, quantidade } =
     props;
   const dispatch = useAppDispatch();
+  const [modoEdicao, setModoEdicao] = useState(false);
+  const [novoTitulo, setNovoTitulo] = useState(titulo);
   const noCarrinho = useAppSelector(state =>
     state.carrinho.some(itemCarrinho => itemCarrinho.id === id)
   );
@@ -34,6 +40,31 @@ export default function Item(props: IObjetoItem) {
       if (quantidade >= 1 || numero > 0)
         dispatch(mudarQuantidade({ id, quantidade: numero }));
   };
+  const resolverEditar = (edicaoAtivada: boolean) => {
+    if (modoEdicao && novoTitulo !== titulo)
+      dispatch(editarItem({ id, item: { titulo: novoTitulo } }));
+    setModoEdicao(edicaoAtivada);
+  };
+
+  const ComponentModoEdicao = (
+    <>
+      {modoEdicao ? (
+        <AiOutlineCheck
+          {...iconProps}
+          color="#041833"
+          className={styles.itemAcao}
+          onClick={() => resolverEditar(false)}
+        />
+      ) : (
+        <AiFillEdit
+          {...iconProps}
+          color="#041833"
+          className={styles.itemAcao}
+          onClick={() => resolverEditar(true)}
+        />
+      )}
+    </>
+  );
 
   return (
     <div
@@ -46,7 +77,16 @@ export default function Item(props: IObjetoItem) {
       </div>
       <div className={styles.itemDescricao}>
         <div className={styles.itemTitulo}>
-          <h2>{titulo}</h2>
+          {modoEdicao ? (
+            <Input
+              onChange={e => setNovoTitulo(e.target.value)}
+              placeholder="Nome do produto"
+              type="text"
+              value={novoTitulo}
+            />
+          ) : (
+            <h2>{titulo}</h2>
+          )}
           <p>{descricao}</p>
         </div>
         <div className={styles.itemInfo}>
@@ -83,12 +123,15 @@ export default function Item(props: IObjetoItem) {
                 />
               </div>
             ) : (
-              <FaCartPlus
-                {...iconProps}
-                color={noCarrinho ? '#1875E8' : '#041833'}
-                className={styles.itemAcao}
-                onClick={resolverCarrinho}
-              />
+              <>
+                <FaCartPlus
+                  {...iconProps}
+                  color={noCarrinho ? '#1875E8' : '#041833'}
+                  className={styles.itemAcao}
+                  onClick={resolverCarrinho}
+                />
+                {ComponentModoEdicao}
+              </>
             )}
           </div>
         </div>
