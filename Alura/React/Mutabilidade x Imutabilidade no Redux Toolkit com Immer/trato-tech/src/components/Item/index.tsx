@@ -1,4 +1,5 @@
 import {
+  AiFillCloseCircle,
   AiFillEdit,
   AiFillHeart,
   AiFillMinusCircle,
@@ -6,12 +7,12 @@ import {
   AiOutlineCheck,
   AiOutlineHeart,
 } from 'react-icons/ai';
+import { deletarItem, editarItem, mudarFavorito } from 'store/reducers/itens';
 import { FaCartPlus } from 'react-icons/fa';
 import { iconProps } from 'components/UI/variables';
+import { memo, useState } from 'react';
 import { mudarCarrinho, mudarQuantidade } from 'store/reducers/carrinho';
-import { editarItem, mudarFavorito } from 'store/reducers/itens';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { useState } from 'react';
 import classNames from 'classnames';
 import formatadores from 'helpers/formatadores';
 import Input from 'components/Input';
@@ -23,9 +24,16 @@ const IconQuantidadeProps = {
   color: '#1875E8',
 };
 
-export default function Item(props: IObjetoItem) {
-  const { titulo, descricao, foto, preco, favorito, id, carrinho, quantidade } =
-    props;
+function Item({
+  carrinho,
+  descricao,
+  favorito,
+  foto,
+  id,
+  preco,
+  quantidade,
+  titulo,
+}: IObjetoItem) {
   const dispatch = useAppDispatch();
   const [modoEdicao, setModoEdicao] = useState(false);
   const [novoTitulo, setNovoTitulo] = useState(titulo);
@@ -35,6 +43,7 @@ export default function Item(props: IObjetoItem) {
 
   const resolverFavorito = () => dispatch(mudarFavorito(id));
   const resolverCarrinho = () => dispatch(mudarCarrinho(id));
+  const resolverDelete = () => dispatch(deletarItem(id));
   const resolverQuantidade = (numero: number) => {
     if (quantidade)
       if (quantidade >= 1 || numero > 0)
@@ -72,6 +81,12 @@ export default function Item(props: IObjetoItem) {
         [styles.itemNoCarrinho]: carrinho,
       })}
     >
+      <AiFillCloseCircle
+        {...iconProps}
+        color="#041833"
+        className={`${styles.itemAcoes} ${styles.itemDeletar}`}
+        onClick={resolverDelete}
+      />
       <div className={styles.itemImagem}>
         <img src={foto} alt={titulo} />
       </div>
@@ -139,3 +154,5 @@ export default function Item(props: IObjetoItem) {
     </div>
   );
 }
+
+export default memo(Item);
