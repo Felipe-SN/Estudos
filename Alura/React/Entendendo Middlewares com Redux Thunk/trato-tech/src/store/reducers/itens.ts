@@ -1,6 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuid } from 'uuid';
 import IObjetoItem from 'interfaces/IObjetoItem';
+import itensServices from 'services/itens';
+
+export const buscarItens = createAsyncThunk(
+  'itens/buscar',
+  itensServices.buscar
+);
 
 const itensSlice = createSlice({
   name: 'itens',
@@ -27,6 +33,15 @@ const itensSlice = createSlice({
       const index = state.findIndex(item => item.id === payload);
       state[index].favorito = !state[index].favorito;
     },
+  },
+
+  extraReducers: builder => {
+    builder.addCase(buscarItens.fulfilled, (state, { payload }) => {
+      payload.forEach((item: IObjetoItem) => {
+        const index = state.findIndex(objeto => objeto.id === item.id);
+        if (index < 0) state.push(item);
+      });
+    });
   },
 });
 
