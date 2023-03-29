@@ -1,12 +1,32 @@
+import { adicionarCategorias } from 'store/reducers/categorias';
+import { adicionarItens } from 'store/reducers/itens';
 import { clock } from 'data/img.json';
 import { router } from 'routes';
-import { useAppSelector } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { useEffect, useCallback } from 'react';
 import Button from 'components/Button';
 import Header from 'components/Header';
+import instance from 'common/config/api';
 import styles from './Home.module.scss';
 
 export default function Home() {
+  const dispatch = useAppDispatch();
   const categorias = useAppSelector(state => state.categorias);
+
+  const buscarCategorias = useCallback(async () => {
+    const resposta = await instance.get('/categorias');
+    dispatch(adicionarCategorias(resposta.data));
+  }, [dispatch]);
+
+  const buscarItens = useCallback(async () => {
+    const resposta = await instance.get('/itens');
+    dispatch(adicionarItens(resposta.data));
+  }, [dispatch]);
+
+  useEffect(() => {
+    buscarCategorias();
+    buscarItens();
+  }, [buscarCategorias]);
 
   return (
     <div>

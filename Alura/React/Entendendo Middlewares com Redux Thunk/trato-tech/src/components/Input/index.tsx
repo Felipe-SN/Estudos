@@ -7,16 +7,10 @@ type CustomInputProps = React.DetailedHTMLProps<
 >;
 
 export default forwardRef(function Input(
-  { className, onChange, value, ...props }: CustomInputProps,
+  { className, ...props }: CustomInputProps,
   ref: LegacyRef<HTMLInputElement> | undefined
 ) {
   return (
-    <input
-      ref={ref}
-      className={`${styles.input} ${className}`}
-      onChange={onChange}
-      value={value}
-      {...props}
-    />
+    <input {...props} ref={ref} className={`${styles.input} ${className}`} />
   );
 });

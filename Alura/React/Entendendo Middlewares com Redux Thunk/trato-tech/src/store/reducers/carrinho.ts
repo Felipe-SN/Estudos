@@ -12,15 +12,15 @@ const carrinhoSlice = createSlice({
   initialState,
   reducers: {
     mudarCarrinho: (state, { payload }) => {
-      const temItem = state.some(item => item.id === payload);
-      if (temItem) return state.filter(item => item.id !== payload);
-      return [...state, { id: payload, quantidade: 1 }];
+      const index = state.findIndex(item => item.id === payload);
+      index >= 0
+        ? state.splice(index, 1)
+        : state.push({ id: payload, quantidade: 1 });
     },
     mudarQuantidade: (state, { payload }) => {
-      state = state.map(item => {
-        if (item.id === payload.id) item.quantidade += payload.quantidade;
-        return item;
-      });
+      const index = state.findIndex(item => item.id === payload.id);
+      state[index].quantidade += payload.quantidade;
+      if (state[index].quantidade === 0) state.splice(index, 1);
     },
     resetCarrinho: () => initialState,
   },

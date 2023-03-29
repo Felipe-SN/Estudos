@@ -27,11 +27,11 @@ export default function Anuncie() {
       preco: undefined,
     },
   });
-  const minLengthValue = 3;
-
   const cadastrar = (data: unknown) => {
     dispatch(cadastrarItem(data));
   };
+
+  const minLengthValue = 3;
 
   return (
     <div className={styles.container}>

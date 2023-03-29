@@ -1,12 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
-import categorias from 'data/categorias.json';
 
-const initialState = categorias;
+type Categorias = {
+  nome: string;
+  thumbnail: string;
+  header: string;
+  id: string;
+  descricao: string;
+}[];
 
 const categoriasSlice = createSlice({
   name: 'categorias',
-  initialState,
-  reducers: {},
+  initialState: [] as Categorias,
+  reducers: {
+    adicionarCategorias: (state, { payload }) => {
+      if (state.length > 0) return;
+      state.push(...payload);
+    },
+  },
 });
+
+export const { adicionarCategorias } = categoriasSlice.actions;
 
 export default categoriasSlice.reducer;

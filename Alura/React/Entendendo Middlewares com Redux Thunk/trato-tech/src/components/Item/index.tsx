@@ -45,9 +45,8 @@ function Item({
   const resolverCarrinho = () => dispatch(mudarCarrinho(id));
   const resolverDelete = () => dispatch(deletarItem(id));
   const resolverQuantidade = (numero: number) => {
-    if (quantidade)
-      if (quantidade >= 1 || numero > 0)
-        dispatch(mudarQuantidade({ id, quantidade: numero }));
+    if (quantidade || numero > 0)
+      dispatch(mudarQuantidade({ id, quantidade: numero }));
   };
   const resolverEditar = (edicaoAtivada: boolean) => {
     if (modoEdicao && novoTitulo !== titulo)
