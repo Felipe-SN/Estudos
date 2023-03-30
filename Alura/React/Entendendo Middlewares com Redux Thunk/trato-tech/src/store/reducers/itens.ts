@@ -12,12 +12,6 @@ const itensSlice = createSlice({
   name: 'itens',
   initialState: [] as IObjetoItem[],
   reducers: {
-    adicionarItens: (state, { payload }) => {
-      payload.forEach((item: IObjetoItem) => {
-        const index = state.findIndex(objeto => objeto.id === item.id);
-        if (index < 0) state.push(item);
-      });
-    },
     cadastrarItem: (state, { payload }) => {
       state.push({ ...payload, favorito: false, id: uuid() });
     },
@@ -34,23 +28,21 @@ const itensSlice = createSlice({
       state[index].favorito = !state[index].favorito;
     },
   },
-
   extraReducers: builder => {
-    builder.addCase(buscarItens.fulfilled, (state, { payload }) => {
-      payload.forEach((item: IObjetoItem) => {
-        const index = state.findIndex(objeto => objeto.id === item.id);
-        if (index < 0) state.push(item);
+    builder
+      .addCase(buscarItens.fulfilled, (state, { payload }) => {
+        return payload;
+      })
+      .addCase(buscarItens.pending, (state, { payload }) => {
+        console.log('Busca de itens pendente!', !payload && '↻');
+      })
+      .addCase(buscarItens.rejected, (state, { payload }) => {
+        console.log('Busca de itens rejeitada!', !payload && '⚠️');
       });
-    });
   },
 });
 
-export const {
-  adicionarItens,
-  cadastrarItem,
-  deletarItem,
-  editarItem,
-  mudarFavorito,
-} = itensSlice.actions;
+export const { cadastrarItem, deletarItem, editarItem, mudarFavorito } =
+  itensSlice.actions;
 
 export default itensSlice.reducer;

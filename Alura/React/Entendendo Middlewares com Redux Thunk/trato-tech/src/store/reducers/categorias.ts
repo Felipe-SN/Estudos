@@ -17,20 +17,19 @@ export const buscarCategorias = createAsyncThunk(
 const categoriasSlice = createSlice({
   name: 'categorias',
   initialState: [] as Categorias,
-  reducers: {
-    adicionarCategorias: (state, { payload }) => {
-      if (state.length > 0) return;
-      state.push(...payload);
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
-    builder.addCase(buscarCategorias.fulfilled, (state, { payload }) => {
-      if (state.length > 0) return;
-      state.push(...payload);
-    });
+    builder
+      .addCase(buscarCategorias.fulfilled, (state, { payload }) => {
+        return payload;
+      })
+      .addCase(buscarCategorias.pending, (state, { payload }) => {
+        console.log('Busca de categorias pendente!', !payload && '↻');
+      })
+      .addCase(buscarCategorias.rejected, (state, { payload }) => {
+        console.log('Busca de categorias rejeitada!', !payload && '⚠️');
+      });
   },
 });
-
-export const { adicionarCategorias } = categoriasSlice.actions;
 
 export default categoriasSlice.reducer;
