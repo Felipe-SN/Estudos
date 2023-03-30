@@ -1,15 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { createStandaloneToast } from '@chakra-ui/toast';
 
 type ItensCarrinho = {
   id: string;
   quantidade: number;
 }[];
 
-const initialState = [] as ItensCarrinho;
+const { toast } = createStandaloneToast();
 
 const carrinhoSlice = createSlice({
   name: 'carrinho',
-  initialState,
+  initialState: [] as ItensCarrinho,
   reducers: {
     mudarCarrinho: (state, { payload }) => {
       const index = state.findIndex(item => item.id === payload);
@@ -22,7 +23,18 @@ const carrinhoSlice = createSlice({
       state[index].quantidade += payload.quantidade;
       if (state[index].quantidade === 0) state.splice(index, 1);
     },
-    resetCarrinho: () => initialState,
+    resetCarrinho: state => {
+      if (state.length > 0)
+        toast({
+          description: 'Compra efetuada, obrigado!',
+          duration: 2000,
+          isClosable: true,
+          status: 'success',
+          title: 'Sucesso!',
+        });
+
+      return [] as ItensCarrinho;
+    },
   },
 });
 
