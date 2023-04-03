@@ -6,9 +6,9 @@
   "scripts": {
     "build": "tsc && vite build",
     "dev": "vite",
+    "preview": "vite preview",
     "lint:fix": "yarn lint --fix",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore src",
-    "preview": "vite preview",
     "server": "json-server --watch db.json --port 3001"
   },
   "dependencies": {
