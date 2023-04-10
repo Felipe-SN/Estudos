@@ -1,27 +1,37 @@
-import { createStandaloneToast } from '@chakra-ui/toast';
+import { adicionarItens } from 'store/reducers/itens';
+import { carregarUmaCategoria } from 'store/reducers/categorias';
+import {
+  createListenerMiddleware,
+  TypedStartListening,
+} from '@reduxjs/toolkit';
+import { RootState } from 'store/hooks';
+import criarTarefa from './utils/criarTarefa';
+import itensServices from 'services/itens';
 
-const { toast } = createStandaloneToast();
+export const itensListener = createListenerMiddleware();
+const startAppListening =
+  itensListener.startListening as TypedStartListening<RootState>;
 
-toast({
-  description: 'Itens carregados',
-  duration: 2000,
-  isClosable: true,
-  status: 'success',
-  title: 'Sucesso!',
-});
+startAppListening({
+  actionCreator: carregarUmaCategoria,
+  effect: async (action, { dispatch, fork, getState, unsubscribe }) => {
+    const { itens } = getState();
+    const nomeCategoria = action.payload;
+    const itensCarregados = itens.some(
+      item => item.categoria === nomeCategoria
+    );
 
-toast({
-  description: 'Solicitando itens',
-  duration: 2000,
-  isClosable: true,
-  status: 'loading',
-  title: 'Carregando',
-});
+    if (itens.length === 25) return unsubscribe();
+    if (itensCarregados) return;
 
-toast({
-  description: 'Falha ao coletar itens',
-  duration: 2000,
-  isClosable: true,
-  status: 'error',
-  title: 'Erro ⚠️',
+    await criarTarefa({
+      action: adicionarItens,
+      buscar: () => itensServices.buscar(nomeCategoria),
+      dispatch,
+      fork,
+      textoCarregando: `Solicitando itens da categoria ${nomeCategoria}`,
+      textoErro: `Falha ao coletar itens da categoria ${nomeCategoria}`,
+      textoSucesso: `Itens da categoria ${nomeCategoria} carregados`,
+    });
+  },
 });

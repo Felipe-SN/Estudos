@@ -1,6 +1,6 @@
 import {
   adicionarTodasAsCategorias,
-  adicionarUmaCategorias,
+  adicionarUmaCategoria,
   carregarCategorias,
   carregarUmaCategoria,
 } from 'store/reducers/categorias';
@@ -12,9 +12,9 @@ import { RootState } from 'store/hooks';
 import categoriasServices from 'services/categorias';
 import criarTarefa from './utils/criarTarefa';
 
-export const listener = createListenerMiddleware();
+export const categoriasListener = createListenerMiddleware();
 const startAppListening =
-  listener.startListening as TypedStartListening<RootState>;
+  categoriasListener.startListening as TypedStartListening<RootState>;
 
 startAppListening({
   actionCreator: carregarCategorias,
@@ -39,11 +39,11 @@ startAppListening({
     const nomeCategoria = action.payload;
     const categoriaCarregada = categorias.some(cat => cat.id === nomeCategoria);
 
-    if (categoriaCarregada) return;
     if (categorias.length === 5) return unsubscribe();
+    if (categoriaCarregada) return;
 
     await criarTarefa({
-      action: adicionarUmaCategorias,
+      action: adicionarUmaCategoria,
       buscar: () => categoriasServices.buscar(nomeCategoria),
       dispatch,
       fork,

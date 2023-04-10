@@ -20,13 +20,13 @@ const categoriasSlice = createSlice({
     adicionarTodasAsCategorias: (state, { payload }) => {
       return payload;
     },
-    adicionarUmaCategorias: (state, { payload }) => {
+    adicionarUmaCategoria: (state, { payload }) => {
       state.push(payload);
     },
   },
 });
 
-export const { adicionarTodasAsCategorias, adicionarUmaCategorias } =
+export const { adicionarTodasAsCategorias, adicionarUmaCategoria } =
   categoriasSlice.actions;
 
 export default categoriasSlice.reducer;

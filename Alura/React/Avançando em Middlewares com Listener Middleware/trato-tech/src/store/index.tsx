@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { listener } from './middlewares/categorias';
+import { categoriasListener } from './middlewares/categorias';
 import { Provider } from 'react-redux';
 import buscaSlice from './reducers/busca';
 import carrinhoSlice from './reducers/carrinho';
 import categoriasSlice from './reducers/categorias';
 import itensSlice from './reducers/itens';
+import { itensListener } from './middlewares/itens';
 
 export const store = configureStore({
   reducer: {
@@ -14,7 +15,10 @@ export const store = configureStore({
     busca: buscaSlice,
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().prepend(listener.middleware),
+    getDefaultMiddleware().prepend(
+      categoriasListener.middleware,
+      itensListener.middleware
+    ),
 });
 
 export default function StoreProvider({

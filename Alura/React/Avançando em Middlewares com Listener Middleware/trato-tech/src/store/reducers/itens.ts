@@ -6,6 +6,9 @@ const itensSlice = createSlice({
   name: 'itens',
   initialState: [] as ObjetoItem[],
   reducers: {
+    adicionarItens: (state, { payload }) => {
+      state.push(...payload);
+    },
     cadastrarItem: (state, { payload }) => {
       state.push({ ...payload, favorito: false, id: genId() });
     },
@@ -24,7 +27,12 @@ const itensSlice = createSlice({
   },
 });
 
-export const { cadastrarItem, deletarItem, editarItem, mudarFavorito } =
-  itensSlice.actions;
+export const {
+  adicionarItens,
+  cadastrarItem,
+  deletarItem,
+  editarItem,
+  mudarFavorito,
+} = itensSlice.actions;
 
 export default itensSlice.reducer;
