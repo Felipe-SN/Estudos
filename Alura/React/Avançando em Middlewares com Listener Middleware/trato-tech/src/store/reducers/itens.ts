@@ -1,22 +1,13 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { createStandaloneToast } from '@chakra-ui/toast';
-import { v4 as uuid } from 'uuid';
-import IObjetoItem from 'interfaces/IObjetoItem';
-import itensServices from 'services/itens';
-
-export const buscarItens = createAsyncThunk(
-  'itens/buscar',
-  itensServices.buscar
-);
-
-const { toast } = createStandaloneToast();
+import { createSlice } from '@reduxjs/toolkit';
+import { v4 as genId } from 'uuid';
+import ObjetoItem from 'types/ObjetoItem';
 
 const itensSlice = createSlice({
   name: 'itens',
-  initialState: [] as IObjetoItem[],
+  initialState: [] as ObjetoItem[],
   reducers: {
     cadastrarItem: (state, { payload }) => {
-      state.push({ ...payload, favorito: false, id: uuid() });
+      state.push({ ...payload, favorito: false, id: genId() });
     },
     deletarItem: (state, { payload }) => {
       const index = state.findIndex(item => item.id === payload);
@@ -30,37 +21,6 @@ const itensSlice = createSlice({
       const index = state.findIndex(item => item.id === payload);
       state[index].favorito = !state[index].favorito;
     },
-  },
-  extraReducers: builder => {
-    builder
-      .addCase(buscarItens.fulfilled, (state, { payload }) => {
-        toast({
-          description: 'Itens carregados',
-          duration: 2000,
-          isClosable: true,
-          status: 'success',
-          title: 'Sucesso!',
-        });
-        return payload;
-      })
-      .addCase(buscarItens.pending, () => {
-        toast({
-          description: 'Solicitando itens',
-          duration: 2000,
-          isClosable: true,
-          status: 'loading',
-          title: 'Carregando ↻',
-        });
-      })
-      .addCase(buscarItens.rejected, () => {
-        toast({
-          description: 'Falha ao coletar itens',
-          duration: 2000,
-          isClosable: true,
-          status: 'error',
-          title: 'Erro ⚠️',
-        });
-      });
   },
 });
 

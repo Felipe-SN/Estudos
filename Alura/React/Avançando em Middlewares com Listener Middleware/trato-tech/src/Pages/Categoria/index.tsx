@@ -1,12 +1,15 @@
-import { useAppSelector } from 'store/hooks';
+import { carregarUmaCategoria } from 'store/reducers/categorias';
+import { router } from 'routes';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Button from 'components/Button';
 import Header from 'components/Header';
 import Item from 'components/Item';
 import styles from './Categoria.module.scss';
-import Button from 'components/Button';
-import { router } from 'routes';
 
 export default function Categoria() {
+  const dispatch = useAppDispatch();
   const { nomeCategoria } = useParams();
   const { categoria, itens } = useAppSelector(state => {
     const regExp = new RegExp(state.busca, 'i');
@@ -20,6 +23,10 @@ export default function Categoria() {
       ),
     };
   });
+
+  useEffect(() => {
+    dispatch(carregarUmaCategoria(nomeCategoria));
+  }, [nomeCategoria]);
 
   return (
     <div>

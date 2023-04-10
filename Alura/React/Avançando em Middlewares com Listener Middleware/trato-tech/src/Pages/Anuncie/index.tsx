@@ -1,5 +1,6 @@
 import { cadastrarItem } from 'store/reducers/itens';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import Button from 'components/Button';
@@ -7,6 +8,10 @@ import Header from 'components/Header';
 import Input from 'components/Input';
 import MensagensDeErroForm from 'helpers/mensagensDeErroForm';
 import styles from './Anuncie.module.scss';
+import {
+  carregarCategorias,
+  carregarUmaCategoria,
+} from 'store/reducers/categorias';
 
 export default function Anuncie() {
   const dispatch = useAppDispatch();
@@ -30,6 +35,12 @@ export default function Anuncie() {
   const cadastrar = (data: unknown) => {
     dispatch(cadastrarItem(data));
   };
+
+  useEffect(() => {
+    dispatch(
+      nomeCategoria ? carregarUmaCategoria(nomeCategoria) : carregarCategorias()
+    );
+  }, [nomeCategoria]);
 
   const minLengthValue = 3;
 

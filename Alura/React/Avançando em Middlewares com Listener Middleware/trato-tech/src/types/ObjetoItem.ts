@@ -1,4 +1,4 @@
-export default interface IObjetoItem {
+type ObjetoItem = {
   carrinho?: boolean;
   categoria: string;
   descricao: string;
@@ -8,4 +8,6 @@ export default interface IObjetoItem {
   preco: number;
   quantidade?: number;
   titulo: string;
-}
+};
+
+export default ObjetoItem;

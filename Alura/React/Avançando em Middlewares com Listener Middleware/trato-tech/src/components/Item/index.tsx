@@ -16,7 +16,7 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import classNames from 'classnames';
 import formatadores from 'helpers/formatadores';
 import Input from 'components/Input';
-import IObjetoItem from 'interfaces/IObjetoItem';
+import ObjetoItem from 'types/ObjetoItem';
 import styles from './Item.module.scss';
 
 const IconQuantidadeProps = {
@@ -33,7 +33,7 @@ function Item({
   preco,
   quantidade,
   titulo,
-}: IObjetoItem) {
+}: ObjetoItem) {
   const dispatch = useAppDispatch();
   const [modoEdicao, setModoEdicao] = useState(false);
   const [novoTitulo, setNovoTitulo] = useState(titulo);

@@ -1,5 +1,4 @@
-import { buscarCategorias } from 'store/reducers/categorias';
-import { buscarItens } from 'store/reducers/itens';
+import { carregarCategorias } from 'store/reducers/categorias';
 import { clock } from 'data/img.json';
 import { router } from 'routes';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
@@ -13,8 +12,7 @@ export default function Home() {
   const categorias = useAppSelector(state => state.categorias);
 
   useEffect(() => {
-    dispatch(buscarCategorias());
-    dispatch(buscarItens());
+    dispatch(carregarCategorias());
   }, []);
 
   return (

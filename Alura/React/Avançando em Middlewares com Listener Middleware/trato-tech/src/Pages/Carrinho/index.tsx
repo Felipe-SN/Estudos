@@ -3,11 +3,9 @@ import { useAppSelector, useAppDispatch } from 'store/hooks';
 import Button from 'components/Button';
 import formatadores from 'helpers/formatadores';
 import Header from 'components/Header';
-import IObjetoItem from 'interfaces/IObjetoItem';
+import ObjetoItem from 'types/ObjetoItem';
 import Item from 'components/Item';
 import styles from './Carrinho.module.scss';
-
-type CheckoutList = IObjetoItem[];
 
 export default function Carrinho() {
   const dispatch = useAppDispatch();
@@ -15,7 +13,7 @@ export default function Carrinho() {
     let total = 0;
     const regExp = new RegExp(state.busca, 'i');
     const carrinhoReduce = state.carrinho.reduce(
-      (itens: CheckoutList, itemNoCarrinho) => {
+      (itens: ObjetoItem[], itemNoCarrinho) => {
         const item = state.itens.find(item => item.id === itemNoCarrinho.id);
         if (item) {
           total += item.preco * itemNoCarrinho.quantidade;

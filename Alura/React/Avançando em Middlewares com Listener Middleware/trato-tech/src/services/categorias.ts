@@ -1,8 +1,8 @@
 import instance from 'common/config/api';
 
 const categoriasServices = {
-  buscar: async () => {
-    const resposta = await instance.get('/categorias');
+  buscar: async (nomeCategoria = '') => {
+    const resposta = await instance.get(`/categorias/${nomeCategoria}`);
     return resposta.data;
   },
 };
