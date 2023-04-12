@@ -1,11 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit';
 import { categoriasListener } from './middlewares/categorias';
+import { configureStore } from '@reduxjs/toolkit';
+import { itensListener } from './middlewares/itens';
 import { Provider } from 'react-redux';
 import buscaSlice from './reducers/busca';
 import carrinhoSlice from './reducers/carrinho';
 import categoriasSlice from './reducers/categorias';
 import itensSlice from './reducers/itens';
-import { itensListener } from './middlewares/itens';
 
 export const store = configureStore({
   reducer: {

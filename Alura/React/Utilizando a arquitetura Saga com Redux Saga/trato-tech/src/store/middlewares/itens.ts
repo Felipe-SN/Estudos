@@ -17,21 +17,19 @@ startAppListening({
   effect: async (action, { dispatch, fork, getState, unsubscribe }) => {
     const { itens } = getState();
     const nomeCategoria = action.payload;
-    const itensCarregados = itens.some(
-      item => item.categoria === nomeCategoria
-    );
+    const nomeCategoriaFormatado = nomeCategoria?.toUpperCase();
 
     if (itens.length === 25) return unsubscribe();
-    if (itensCarregados) return;
+    if (itens.some(item => item.categoria === nomeCategoria)) return;
 
     await criarTarefa({
       action: adicionarItens,
       buscar: () => itensServices.buscar(nomeCategoria),
       dispatch,
       fork,
-      textoCarregando: `Solicitando itens da categoria ${nomeCategoria}`,
-      textoErro: `Falha ao coletar itens da categoria ${nomeCategoria}`,
-      textoSucesso: `Itens da categoria ${nomeCategoria} carregados`,
+      textoCarregando: `Solicitando itens da categoria ${nomeCategoriaFormatado}`,
+      textoErro: `Falha ao coletar itens da categoria ${nomeCategoriaFormatado}`,
+      textoSucesso: `Itens da categoria ${nomeCategoriaFormatado} carregados`,
     });
   },
 });

@@ -1,12 +1,5 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
-
-type Categoria = {
-  nome: string;
-  thumbnail: string;
-  header: string;
-  id: string;
-  descricao: string;
-};
+import Categoria from 'types/Categorias';
 
 export const carregarCategorias = createAction('categorias/carregar');
 export const carregarUmaCategoria = createAction<string | undefined>(

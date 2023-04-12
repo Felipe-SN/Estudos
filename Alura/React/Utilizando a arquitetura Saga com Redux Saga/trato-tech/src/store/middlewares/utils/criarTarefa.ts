@@ -31,25 +31,26 @@ export default async function criarTarefa({
   textoErro,
   textoSucesso,
 }: ObjetoTarefa) {
-  toast({
+  const toastCarregando = toast({
     description: textoCarregando,
-    duration: 2000,
+    duration: null,
     isClosable: true,
     status: 'loading',
     title: 'Carregando',
   });
 
   const tarefa = fork(async api => {
-    await api.delay(2000);
+    await api.delay(3000);
     return await buscar();
   });
 
   const resposta = await tarefa.result;
 
   if (resposta.status === 'ok') {
+    toast.close(toastCarregando);
     toast({
       description: textoSucesso,
-      duration: 2000,
+      duration: 5000,
       isClosable: true,
       status: 'success',
       title: 'Sucesso!',
@@ -58,6 +59,7 @@ export default async function criarTarefa({
     return resposta.status;
   }
 
+  toast.close(toastCarregando);
   toast({
     description: textoErro,
     duration: null,

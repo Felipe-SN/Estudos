@@ -37,19 +37,19 @@ startAppListening({
   effect: async (action, { dispatch, fork, getState, unsubscribe }) => {
     const { categorias } = getState();
     const nomeCategoria = action.payload;
-    const categoriaCarregada = categorias.some(cat => cat.id === nomeCategoria);
+    const nomeCategoriaFormatado = nomeCategoria?.toUpperCase();
 
     if (categorias.length === 5) return unsubscribe();
-    if (categoriaCarregada) return;
+    if (categorias.some(cat => cat.id === nomeCategoria)) return;
 
     await criarTarefa({
       action: adicionarUmaCategoria,
       buscar: () => categoriasServices.buscar(nomeCategoria),
       dispatch,
       fork,
-      textoCarregando: `Carregando ${nomeCategoria}`,
-      textoErro: `Falha ao carregar categoria ${nomeCategoria}`,
-      textoSucesso: `Categoria ${nomeCategoria} carregada`,
+      textoCarregando: `Carregando ${nomeCategoriaFormatado}`,
+      textoErro: `Falha ao carregar categoria ${nomeCategoriaFormatado}`,
+      textoSucesso: `Categoria ${nomeCategoriaFormatado} carregada`,
     });
   },
 });
