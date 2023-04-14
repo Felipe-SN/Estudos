@@ -12,13 +12,11 @@ const { toast } = createStandaloneToast();
 
 export default function Carrinho() {
   const { carrinho, total } = useAppSelector(state => {
-    let total = 0;
     const regExp = new RegExp(state.busca, 'i');
-    const carrinhoReduce = state.carrinho.reduce(
+    const carrinhoReduce = state.carrinho.data.reduce(
       (itens: ObjetoItem[], itemNoCarrinho) => {
         const item = state.itens.find(item => item.id === itemNoCarrinho.id);
         if (item) {
-          total += item.preco * itemNoCarrinho.quantidade;
           if (item.titulo.match(regExp))
             itens.push({ ...item, quantidade: itemNoCarrinho.quantidade });
         }
@@ -26,7 +24,7 @@ export default function Carrinho() {
       },
       []
     );
-    return { carrinho: carrinhoReduce, total };
+    return { carrinho: carrinhoReduce, total: state.carrinho.total };
   });
 
   const resolverFinalizarCompra = () => {

@@ -38,7 +38,7 @@ function Item({
   const [modoEdicao, setModoEdicao] = useState(false);
   const [novoTitulo, setNovoTitulo] = useState(titulo);
   const noCarrinho = useAppSelector(state =>
-    state.carrinho.some(itemCarrinho => itemCarrinho.id === id)
+    state.carrinho.data.some(itemCarrinho => itemCarrinho.id === id)
   );
 
   const resolverFavorito = () => dispatch(mudarFavorito(id));

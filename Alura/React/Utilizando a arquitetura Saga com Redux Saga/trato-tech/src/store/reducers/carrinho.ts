@@ -12,21 +12,21 @@ export const carregarPagamento = createAction('carrinho/carregar/pagamento');
 
 const carrinhoSlice = createSlice({
   name: 'carrinho',
-  initialState: [] as ItemCarrinho[],
+  initialState: { data: [] as ItemCarrinho[], total: 0 },
   reducers: {
     mudarCarrinho: (state, { payload }) => {
-      const index = state.findIndex(item => item.id === payload);
+      const index = state.data.findIndex(item => item.id === payload);
       index >= 0
-        ? state.splice(index, 1)
-        : state.push({ id: payload, quantidade: 1 });
+        ? state.data.splice(index, 1)
+        : state.data.push({ id: payload, quantidade: 1 });
     },
     mudarQuantidade: (state, { payload }) => {
-      const index = state.findIndex(item => item.id === payload.id);
-      state[index].quantidade += payload.quantidade;
-      if (state[index].quantidade === 0) state.splice(index, 1);
+      const index = state.data.findIndex(item => item.id === payload.id);
+      state.data[index].quantidade += payload.quantidade;
+      if (state.data[index].quantidade === 0) state.data.splice(index, 1);
     },
     resetCarrinho: state => {
-      if (state.length > 0)
+      if (state.data.length > 0)
         toast({
           description: 'Compra efetuada, obrigado!',
           duration: 2000,
@@ -35,12 +35,15 @@ const carrinhoSlice = createSlice({
           title: 'Sucesso!',
         });
 
-      return [] as ItemCarrinho[];
+      return { data: [] as ItemCarrinho[], total: 0 };
+    },
+    mudarTotal: (state, { payload }) => {
+      state.total = payload;
     },
   },
 });
 
-export const { mudarCarrinho, mudarQuantidade, resetCarrinho } =
+export const { mudarCarrinho, mudarQuantidade, resetCarrinho, mudarTotal } =
   carrinhoSlice.actions;
 
 export default carrinhoSlice.reducer;
