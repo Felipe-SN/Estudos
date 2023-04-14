@@ -5,6 +5,7 @@ import {
 import { AxiosResponse } from 'axios';
 import { call, delay, put, takeLatest } from 'redux-saga/effects';
 import { createStandaloneToast } from '@chakra-ui/toast';
+import { SagaIterator } from 'redux-saga';
 import { Task } from '@redux-saga/types';
 import Categoria from 'types/Categorias';
 import categoriasServices from 'services/categorias';
@@ -46,7 +47,7 @@ function* observarCategorias() {
   }
 }
 
-export function* categoriasSaga() {
+export function* categoriasSaga(): SagaIterator {
   const tarefa: Task = yield takeLatest(carregarCategorias, observarCategorias);
   yield takeLatest(adicionarTodasAsCategorias, () => tarefa.cancel());
 }

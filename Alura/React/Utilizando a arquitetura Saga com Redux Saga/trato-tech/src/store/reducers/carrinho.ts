@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAction, createSlice } from '@reduxjs/toolkit';
 import { createStandaloneToast } from '@chakra-ui/toast';
 
 type ItemCarrinho = {
@@ -7,6 +7,8 @@ type ItemCarrinho = {
 };
 
 const { toast } = createStandaloneToast();
+
+export const carregarPagamento = createAction('carrinho/carregar/pagamento');
 
 const carrinhoSlice = createSlice({
   name: 'carrinho',

@@ -4,6 +4,7 @@ import Carrinho from 'Pages/Carrinho';
 import Categoria from 'Pages/Categoria';
 import Home from 'Pages/Home';
 import PaginaStandard from 'components/PaginaStandard';
+import Pagamento from 'Pages/Pagamento';
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ export const router = createBrowserRouter([
       { path: '/anuncie/:nomeCategoria', element: <Anuncie /> },
       { path: '/carrinho', element: <Carrinho /> },
       { path: '/categoria/:nomeCategoria', element: <Categoria /> },
+      { path: '/pagamento', element: <Pagamento /> },
     ],
   },
 ]);

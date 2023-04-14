@@ -1,7 +1,5 @@
 import {
-  adicionarTodasAsCategorias,
   adicionarUmaCategoria,
-  carregarCategorias,
   carregarUmaCategoria,
 } from 'store/reducers/categorias';
 import {
@@ -15,22 +13,6 @@ import criarTarefa from './utils/criarTarefa';
 export const categoriasListener = createListenerMiddleware();
 const startAppListening =
   categoriasListener.startListening as TypedStartListening<RootState>;
-
-startAppListening({
-  actionCreator: carregarCategorias,
-  effect: async (action, { dispatch, fork, unsubscribe }) => {
-    const resposta = await criarTarefa({
-      action: adicionarTodasAsCategorias,
-      buscar: categoriasServices.buscar,
-      dispatch,
-      fork,
-      textoCarregando: 'Solicitando categorias',
-      textoErro: 'Falha ao coletar categorias',
-      textoSucesso: 'Categorias carregadas',
-    });
-    if (resposta === 'ok') unsubscribe();
-  },
-});
 
 startAppListening({
   actionCreator: carregarUmaCategoria,

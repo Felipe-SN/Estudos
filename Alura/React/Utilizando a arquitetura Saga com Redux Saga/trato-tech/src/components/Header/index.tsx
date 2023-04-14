@@ -4,7 +4,7 @@ import styles from './Header.module.scss';
 
 export type HeaderProps = {
   className?: string;
-  descricao: string;
+  descricao?: string;
   imagem?: string;
   titulo: string;
   children?: React.ReactNode;

@@ -1,14 +1,16 @@
-import { resetCarrinho } from 'store/reducers/carrinho';
-import { useAppSelector, useAppDispatch } from 'store/hooks';
+import { router } from 'routes';
+import { useAppSelector } from 'store/hooks';
 import Button from 'components/Button';
 import formatadores from 'helpers/formatadores';
 import Header from 'components/Header';
-import ObjetoItem from 'types/ObjetoItem';
 import Item from 'components/Item';
+import ObjetoItem from 'types/ObjetoItem';
 import styles from './Carrinho.module.scss';
+import { createStandaloneToast } from '@chakra-ui/toast';
+
+const { toast } = createStandaloneToast();
 
 export default function Carrinho() {
-  const dispatch = useAppDispatch();
   const { carrinho, total } = useAppSelector(state => {
     let total = 0;
     const regExp = new RegExp(state.busca, 'i');
@@ -27,6 +29,16 @@ export default function Carrinho() {
     return { carrinho: carrinhoReduce, total };
   });
 
+  const resolverFinalizarCompra = () => {
+    if (carrinho.length > 0) return router.navigate('/pagamento');
+    toast({
+      description: 'Por favor adicione itens no carrinho para prosseguir',
+      duration: 5000,
+      title: 'Carrinho esta vazio!',
+      status: 'warning',
+    });
+  };
+
   return (
     <div>
       <Header
@@ -43,9 +55,7 @@ export default function Carrinho() {
             Subtotal: <strong>{formatadores.valorMoeda(total)}</strong>
           </span>
         </div>
-        <Button onClick={() => dispatch(resetCarrinho())}>
-          Finalizar compra
-        </Button>
+        <Button onClick={resolverFinalizarCompra}>Finalizar compra</Button>
       </div>
     </div>
   );
