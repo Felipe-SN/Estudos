@@ -5,9 +5,14 @@ type ButtonProps = React.DetailedHTMLProps<
   HTMLButtonElement
 >;
 
-export default function Button({ children, onClick, type }: ButtonProps) {
+export default function Button({
+  children,
+  onClick,
+  type,
+  ...props
+}: ButtonProps) {
   return (
-    <button className={styles.button} onClick={onClick} type={type}>
+    <button {...props} className={styles.button} onClick={onClick} type={type}>
       {children}
     </button>
   );
