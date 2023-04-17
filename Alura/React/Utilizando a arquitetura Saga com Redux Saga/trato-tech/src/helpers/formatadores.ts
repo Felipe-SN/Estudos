@@ -1,4 +1,4 @@
-const data = (date: Date) =>
+const dataPtBrShort = (date: Date) =>
   Intl.DateTimeFormat('pt-br', { dateStyle: 'short' }).format(date);
 
 const valorMoeda = (price: number) =>
@@ -7,6 +7,6 @@ const valorMoeda = (price: number) =>
     style: 'currency',
   }).format(price);
 
-const formatadores = { valorMoeda, data };
+const formatadores = { valorMoeda, dataPtBrShort };
 
 export default formatadores;

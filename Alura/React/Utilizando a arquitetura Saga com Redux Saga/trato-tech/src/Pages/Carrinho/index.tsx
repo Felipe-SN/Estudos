@@ -9,6 +9,7 @@ import styles from './Carrinho.module.scss';
 import { createStandaloneToast } from '@chakra-ui/toast';
 
 const { toast } = createStandaloneToast();
+const { valorMoeda } = formatadores;
 
 export default function Carrinho() {
   const { carrinho, total } = useAppSelector(state => {
@@ -50,7 +51,7 @@ export default function Carrinho() {
         <div className={styles.total}>
           <strong>Resumo da compra</strong>
           <span>
-            Subtotal: <strong>{formatadores.valorMoeda(total)}</strong>
+            Subtotal: <strong>{valorMoeda(total)}</strong>
           </span>
         </div>
         <Button onClick={resolverFinalizarCompra}>Finalizar compra</Button>

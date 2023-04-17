@@ -24,6 +24,8 @@ const IconQuantidadeProps = {
   color: '#1875E8',
 };
 
+const { valorMoeda } = formatadores;
+
 function Item({
   carrinho,
   descricao,
@@ -104,9 +106,7 @@ function Item({
           <p>{descricao}</p>
         </div>
         <div className={styles.itemInfo}>
-          <div className={styles.itemPreco}>
-            {formatadores.valorMoeda(preco)}
-          </div>
+          <div className={styles.itemPreco}>{valorMoeda(preco)}</div>
           <div className={styles.itemAcoes}>
             {favorito ? (
               <AiFillHeart
