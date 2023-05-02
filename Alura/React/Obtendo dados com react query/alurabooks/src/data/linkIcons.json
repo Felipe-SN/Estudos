@@ -1,0 +1,72 @@
+[
+  {
+    "categoryTitle": "EDUCAÇÃO",
+    "id": 1,
+    "itens": [
+      { "name": "Caelum", "id": 11, "imgURL": "/img/logos/Caelum.svg" },
+      {
+        "name": "Casa do Código",
+        "id": 12,
+        "imgURL": "/img/logos/CasaDoCodigo.svg"
+      }
+    ]
+  },
+  {
+    "categoryTitle": "EDUCAÇÃO ONLINE",
+    "id": 2,
+    "itens": [
+      { "name": "Alura", "id": 21, "imgURL": "/img/logos/Alura.svg" },
+      {
+        "name": "Alura Para Empresas",
+        "id": 22,
+        "imgURL": "/img/logos/AluraEmpresas.svg"
+      },
+      {
+        "name": "Alura LATAM",
+        "id": 23,
+        "imgURL": "/img/logos/AluraLATAM.svg"
+      },
+      {
+        "name": "Alura Start",
+        "id": 24,
+        "imgURL": "/img/logos/AluraStart.svg"
+      },
+      { "name": "MusicDot", "id": 25, "imgURL": "/img/logos/MusicDot.svg" },
+      {
+        "name": "Alura Língua",
+        "id": 26,
+        "imgURL": "/img/logos/AluraLingua.svg"
+      },
+      { "name": "PM3", "id": 27, "imgURL": "/img/logos/PM3.svg" }
+    ]
+  },
+  {
+    "categoryTitle": "COMUNIDADE",
+    "id": 3,
+    "itens": [
+      {
+        "name": "Hipsters ponto Tech",
+        "id": 31,
+        "imgURL": "/img/logos/HipstersTech.svg"
+      },
+      { "name": "Scuba Dev", "id": 32, "imgURL": "/img/logos/ScubaDev.svg" },
+      {
+        "name": "Layers ponto Tech",
+        "id": 33,
+        "imgURL": "/img/logos/LayersTech.svg"
+      },
+      { "name": "Like a Boss", "id": 34, "imgURL": "/img/logos/LikeABoss.svg" },
+      {
+        "name": "Carreira sem Fronteira",
+        "id": 35,
+        "imgURL": "/img/logos/CarreiraSemFronteira.svg"
+      },
+      {
+        "name": "Hipsters ponto Jobs",
+        "id": 36,
+        "imgURL": "/img/logos/HipstersJobs.svg"
+      },
+      { "name": "GUJ", "id": 37, "imgURL": "/img/logos/GUJ.svg" }
+    ]
+  }
+]
