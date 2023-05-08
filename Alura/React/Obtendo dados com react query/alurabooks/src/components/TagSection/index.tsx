@@ -1,6 +1,6 @@
 import { colors } from 'components/UI/variables';
 import { useEffect, useState } from 'react';
-import apiService from 'Services/apiService';
+import { get } from 'Services/apiServices';
 import SingUp from './SingUp';
 import styled from 'styled-components';
 import useIsLoggedState from 'state/hooks/useIsLoggedState';
@@ -11,7 +11,7 @@ export default function TagSection() {
   const { isLogged } = useIsLoggedState();
 
   useEffect(() => {
-    if (isLogged) requestCalls.get<TagProps[]>('tags').then(res => setTags(sortByLength(res, 'name')));
+    if (isLogged) get<TagProps[]>('tags').then(res => setTags(sortByLength(res, 'name')));
   }, [isLogged]);
 
   return (
@@ -33,8 +33,6 @@ export default function TagSection() {
     </StyledSection>
   );
 }
-
-const { requestCalls } = apiService();
 
 const StyledSection = styled.section`
   display: grid;

@@ -3,10 +3,10 @@ import InputField from 'components/InputField';
 import IDHelper from 'helpers/IDHelper';
 import { useState } from 'react';
 import CEPSearch from 'Services/CEPSearch';
-import serviceApiCommunication from 'Services/apiService';
 import useModalOpenState from 'state/hooks/useModalOpenState';
 import styled from 'styled-components';
 import Modal from '..';
+import { userCalls } from 'Services/apiServices';
 
 export default function ModalSingUp() {
   const [nameValue, setNameValue] = useState<string>('');
@@ -143,8 +143,6 @@ export default function ModalSingUp() {
     </Modal>
   );
 }
-
-const { userCalls } = serviceApiCommunication();
 
 const StyledForm = styled.form`
   display: grid;

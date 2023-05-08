@@ -8,13 +8,9 @@ export default function NotFound() {
   const navigate = useNavigate();
   return (
     <Main>
-      <BackButton
-        onClick={() => navigate('/', { replace: true })}
-        title=" Voltar a pagina inicial"
-        variantType="Secondary"
-      ></BackButton>
+      <BackButton onClick={() => navigate(-1)} title=" Voltar a pagina inicial" variantType="Secondary"></BackButton>
       <Title>Erro 404</Title>
-      <Text>Pagina não encontrada, recurso inexistente ou erro desconhecido!</Text>
+      <Text>Pagina não encontrada ou erro desconhecido!</Text>
     </Main>
   );
 }
@@ -23,10 +19,10 @@ const Main = styled.main`
   background: ${colors.gradienteAzul};
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(3, 1fr);
-  height: 100vh;
+  grid-template-rows: repeat(3, auto);
+  height: 100%;
   justify-items: center;
-  width: 100vw;
+  width: 1fr;
   padding: 2rem;
 `;
 

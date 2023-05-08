@@ -1,4 +1,4 @@
-const sessionTokenHelper = () => {
+export default function sessionTokenHelper() {
   const token = {
     set: (token: string) => sessionStorage.setItem('token', token),
 
@@ -18,10 +18,8 @@ const sessionTokenHelper = () => {
   };
 
   return { token };
-};
+}
 
 type getOptions = {
   tokenVerify?: boolean;
 };
-
-export default sessionTokenHelper;

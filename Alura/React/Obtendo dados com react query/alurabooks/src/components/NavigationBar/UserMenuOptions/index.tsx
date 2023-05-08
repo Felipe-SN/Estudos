@@ -1,19 +1,19 @@
 import { colors, fonts } from 'components/UI/variables';
-import { Link } from 'react-router-dom';
-import { router } from 'Routes/router';
+import { Link, useNavigate } from 'react-router-dom';
 import sessionTokenHelper from 'helpers/sessionTokenHelper';
 import styled from 'styled-components';
 import useIsLoggedState from 'state/hooks/useIsLoggedState';
 import useNavBarMenusState from 'state/hooks/useNavBarMenusState';
 
 export default function UserMenuOptions() {
+  const navigate = useNavigate();
   const { userMenuOpen } = useNavBarMenusState();
   const { setIsLogged } = useIsLoggedState();
 
   const onLogout = () => {
     token.remove();
     setIsLogged(false);
-    router.navigate('/', { replace: true });
+    navigate('/', { replace: true });
   };
 
   return (
@@ -21,10 +21,10 @@ export default function UserMenuOptions() {
       {userMenuOpen && (
         <UserMenu>
           <li>
-            <Link to={'perfil/pedidos'}>Minha conta</Link>
+            <Link to={'#'}>Minha conta</Link>
           </li>
           <li>
-            <Link to={'perfil/pedidos'}>Meus pedidos</Link>
+            <Link to={'meus-pedidos/pedidos'}>Meus pedidos</Link>
           </li>
           <li>
             <Link to={'#'}>Preferências</Link>

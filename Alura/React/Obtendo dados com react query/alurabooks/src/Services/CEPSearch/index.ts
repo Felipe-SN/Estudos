@@ -1,18 +1,5 @@
 import axios from 'axios';
 
-type CEPProps = {
-  logradouro: string;
-  complemento: string;
-  bairro: string;
-  localidade: string;
-  uf: string;
-  ibge: string;
-  gia: string;
-  ddd: string;
-  siafi: string;
-  erro?: boolean;
-};
-
 export default async function CEPSearch(valueCEP: string) {
   const cepFormatted = valueCEP.replace(/\D/g, '');
   const regExCEP = new RegExp(/^[\d]{5}-?[\d]{3}$/, 'gi');
@@ -27,3 +14,16 @@ export default async function CEPSearch(valueCEP: string) {
   alert('Formato de CEP invalido');
   return;
 }
+
+type CEPProps = {
+  logradouro: string;
+  complemento: string;
+  bairro: string;
+  localidade: string;
+  uf: string;
+  ibge: string;
+  gia: string;
+  ddd: string;
+  siafi: string;
+  erro?: boolean;
+};

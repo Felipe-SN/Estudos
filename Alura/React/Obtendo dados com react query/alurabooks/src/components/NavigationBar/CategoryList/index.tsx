@@ -1,29 +1,30 @@
-import apiService from 'Services/apiService';
 import { colors } from 'components/UI/variables';
-import { useEffect, useState } from 'react';
-import useNavBarMenusState from 'state/hooks/useNavBarMenusState';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { get } from 'Services/apiServices';
+import Category from 'types/Category';
 import styled, { css } from 'styled-components';
+import useNavBarMenusState from 'state/hooks/useNavBarMenusState';
+import useCategoriesState from 'state/hooks/useCategoriesState';
 
 export default function CategoryList() {
-  const [categories, setCategories] = useState<Category[]>([]);
+  const { categories, setCategories } = useCategoriesState();
   const { categoryListOpen } = useNavBarMenusState();
 
   useEffect(() => {
-    requestCalls.get<Category[]>('categorias').then(res => setCategories(res));
-  }, []);
+    get<Category[]>('categorias').then(res => setCategories(res));
+  }, [setCategories]);
 
   return (
     <CategoryMenu isOpen={categoryListOpen}>
       {categories?.map(category => (
         <li key={category.id}>
-          <p>{category.nome}</p>
+          <Link to={`categorias/${category.slug}`}>{category.nome}</Link>
         </li>
       ))}
     </CategoryMenu>
   );
 }
-
-const { requestCalls } = apiService();
 
 const CategoryMenu = styled.ul<{ isOpen?: boolean }>`
   background-color: ${colors.branca};
@@ -58,6 +59,7 @@ const CategoryMenu = styled.ul<{ isOpen?: boolean }>`
       height: 3.5rem;
       padding-left: 1.5rem;
       text-decoration: none;
+      text-transform: uppercase;
       width: 11.25rem;
     }
 
@@ -76,5 +78,3 @@ const CategoryMenu = styled.ul<{ isOpen?: boolean }>`
     width: max-content;
   }
 `;
-
-type Category = { id: number; nome: string; slug: string };

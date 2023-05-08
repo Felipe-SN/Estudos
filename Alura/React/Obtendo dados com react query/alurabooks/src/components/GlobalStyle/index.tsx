@@ -31,7 +31,7 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
-body {
+body, #root {
 	overflow-x: hidden;
 	box-sizing: border-box;
 	background-color: ${colors.pageBg};

@@ -1,7 +1,7 @@
-import { Book } from 'types/Book';
+import { useState } from 'react';
 import { colors } from 'components/UI/variables';
 import { priceFormatter } from 'helpers/formatters';
-import { useState } from 'react';
+import Book from 'types/Book';
 import Button from 'components/Button';
 import Card from 'components/Card';
 import icons from 'data/icons.json';
@@ -14,6 +14,8 @@ export default function Highlight({ books, title }: HighlightsProps) {
     setSelectedBook(book);
   };
 
+  const minPrice = Math.min(...selectedBook.opcoesCompra.map(op => op.preco));
+
   return (
     <StyledSection>
       <h2>{title}</h2>
@@ -21,7 +23,7 @@ export default function Highlight({ books, title }: HighlightsProps) {
         <BooksHighlighted booksLength={books.length + 1}>
           {books.map(book => (
             <StyledBook key={book.id} selectedID={book.id === selectedBook.id} onClick={() => handleClick(book)}>
-              <img src={book.imagemCapa} alt={`Livro sobre ${book.titulo}`} />
+              <img src={book.imagemCapa} alt={`Livro sobre ${book.descricao}`} />
             </StyledBook>
           ))}
         </BooksHighlighted>
@@ -42,7 +44,7 @@ export default function Highlight({ books, title }: HighlightsProps) {
           </Description>
           <StyledPrice>
             <em>A partir de:</em>
-            <strong>{priceFormatter(selectedBook.opcoesCompra[0].preco)}</strong>
+            <strong>{priceFormatter(minPrice)}</strong>
           </StyledPrice>
           <ButtonPosition>Comprar</ButtonPosition>
         </StyledCard>

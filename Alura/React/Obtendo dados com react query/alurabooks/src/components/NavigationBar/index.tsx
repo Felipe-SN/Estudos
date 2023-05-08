@@ -14,26 +14,27 @@ export default function NavigationBar() {
   const { setModalIsOpen, setModalSingInIsOpen } = useModalOpenState();
 
   const handleUserIconInteractions = (toggle?: boolean): void => {
-    if (isLogged) {
-      if (toggle) return setUserMenuOpen(!userMenuOpen);
-      setTimeout(() => {
-        setUserMenuOpen(false);
-      }, 300);
-      return;
+    if (!isLogged) {
+      setModalSingInIsOpen(true);
+      setModalIsOpen(true);
     }
-    setModalSingInIsOpen(true);
-    setModalIsOpen(true);
+    if (toggle) return setUserMenuOpen(!userMenuOpen);
+    setTimeout(() => setUserMenuOpen(false), 300);
   };
 
   const handleMenusCategoryInteractions = (toggle?: boolean): void => {
     if (toggle) return setCategoryListOpen(!categoryListOpen);
-    setCategoryListOpen(false);
+    setTimeout(() => setCategoryListOpen(false), 300);
   };
 
   return (
     <StyledNavBar>
       <LeftWrapper>
-        <HamburgerButton aria-label="Menu" onClick={() => handleMenusCategoryInteractions(true)} />
+        <HamburgerButton
+          aria-label="Menu"
+          onClick={() => handleMenusCategoryInteractions(true)}
+          onBlur={() => handleMenusCategoryInteractions()}
+        />
         <Link to={'/'}>
           <img alt="Logo da AluraBooks" src={icons.logo} />
         </Link>
@@ -229,7 +230,7 @@ const RightWrapper = styled(LeftWrapper)<MenuStateProps>`
         `}
 `;
 
-const IconButtons = styled.button<{ isLogged?: boolean }>`
+const IconButtons = styled.button<MenuStateProps>`
   align-items: center;
   background-color: transparent;
   border-radius: 1.5rem;

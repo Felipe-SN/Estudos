@@ -1,9 +1,10 @@
 import { RouteObject, createBrowserRouter } from 'react-router-dom';
+import Categories from 'pages/Categories';
 import ConfigurationPage from 'pages/ConfigurationPage';
 import Home from 'pages/Home';
 import NotFound from 'pages/NotFound';
-import ProfileArea from 'pages/ProfileArea';
-import Requests from 'pages/ProfileArea/Requests';
+import Requests from 'pages/Requests';
+import RequestsList from 'pages/Requests/RequestsList';
 
 const routesConfig: RouteObject[] = [
   {
@@ -16,26 +17,18 @@ const routesConfig: RouteObject[] = [
         element: <Home />,
       },
       {
-        path: 'perfil',
-        element: <ProfileArea />,
+        path: 'meus-pedidos',
+        element: <Requests />,
         children: [
           {
-            path: 'pedidos',
-            element: <Requests />,
-          },
-          {
-            path: 'trocas',
-            element: <Requests />,
-          },
-          {
-            path: 'cupons',
-            element: <Requests />,
-          },
-          {
-            path: 'detalhes',
-            element: <Requests />,
+            path: ':slug',
+            element: <RequestsList />,
           },
         ],
+      },
+      {
+        path: 'categorias/:slug',
+        element: <Categories />,
       },
     ],
   },

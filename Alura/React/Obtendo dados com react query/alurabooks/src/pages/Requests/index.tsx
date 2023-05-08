@@ -1,15 +1,18 @@
-import Banner from 'components/Banner';
 import { colors } from 'components/UI/variables';
-import { NavLink, Outlet } from 'react-router-dom';
-import useProfileAreaTitleState from 'state/hooks/useProfileAreaTitleState';
+import { NavLink, Outlet, useParams } from 'react-router-dom';
+import Banner from 'components/Banner';
 import styled from 'styled-components';
+import TagSection from 'components/TagSection';
+import NewsLetter from 'components/NewsLatter';
+import NotFound from 'pages/NotFound';
 
-export default function ProfileArea() {
-  const { profileAreaTitle, profileMenuTitle } = useProfileAreaTitleState();
+export default function Requests() {
+  const { slug = '' } = useParams();
+  const validSlugs = ['pedidos', 'trocas', 'cupons', 'detalhes'];
 
   return (
-    <>
-      <Banner variantType="gradient" title={profileAreaTitle} />
+    <section>
+      <Banner variantType="gradient" title="Meus Pedidos" />
       <MenuArea>
         <NavMenu>
           <ul>
@@ -28,11 +31,21 @@ export default function ProfileArea() {
           </ul>
         </NavMenu>
         <section>
-          <MenuTitle>{profileMenuTitle}</MenuTitle>
-          <Outlet />
+          {validSlugs.includes(slug) ? (
+            <>
+              <MenuTitle>{slug}</MenuTitle>
+              <Outlet />
+            </>
+          ) : (
+            <div>
+              <NotFound />
+            </div>
+          )}
         </section>
       </MenuArea>
-    </>
+      <TagSection />
+      <NewsLetter />
+    </section>
   );
 }
 
@@ -82,4 +95,5 @@ const MenuTitle = styled.h3`
   font-size: 1.5rem;
   line-height: 2.25rem;
   margin-bottom: 1.25rem;
+  text-transform: capitalize;
 `;

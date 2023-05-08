@@ -1,11 +1,11 @@
 import { colors } from 'components/UI/variables';
 import { Link } from 'react-router-dom';
+import { userCalls } from 'Services/apiServices';
 import { useState } from 'react';
 import Button from 'components/Button';
 import IDHelper from 'helpers/IDHelper';
 import InputField from 'components/InputField';
 import Modal from '..';
-import serviceApiCommunication from 'Services/apiService';
 import sessionTokenHelper from 'helpers/sessionTokenHelper';
 import styled from 'styled-components';
 import useIsLoggedState from 'state/hooks/useIsLoggedState';
@@ -69,7 +69,6 @@ export default function ModalLogin() {
   );
 }
 
-const { userCalls } = serviceApiCommunication();
 const { token } = sessionTokenHelper();
 
 const StyledForm = styled.form`

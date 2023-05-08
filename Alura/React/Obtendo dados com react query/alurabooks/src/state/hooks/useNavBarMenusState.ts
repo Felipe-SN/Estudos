@@ -1,9 +1,8 @@
 import { useRecoilState } from 'recoil';
 import { navCategoryListState, navUserMenuState } from 'state/atom';
 
-const useNavBarMenusState = () => {
-  const [categoryListOpen, setCategoryListOpen] =
-    useRecoilState(navCategoryListState);
+export default function useNavBarMenusState() {
+  const [categoryListOpen, setCategoryListOpen] = useRecoilState(navCategoryListState);
   const [userMenuOpen, setUserMenuOpen] = useRecoilState(navUserMenuState);
 
   return {
@@ -12,6 +11,4 @@ const useNavBarMenusState = () => {
     setCategoryListOpen,
     setUserMenuOpen,
   };
-};
-
-export default useNavBarMenusState;
+}

@@ -1,29 +1,25 @@
 import { colors } from 'components/UI/variables';
 import { dateFormatter, priceFormatter } from 'helpers/formatters';
+import { get, remove } from 'Services/apiServices';
 import { RequestProps } from 'types/RequestProps';
 import { useEffect, useState } from 'react';
-import apiService from 'Services/apiService';
 import Button from 'components/Button';
 import styled from 'styled-components';
-import useProfileAreaTitleState from 'state/hooks/useProfileAreaTitleState';
 
-export default function Requests() {
+export default function RequestsList() {
   const [requests, setRequests] = useState<RequestProps[]>([]);
-  const { setProfileAreaTitle, setProfileMenuTitle } = useProfileAreaTitleState();
 
   useEffect(() => {
-    setProfileMenuTitle('Pedidos');
-    setProfileAreaTitle('Meus pedidos');
-    requestCalls.get<RequestProps[]>('pedidos').then(response => setRequests(response));
-  }, [setProfileAreaTitle, setProfileMenuTitle]);
+    get<RequestProps[]>('pedidos').then(response => setRequests(response));
+  }, []);
 
   const excludeRequest = (requestID: number) => {
-    requestCalls.delete('pedidos', requestID);
+    remove('pedidos', requestID);
     setRequests(oldRequests => oldRequests.filter(request => request.id !== requestID));
   };
 
   return (
-    <RequestsList>
+    <StyledRequestsList>
       {requests.map(request => (
         <RequestItem key={request.id}>
           <ul>
@@ -46,13 +42,11 @@ export default function Requests() {
           </div>
         </RequestItem>
       ))}
-    </RequestsList>
+    </StyledRequestsList>
   );
 }
 
-const { requestCalls } = apiService();
-
-const RequestsList = styled.ul`
+const StyledRequestsList = styled.ul`
   max-height: 31.75rem;
   overflow-y: scroll;
   scroll-behavior: smooth;
