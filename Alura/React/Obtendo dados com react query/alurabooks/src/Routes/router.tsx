@@ -5,6 +5,7 @@ import Home from 'pages/Home';
 import NotFound from 'pages/NotFound';
 import Requests from 'pages/Requests';
 import RequestsList from 'pages/Requests/RequestsList';
+import BookDetails from 'pages/BookDetails';
 
 const routesConfig: RouteObject[] = [
   {
@@ -29,6 +30,10 @@ const routesConfig: RouteObject[] = [
       {
         path: 'categorias/:slug',
         element: <Categories />,
+      },
+      {
+        path: 'livro/:slug',
+        element: <BookDetails />,
       },
     ],
   },

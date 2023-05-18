@@ -1,6 +1,5 @@
 import sessionTokenHelper from 'helpers/sessionTokenHelper';
 import { atom } from 'recoil';
-import Category from 'types/Category';
 
 const { token } = sessionTokenHelper();
 
@@ -27,9 +26,4 @@ export const navCategoryListState = atom<boolean>({
 export const navUserMenuState = atom<boolean>({
   key: 'navUserMenuState',
   default: false,
-});
-
-export const categoriesState = atom<Category[]>({
-  key: 'categoriesState',
-  default: [],
 });

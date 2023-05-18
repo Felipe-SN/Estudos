@@ -46,7 +46,7 @@ export default function Highlight({ books, title }: HighlightsProps) {
             <em>A partir de:</em>
             <strong>{priceFormatter(minPrice)}</strong>
           </StyledPrice>
-          <ButtonPosition>Comprar</ButtonPosition>
+          <ButtonPosition text="Comprar" />
         </StyledCard>
       </div>
     </StyledSection>

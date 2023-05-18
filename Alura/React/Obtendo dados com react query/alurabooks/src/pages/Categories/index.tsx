@@ -3,37 +3,40 @@ import { getCategoryBySlug } from 'Services/apiServices';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import Banner from 'components/Banner';
+import BookList from 'components/BookList';
 import Loader from 'components/Loader';
 import styled from 'styled-components';
 
 export default function Categories() {
   const { slug = '' } = useParams();
-
   const { data: category, isLoading } = useQuery(['categoryBySlug', slug], () => getCategoryBySlug(slug));
-
-  if (isLoading) return <Loader />;
 
   return (
     <CategorySection>
       <Banner title={category?.nome} variantType="gradient" />
-      <BookSection>
-        <Test>Books Here!</Test>
-      </BookSection>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <BookSection>
+            {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
+            <BookList category={category!} />
+          </BookSection>
+        </>
+      )}
     </CategorySection>
   );
 }
 
-const CategorySection = styled.div`
+const CategorySection = styled.section`
+  align-items: center;
+  background-color: ${colors.branca};
   display: flex;
   flex-direction: column;
-  align-items: center;
 `;
 
-const BookSection = styled.div`
+const BookSection = styled.section`
   display: grid;
-`;
-
-const Test = styled.h2`
-  font-size: 5rem;
-  color: ${colors.azul};
+  padding-bottom: 12rem;
+  padding-top: 6rem;
 `;

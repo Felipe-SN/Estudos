@@ -12,7 +12,7 @@ export const colors = {
   pageBg: '#EBECEE',
   preto: '#000000',
   pretoLowOpacity: '#0000008A',
-  pretoMidOpacity: '#000000D9',
+  pretoMidOpacity: '#000000D8',
   sombra: '#0000003F',
   sombraFiltro: '#00000026',
 };

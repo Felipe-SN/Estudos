@@ -8,7 +8,7 @@ export default function NotFound() {
   const navigate = useNavigate();
   return (
     <Main>
-      <BackButton onClick={() => navigate(-1)} title=" Voltar a pagina inicial" variantType="Secondary"></BackButton>
+      <BackButton onClick={() => navigate(-1)} title=" Voltar a pagina inicial" variantType="Secondary" />
       <Title>Erro 404</Title>
       <Text>Pagina não encontrada ou erro desconhecido!</Text>
     </Main>

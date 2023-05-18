@@ -59,11 +59,11 @@ export default function ModalLogin() {
           />
         </InputsArea>
         <ResetPassword to={'!#'}>Esqueci minha senha</ResetPassword>
-        <ButtonLogin>Fazer login</ButtonLogin>
+        <ButtonLogin text="Fazer login" />
       </StyledForm>
       <SingUpArea>
         <SingUpText>Ainda não tem uma conta?</SingUpText>
-        <ModalButton onClick={() => setModalSingInIsOpen(false)}>Criar conta</ModalButton>
+        <ModalButton onClick={() => setModalSingInIsOpen(false)} text="Criar conta" />
       </SingUpArea>
     </Modal>
   );

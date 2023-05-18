@@ -1,3 +1,4 @@
+import Author from './Author';
 import PurchaseOptions from './PurchaseOptions';
 
 type Book = {
@@ -10,7 +11,7 @@ type Book = {
   numeroPaginas: number;
   publicacao: string;
   imagemCapa: string;
-  autor: number;
+  autor: number | Author;
   opcoesCompra: PurchaseOptions[];
   sobre: string;
 };

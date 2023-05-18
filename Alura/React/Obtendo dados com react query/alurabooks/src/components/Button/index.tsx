@@ -1,17 +1,11 @@
 import { colors, fonts } from 'components/UI/variables';
 import styled, { css } from 'styled-components';
 
-export default function Button({
-  children,
-  className,
-  disabled,
-  onClick,
-  variantType = 'Primary',
-  title,
-}: ButtonProps) {
+export default function Button({ ...props }: ButtonProps) {
+  const { text, variantType = 'Primary' } = props;
   return (
-    <StyledButton className={className} disabled={disabled} onClick={onClick} variantType={variantType} title={title}>
-      {children}
+    <StyledButton {...props} variantType={variantType}>
+      {text}
     </StyledButton>
   );
 }
@@ -25,19 +19,19 @@ const StyledButton = styled.button<ButtonProps>`
   ${props =>
     props.variantType === 'Primary'
       ? css`
+          border: none;
           &:hover {
             background-color: ${colors.mostardaEscura};
-            border: 0.125rem solid ${colors.mostardaEscura};
           }
         `
       : css`
+          border: 0.125rem solid ${colors.mostarda};
           &:hover {
             border: 0.125rem solid ${colors.mostardaEscura};
             color: ${colors.mostardaEscura};
           }
         `}
 
-  border: 0.125rem solid ${colors.mostarda};
   cursor: pointer;
   font-family: ${fonts.poppins};
   font-size: 1.25rem;
@@ -53,7 +47,7 @@ const StyledButton = styled.button<ButtonProps>`
   }
 `;
 
-interface ButtonProps
-  extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+type ButtonProps = {
   variantType?: 'Primary' | 'Secondary';
-}
+  text?: string;
+} & React.ComponentPropsWithoutRef<React.JSXElementConstructor<React.ButtonHTMLAttributes<HTMLButtonElement>>>;

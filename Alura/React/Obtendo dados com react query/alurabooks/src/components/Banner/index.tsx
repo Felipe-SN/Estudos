@@ -3,7 +3,8 @@ import img from 'data/images.json';
 import InputField from 'components/InputField';
 import styled, { css } from 'styled-components';
 
-export default function Banner({ title, subTitle, haveSearchField = false, variantType = 'img' }: BannerProps) {
+export default function Banner({ ...props }: BannerProps) {
+  const { title, subTitle, haveSearchField = false, variantType = 'img' } = props;
   return (
     <StyledBanner variantType={variantType}>
       {title && <h2>{title}</h2>}

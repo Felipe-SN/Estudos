@@ -3,6 +3,7 @@ import Book from 'types/Book';
 import Category from 'types/Category';
 import http from 'http/instance';
 import sessionTokenHelper from 'helpers/sessionTokenHelper';
+import Author from 'types/Author';
 
 export const get = async <T>(url: string, config?: AxiosRequestConfig) => {
   const response = await http.get<T>(url, config);
@@ -15,12 +16,24 @@ export const getHighlights = async (url: string) => {
 };
 
 export const getCategoryBySlug = async (slug: string) => {
-  const response = await http.get<Category[]>('categorias', {
-    params: {
-      slug: slug,
-    },
-  });
+  const response = await http.get<Category[]>('categorias', { params: { slug: slug } });
+  return response.data[0];
+};
 
+export const getBooksBySlug = async (slug: string) => {
+  const response = await http.get<Book[]>('livros', { params: { slug: slug } });
+  return response.data[0];
+};
+
+export const getBooksByCategory = async (category: Category) => {
+  const response = await http.get<Book[]>('livros', { params: { categoria: category.id } });
+  return response.data;
+};
+
+export const getAuthorByID = async (authorID: number | Author) => {
+  if (typeof authorID !== 'number')
+    throw new Error('Busca por autores deve ser feita utilizando IDs\nverifique os parâmetros utilizados na busca');
+  const response = await http.get<Author[]>('autores', { params: { id: authorID } });
   return response.data[0];
 };
 

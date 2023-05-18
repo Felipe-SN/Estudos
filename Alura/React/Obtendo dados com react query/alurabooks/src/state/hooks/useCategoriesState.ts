@@ -1,8 +1,8 @@
-import { useRecoilState } from 'recoil';
-import { categoriesState } from 'state/atom';
+import { useQuery } from '@tanstack/react-query';
+import { get } from 'Services/apiServices';
+import Category from 'types/Category';
 
 export default function useCategoriesState() {
-  const [categories, setCategories] = useRecoilState(categoriesState);
-
-  return { categories, setCategories };
+  const { data: categories } = useQuery(['categoriesFetch'], ({ signal }) => get<Category[]>('categorias', { signal }));
+  return { categories };
 }

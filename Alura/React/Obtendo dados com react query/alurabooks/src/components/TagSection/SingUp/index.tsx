@@ -18,10 +18,8 @@ export default function SingUp() {
         <p>Com um conta você pode criar sua própria estante de livros e e-books.</p>
       </TextDiv>
       <ButtonsDiv>
-        <Button variantType="Secondary" onClick={() => handleSingInView(false)}>
-          Criar conta
-        </Button>
-        <Button onClick={() => handleSingInView(true)}>Fazer login</Button>
+        <Button variantType="Secondary" onClick={() => handleSingInView(false)} text="Criar conta" />
+        <Button onClick={() => handleSingInView(true)} text="Fazer login" />
       </ButtonsDiv>
     </PositionDiv>
   );

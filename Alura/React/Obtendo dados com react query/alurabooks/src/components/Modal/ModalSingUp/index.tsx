@@ -138,7 +138,7 @@ export default function ModalSingUp() {
           type="password"
           value={PassConfirmValue}
         />
-        <ButtonSingUp disabled={passwordValue.length < 8 || passwordValue !== PassConfirmValue}>Cadastrar</ButtonSingUp>
+        <ButtonSingUp disabled={passwordValue.length < 8 || passwordValue !== PassConfirmValue} text="Cadastrar" />
       </StyledForm>
     </Modal>
   );

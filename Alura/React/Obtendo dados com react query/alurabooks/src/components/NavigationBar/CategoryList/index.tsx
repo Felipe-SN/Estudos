@@ -1,19 +1,12 @@
 import { colors } from 'components/UI/variables';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
-import { get } from 'Services/apiServices';
-import Category from 'types/Category';
 import styled, { css } from 'styled-components';
 import useNavBarMenusState from 'state/hooks/useNavBarMenusState';
 import useCategoriesState from 'state/hooks/useCategoriesState';
 
 export default function CategoryList() {
-  const { categories, setCategories } = useCategoriesState();
+  const { categories } = useCategoriesState();
   const { categoryListOpen } = useNavBarMenusState();
-
-  useEffect(() => {
-    get<Category[]>('categorias').then(res => setCategories(res));
-  }, [setCategories]);
 
   return (
     <CategoryMenu isOpen={categoryListOpen}>

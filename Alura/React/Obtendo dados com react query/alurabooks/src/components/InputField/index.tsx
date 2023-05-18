@@ -3,24 +3,8 @@ import { useRef, useState } from 'react';
 import icons from 'data/icons.json';
 import styled, { css } from 'styled-components';
 
-export default function InputField({
-  className,
-  gridArea,
-  hasIcon = true,
-  index,
-  inputLabel,
-  inputVariable = 'primary',
-  maxLength,
-  minLength,
-  onBlur,
-  onChange,
-  pattern,
-  placeholder,
-  required,
-  title,
-  type,
-  value,
-}: InputFieldProps) {
+export default function InputField({ ...props }: InputFieldProps) {
+  const { className, gridArea, hasIcon = true, index, inputLabel, inputVariable = 'primary', type } = props;
   const [iconTransparent, setIconTransparent] = useState<boolean>(false);
   const passwordRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
@@ -40,21 +24,7 @@ export default function InputField({
       {inputLabel && <InputLabel htmlFor={`input${type}${index}`}>{inputLabel}</InputLabel>}
       {type === 'password' ? (
         <PasswordWrapper className={className} inputVariable={inputVariable}>
-          <PasswordField
-            className={className}
-            id={`input${type}${index}`}
-            maxLength={maxLength}
-            minLength={minLength}
-            onBlur={onBlur}
-            onChange={onChange}
-            pattern={pattern}
-            placeholder={placeholder}
-            ref={passwordRef}
-            required={required}
-            title={title}
-            type={type}
-            value={value}
-          />
+          <PasswordField {...props} id={`input${type}${index}`} ref={passwordRef} />
           <EyeIcon
             type="button"
             iconIsTransparent={iconTransparent}
@@ -63,34 +33,10 @@ export default function InputField({
           />
         </PasswordWrapper>
       ) : (
-        <StyledInput
-          className={className}
-          hasIcon={hasIcon}
-          id={`input${type}${index}`}
-          inputVariable={inputVariable}
-          maxLength={maxLength}
-          minLength={minLength}
-          onBlur={onBlur}
-          onChange={onChange}
-          pattern={pattern}
-          placeholder={placeholder}
-          required={required}
-          title={title}
-          type={type}
-          value={value}
-        />
+        <StyledInput {...props} hasIcon={hasIcon} id={`input${type}${index}`} />
       )}
     </InputPosition>
   );
-}
-
-interface InputFieldProps
-  extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
-  gridArea?: string;
-  hasIcon?: boolean;
-  index?: string | number;
-  inputLabel?: string;
-  inputVariable?: 'primary' | 'secondary';
 }
 
 const InputPosition = styled.span<{ gridArea?: string }>`
@@ -295,3 +241,11 @@ const EyeIcon = styled.button<{ iconIsTransparent: boolean }>`
       `}
   }
 `;
+
+type InputFieldProps = {
+  gridArea?: string;
+  hasIcon?: boolean;
+  index?: string | number;
+  inputLabel?: string;
+  inputVariable?: 'primary' | 'secondary';
+} & React.ComponentPropsWithoutRef<React.JSXElementConstructor<React.InputHTMLAttributes<HTMLInputElement>>>;

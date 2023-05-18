@@ -37,8 +37,8 @@ export default function RequestsList() {
             </DetailItem>
           </ul>
           <div className="buttonsArea">
-            <DetailButton onClick={() => excludeRequest(request.id)}>Excluir</DetailButton>
-            <DetailButton>Detalhes</DetailButton>
+            <DetailButton onClick={() => excludeRequest(request.id)} text="Excluir" />
+            <DetailButton text="Detalhes" />
           </div>
         </RequestItem>
       ))}

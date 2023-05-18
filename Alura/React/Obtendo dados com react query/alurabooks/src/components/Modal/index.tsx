@@ -1,8 +1,8 @@
 import { colors } from 'components/UI/variables';
-import useModalOpenState from 'state/hooks/useModalOpenState';
-import styled from 'styled-components';
-import images from 'data/images.json';
 import icons from 'data/icons.json';
+import images from 'data/images.json';
+import styled from 'styled-components';
+import useModalOpenState from 'state/hooks/useModalOpenState';
 
 export default function Modal({ title, children }: ModalProps) {
   const { modalIsOpen, setModalIsOpen } = useModalOpenState();
@@ -49,14 +49,13 @@ const ModalWindow = styled.div`
   grid-template-rows: 100%;
   height: fit-content;
   justify-content: center;
-  left: 50%;
   padding-bottom: 3.5rem;
   padding-left: 3rem;
   padding-right: 3rem;
   padding-top: 3.5rem;
   position: fixed;
-  top: 50%;
-  translate: -50% -50%;
+  inset: 0;
+  margin: auto;
   width: fit-content;
   z-index: 10;
 `;
