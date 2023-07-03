@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { modalOpenState, modalSingInOpenState } from 'state/atom';
+import { modalOpenState, modalSingInOpenState } from 'state/recoil/atom';
 
 export default function useModalOpenState() {
   const [modalIsOpen, setModalIsOpen] = useRecoilState(modalOpenState);

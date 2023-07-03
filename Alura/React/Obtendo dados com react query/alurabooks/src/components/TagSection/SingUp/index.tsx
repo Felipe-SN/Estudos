@@ -1,7 +1,7 @@
 import { colors } from 'components/UI/variables';
 import Button from 'components/Button';
 import styled from 'styled-components';
-import useModalOpenState from 'state/hooks/useModalOpenState';
+import useModalOpenState from 'state/recoil/hooks/useModalOpenState';
 
 export default function SingUp() {
   const { setModalIsOpen, setModalSingInIsOpen } = useModalOpenState();

@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { navCategoryListState, navUserMenuState } from 'state/atom';
+import { navCategoryListState, navUserMenuState } from 'state/recoil/atom';
 
 export default function useNavBarMenusState() {
   const [categoryListOpen, setCategoryListOpen] = useRecoilState(navCategoryListState);

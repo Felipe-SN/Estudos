@@ -1,19 +1,23 @@
-import { getBooksByCategory } from 'Services/apiServices';
-import { useQuery } from '@tanstack/react-query';
 import Category from 'types/Category';
+import Loader from 'components/Loader';
 import MiniCard from 'components/MiniCard';
 import styled from 'styled-components';
+import useBookQueryByCategoryID from 'state/reactQuery/hooks/useBookQueryByCategoryID';
 
 export default function BookList({ category }: { category: Category }) {
-  const { data: books } = useQuery(['BooksByCategory', category], () => getBooksByCategory(category));
+  const { data: books, isLoading } = useBookQueryByCategoryID(category);
 
   return (
     <ShowCase>
-      {books?.map(book => (
-        <li key={book.id}>
-          <MiniCard {...book} />
-        </li>
-      ))}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        books?.map(book => (
+          <li key={book.id}>
+            <MiniCard {...book} />
+          </li>
+        ))
+      )}
     </ShowCase>
   );
 }

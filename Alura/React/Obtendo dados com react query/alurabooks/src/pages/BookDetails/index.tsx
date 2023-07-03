@@ -1,21 +1,32 @@
 import { colors } from 'components/UI/variables';
-import { getAuthorByID, getBooksBySlug } from 'Services/apiServices';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import Banner from 'components/Banner';
 import Button from 'components/Button';
 import CounterInput from 'components/CounterInput';
 import Loader from 'components/Loader';
+import NotFound from 'pages/NotFound';
 import OptionsGroup from 'components/OptionsGroup';
 import styled from 'styled-components';
+import useBookQueryBySlug from 'state/reactQuery/hooks/useBookQueryBySlug';
 
 export default function BookDetails() {
   const { slug = '' } = useParams();
-  const { data: book } = useQuery(['BookBySlug', slug], () => getBooksBySlug(slug));
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const { data: author, isLoading } = useQuery(['authorByID', book], () => getAuthorByID(book!.autor), {
-    enabled: !!book,
-  });
+  const { data: book, isLoading, error } = useBookQueryBySlug(slug);
+
+  if (error) {
+    return (
+      <ShowCase>
+        <NotFound text={error.message} />
+      </ShowCase>
+    );
+  }
+
+  if (!isLoading && book === null)
+    return (
+      <ShowCase>
+        <NotFound text="Livro não encontrado!" />;
+      </ShowCase>
+    );
 
   return (
     <>
@@ -29,7 +40,7 @@ export default function BookDetails() {
               <img src={book?.imagemCapa} alt={book?.titulo} />
               <h2>{book?.titulo}</h2>
               <p>{book?.descricao}</p>
-              <h3>Por: {author?.nome}</h3>
+              <h3>Por: {book?.autor?.nome}</h3>
               <div className="book-formats">
                 <label>Selecione o formato de seu livro:</label>
                 <OptionsGroup options={book?.opcoesCompra} />
@@ -40,7 +51,7 @@ export default function BookDetails() {
             </BookInfo>
             <BookAbout>
               <h3>Sobre o Autor</h3>
-              <p>{author?.sobre}</p>
+              <p>{book?.autor?.sobre}</p>
               <h3>Sobre o livro</h3>
               <p>{book?.sobre}</p>
             </BookAbout>

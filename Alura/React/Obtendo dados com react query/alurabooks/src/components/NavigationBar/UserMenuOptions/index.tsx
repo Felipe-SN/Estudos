@@ -2,8 +2,8 @@ import { colors, fonts } from 'components/UI/variables';
 import { Link, useNavigate } from 'react-router-dom';
 import sessionTokenHelper from 'helpers/sessionTokenHelper';
 import styled from 'styled-components';
-import useIsLoggedState from 'state/hooks/useIsLoggedState';
-import useNavBarMenusState from 'state/hooks/useNavBarMenusState';
+import useIsLoggedState from 'state/recoil/hooks/useIsLoggedState';
+import useNavBarMenusState from 'state/recoil/hooks/useNavBarMenusState';
 
 export default function UserMenuOptions() {
   const navigate = useNavigate();

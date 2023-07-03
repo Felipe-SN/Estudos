@@ -3,7 +3,7 @@ import InputField from 'components/InputField';
 import IDHelper from 'helpers/IDHelper';
 import { useState } from 'react';
 import CEPSearch from 'Services/CEPSearch';
-import useModalOpenState from 'state/hooks/useModalOpenState';
+import useModalOpenState from 'state/recoil/hooks/useModalOpenState';
 import styled from 'styled-components';
 import Modal from '..';
 import { userCalls } from 'Services/apiServices';

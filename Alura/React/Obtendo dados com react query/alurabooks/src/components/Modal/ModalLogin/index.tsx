@@ -8,8 +8,8 @@ import InputField from 'components/InputField';
 import Modal from '..';
 import sessionTokenHelper from 'helpers/sessionTokenHelper';
 import styled from 'styled-components';
-import useIsLoggedState from 'state/hooks/useIsLoggedState';
-import useModalOpenState from 'state/hooks/useModalOpenState';
+import useIsLoggedState from 'state/recoil/hooks/useIsLoggedState';
+import useModalOpenState from 'state/recoil/hooks/useModalOpenState';
 
 export default function ModalLogin() {
   const { setModalSingInIsOpen, setModalIsOpen } = useModalOpenState();

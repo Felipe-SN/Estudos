@@ -1,29 +1,28 @@
 import { colors } from 'components/UI/variables';
-import { getCategoryBySlug } from 'Services/apiServices';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import Banner from 'components/Banner';
 import BookList from 'components/BookList';
 import Loader from 'components/Loader';
+import NotFound from 'pages/NotFound';
 import styled from 'styled-components';
+import useCategoryQueryBySlug from 'state/reactQuery/hooks/useCategoryQueryBySlug';
 
 export default function Categories() {
   const { slug = '' } = useParams();
-  const { data: category, isLoading } = useQuery(['categoryBySlug', slug], () => getCategoryBySlug(slug));
+  const { data: category, error, isLoading } = useCategoryQueryBySlug(slug);
+
+  if (error) return <NotFound text={error.message} />;
+
+  if (isLoading) return <Loader />;
+
+  if (category === null) return <NotFound text="Categoria não encontrada!" />;
 
   return (
     <CategorySection>
       <Banner title={category?.nome} variantType="gradient" />
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <BookSection>
-            {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-            <BookList category={category!} />
-          </BookSection>
-        </>
-      )}
+      <BookSection>
+        <BookList category={category} />
+      </BookSection>
     </CategorySection>
   );
 }

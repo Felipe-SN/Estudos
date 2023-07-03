@@ -1,11 +1,11 @@
 import { colors } from 'components/UI/variables';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import useNavBarMenusState from 'state/hooks/useNavBarMenusState';
-import useCategoriesState from 'state/hooks/useCategoriesState';
+import useCategoriesQuery from 'state/reactQuery/hooks/useCategoriesQuery';
+import useNavBarMenusState from 'state/recoil/hooks/useNavBarMenusState';
 
 export default function CategoryList() {
-  const { categories } = useCategoriesState();
+  const { data: categories } = useCategoriesQuery();
   const { categoryListOpen } = useNavBarMenusState();
 
   return (

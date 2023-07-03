@@ -1,19 +1,34 @@
 import Author from './Author';
 import PurchaseOptions from './PurchaseOptions';
 
-type Book = {
-  id: number;
+export type Book = BookFull | BookIDOnly;
+
+export type BookIDOnly = {
+  autor: number;
   categoria: number;
-  titulo: string;
-  slug: string;
   descricao: string;
+  id: number;
+  imagemCapa: string;
   isbn: string;
   numeroPaginas: number;
-  publicacao: string;
-  imagemCapa: string;
-  autor: number | Author;
   opcoesCompra: PurchaseOptions[];
+  publicacao: string;
+  slug: string;
   sobre: string;
+  titulo: string;
 };
 
-export default Book;
+export type BookFull = {
+  autor: Author;
+  categoria: number;
+  descricao: string;
+  id: number;
+  imagemCapa: string;
+  isbn: string;
+  numeroPaginas: number;
+  opcoesCompra: PurchaseOptions[];
+  publicacao: string;
+  slug: string;
+  sobre: string;
+  titulo: string;
+};

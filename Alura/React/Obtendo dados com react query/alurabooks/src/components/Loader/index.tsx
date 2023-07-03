@@ -25,10 +25,12 @@ const ldsRing = keyframes`
 `;
 
 const LoaderAnimation = styled.div`
+  align-self: center;
   display: inline-block;
+  height: 80px;
+  justify-self: center;
   position: relative;
   width: 80px;
-  height: 80px;
 
   && div {
     box-sizing: border-box;

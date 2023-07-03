@@ -1,47 +1,41 @@
 import { colors } from 'components/UI/variables';
 import { dateFormatter, priceFormatter } from 'helpers/formatters';
-import { get, remove } from 'Services/apiServices';
-import { RequestProps } from 'types/RequestProps';
-import { useEffect, useState } from 'react';
 import Button from 'components/Button';
 import styled from 'styled-components';
+import useRequestQuery from 'state/reactQuery/hooks/useRequestQuery';
+import NotFound from 'pages/NotFound';
 
 export default function RequestsList() {
-  const [requests, setRequests] = useState<RequestProps[]>([]);
-
-  useEffect(() => {
-    get<RequestProps[]>('pedidos').then(response => setRequests(response));
-  }, []);
-
-  const excludeRequest = (requestID: number) => {
-    remove('pedidos', requestID);
-    setRequests(oldRequests => oldRequests.filter(request => request.id !== requestID));
-  };
+  const { queryInfo, deleteRequest } = useRequestQuery();
+  const { data: requests, isSuccess, error } = queryInfo;
+  const { mutate: exclude } = deleteRequest;
 
   return (
     <StyledRequestsList>
-      {requests.map(request => (
-        <RequestItem key={request.id}>
-          <ul>
-            <DetailItem>
-              Pedido: <strong>{request.id}</strong>
-            </DetailItem>
-            <DetailItem>
-              Data do pedido: <strong>{dateFormatter(new Date(request.data))}</strong>
-            </DetailItem>
-            <DetailItem>
-              Valor total: <strong>{priceFormatter(request.total)}</strong>
-            </DetailItem>
-            <DetailItem>
-              Entrega realizada em: <strong>{dateFormatter(new Date(request.entrega))}</strong>
-            </DetailItem>
-          </ul>
-          <div className="buttonsArea">
-            <DetailButton onClick={() => excludeRequest(request.id)} text="Excluir" />
-            <DetailButton text="Detalhes" />
-          </div>
-        </RequestItem>
-      ))}
+      {error && <NotFound text={error.message} />}
+      {isSuccess &&
+        requests?.map(request => (
+          <RequestItem key={request.id}>
+            <ul>
+              <DetailItem>
+                Pedido: <strong>{request.id}</strong>
+              </DetailItem>
+              <DetailItem>
+                Data do pedido: <strong>{dateFormatter(new Date(request.data))}</strong>
+              </DetailItem>
+              <DetailItem>
+                Valor total: <strong>{priceFormatter(request.total)}</strong>
+              </DetailItem>
+              <DetailItem>
+                Entrega realizada em: <strong>{dateFormatter(new Date(request.entrega))}</strong>
+              </DetailItem>
+            </ul>
+            <div className="buttonsArea">
+              <DetailButton text="Excluir" onClick={() => exclude(request.id)} />
+              <DetailButton text="Detalhes" />
+            </div>
+          </RequestItem>
+        ))}
     </StyledRequestsList>
   );
 }

@@ -2,7 +2,7 @@ import { colors } from 'components/UI/variables';
 import icons from 'data/icons.json';
 import images from 'data/images.json';
 import styled from 'styled-components';
-import useModalOpenState from 'state/hooks/useModalOpenState';
+import useModalOpenState from 'state/recoil/hooks/useModalOpenState';
 
 export default function Modal({ title, children }: ModalProps) {
   const { modalIsOpen, setModalIsOpen } = useModalOpenState();

@@ -1,24 +1,19 @@
 import { colors } from 'components/UI/variables';
-import { useEffect, useState } from 'react';
-import { get } from 'Services/apiServices';
 import SingUp from './SingUp';
 import styled from 'styled-components';
-import useIsLoggedState from 'state/hooks/useIsLoggedState';
-import sortByLength from 'helpers/sortByLength';
+import useIsLoggedState from 'state/recoil/hooks/useIsLoggedState';
+import useTagsQuery from 'state/reactQuery/hooks/useTagsQuery';
 
 export default function TagSection() {
-  const [tags, setTags] = useState<TagProps[]>([]);
+  const { data: tags, error } = useTagsQuery();
   const { isLogged } = useIsLoggedState();
-
-  useEffect(() => {
-    if (isLogged) get<TagProps[]>('tags').then(res => setTags(sortByLength(res, 'name')));
-  }, [isLogged]);
 
   return (
     <StyledSection>
       {isLogged ? (
         <>
           <h2>CATEGORIAS MAIS BUSCADAS</h2>
+          {error && <h2>{error.message || 'Ops aconteceu um erro inesperado!'}</h2>}
           <ul>
             {tags?.map(tag => (
               <li key={tag.name}>
@@ -74,5 +69,3 @@ const StyledTag = styled.a`
   text-decoration: none;
   width: fit-content;
 `;
-
-type TagProps = { id: number; name: string };

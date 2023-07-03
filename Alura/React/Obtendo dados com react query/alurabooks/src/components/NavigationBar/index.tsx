@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import CategoryList from './CategoryList';
 import icons from 'data/icons.json';
 import styled, { css } from 'styled-components';
-import useIsLoggedState from 'state/hooks/useIsLoggedState';
-import useModalOpenState from 'state/hooks/useModalOpenState';
-import useNavBarMenusState from 'state/hooks/useNavBarMenusState';
+import useIsLoggedState from 'state/recoil/hooks/useIsLoggedState';
+import useModalOpenState from 'state/recoil/hooks/useModalOpenState';
+import useNavBarMenusState from 'state/recoil/hooks/useNavBarMenusState';
 import UserMenuOptions from './UserMenuOptions';
 
 export default function NavigationBar() {
