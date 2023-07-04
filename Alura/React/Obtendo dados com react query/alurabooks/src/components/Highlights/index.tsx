@@ -12,10 +12,7 @@ export default function Highlight({ books, title, isLoading }: HighlightsProps) 
   const [selectedBook, setSelectedBook] = useState<BookFull>(hollowBook);
 
   useEffect(() => {
-    if (books)
-      setTimeout(() => {
-        setSelectedBook(books[1]);
-      }, 3000);
+    if (books) setSelectedBook(books[1]);
   }, [books]);
 
   const handleClick = (book: BookFull) => {
