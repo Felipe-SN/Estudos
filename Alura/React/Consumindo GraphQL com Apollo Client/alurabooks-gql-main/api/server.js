@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const jsonServer = require('json-server');
 const jwt = require('jsonwebtoken');
 
 const server = jsonServer.create();
-const router = jsonServer.router('./database.json');
-let userdb = JSON.parse(fs.readFileSync('./usuarios.json', 'UTF-8'));
+const router = jsonServer.router('./api/database.json');
+let userdb = JSON.parse(fs.readFileSync('./api/usuarios.json', 'UTF-8'));
 
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
@@ -18,15 +19,21 @@ function createToken(payload, expiresIn = '12h') {
 }
 
 function verifyToken(token) {
-  return jwt.verify(token, SECRET_KEY, (err, decode) => (decode !== undefined ? decode : err));
+  return jwt.verify(token, SECRET_KEY, (err, decode) =>
+    decode !== undefined ? decode : err,
+  );
 }
 
 function usuarioExiste({ email, senha }) {
-  return userdb.usuarios.findIndex(user => user.email === email && user.senha === senha) !== -1;
+  return (
+    userdb.usuarios.findIndex(
+      (user) => user.email === email && user.senha === senha,
+    ) !== -1
+  );
 }
 
 function emailExiste(email) {
-  return userdb.usuarios.findIndex(user => user.email === email) !== -1;
+  return userdb.usuarios.findIndex((user) => user.email === email) !== -1;
 }
 
 server.post('/public/registrar', (req, res) => {
@@ -49,10 +56,19 @@ server.post('/public/registrar', (req, res) => {
 
     const json = JSON.parse(data.toString());
 
-    const last_item_id = json.usuarios.length > 0 ? json.usuarios[json.usuarios.length - 1].id : 0;
+    const last_item_id =
+      json.usuarios.length > 0 ? json.usuarios[json.usuarios.length - 1].id : 0;
 
-    json.usuarios.push({ id: last_item_id + 1, email, senha, nome, endereco, complemento, cep });
-    fs.writeFile('./usuarios.json', JSON.stringify(json), err => {
+    json.usuarios.push({
+      id: last_item_id + 1,
+      email,
+      senha,
+      nome,
+      endereco,
+      complemento,
+      cep,
+    });
+    fs.writeFile('./usuarios.json', JSON.stringify(json), (err) => {
       if (err) {
         const status = 401;
         const message = err;
@@ -76,7 +92,11 @@ server.post('/public/login', (req, res) => {
     return;
   }
   const access_token = createToken({ email, senha });
-  let user = { ...userdb.usuarios.find(user => user.email === email && user.senha === senha) };
+  let user = {
+    ...userdb.usuarios.find(
+      (user) => user.email === email && user.senha === senha,
+    ),
+  };
   delete user.senha;
   res.status(200).json({ access_token, user });
 });
@@ -94,7 +114,7 @@ server.get('/public/lancamentos', (req, res) => {
       publicacao: '2018-05-01',
       imagemCapa:
         'https://raw.githubusercontent.com/viniciosneves/alurabooks/curso-novo/public/imagens/livros/bootstrap4.png',
-      autor: 4,
+      autorId: 4,
       opcoesCompra: [
         {
           id: 1,
@@ -128,7 +148,7 @@ server.get('/public/lancamentos', (req, res) => {
       publicacao: '2017-08-01',
       imagemCapa:
         'https://raw.githubusercontent.com/viniciosneves/alurabooks/curso-novo/public/imagens/livros/cangaceirojavascript.png',
-      autor: 5,
+      autorId: 5,
       opcoesCompra: [
         {
           id: 1,
@@ -156,12 +176,14 @@ server.get('/public/lancamentos', (req, res) => {
       categoria: 3,
       titulo: 'CSS Eficiente  ',
       slug: 'css-eficiente',
-      descricao: 'Técnicas e ferramentas que fazem a diferença nos seus estilos',
+      descricao:
+        'Técnicas e ferramentas que fazem a diferença nos seus estilos',
       isbn: '978-85-5519-076-6',
       numeroPaginas: 144,
       publicacao: '2015-06-01',
-      imagemCapa: 'https://raw.githubusercontent.com/viniciosneves/alurabooks/curso-novo/public/imagens/livros/css.png',
-      autor: 6,
+      imagemCapa:
+        'https://raw.githubusercontent.com/viniciosneves/alurabooks/curso-novo/public/imagens/livros/css.png',
+      autorId: 6,
       opcoesCompra: [
         {
           id: 1,
@@ -200,7 +222,7 @@ server.get('/public/mais-vendidos', (req, res) => {
       publicacao: '2020-04-01',
       imagemCapa:
         'https://raw.githubusercontent.com/viniciosneves/alurabooks/curso-novo/public/imagens/livros/acessibilidade.png',
-      autor: 1,
+      autorId: 1,
       opcoesCompra: [
         {
           id: 1,
@@ -228,13 +250,14 @@ server.get('/public/mais-vendidos', (req, res) => {
       categoria: 3,
       titulo: 'Angular 11 e Firebase',
       slug: 'angular11-e-firebase',
-      descricao: 'Construindo uma aplicação integrada com a plataforma do Google',
+      descricao:
+        'Construindo uma aplicação integrada com a plataforma do Google',
       isbn: '978-85-7254-036-0',
       numeroPaginas: 163,
       publicacao: '2019-11-01',
       imagemCapa:
         'https://raw.githubusercontent.com/viniciosneves/alurabooks/curso-novo/public/imagens/livros/angular.png',
-      autor: 2,
+      autorId: 2,
       opcoesCompra: [
         {
           id: 1,
@@ -268,7 +291,7 @@ server.get('/public/mais-vendidos', (req, res) => {
       publicacao: '2021-10-01',
       imagemCapa:
         'https://raw.githubusercontent.com/viniciosneves/alurabooks/curso-novo/public/imagens/livros/arquitetura.png',
-      autor: 3,
+      autorId: 3,
       opcoesCompra: [
         {
           id: 1,
@@ -294,8 +317,13 @@ server.get('/public/mais-vendidos', (req, res) => {
   ]);
 });
 
-server.use(/^(?!\/(public|livros|autores|categorias|tags)).*$/, (req, res, next) => {
-  if (req.headers.authorization === undefined || req.headers.authorization.split(' ')[0] !== 'Bearer') {
+server.use(
+  /^(?!\/(public|livros|autores|categorias|carrinho|tags)).*$/,
+  (req, res, next) => {
+  if (
+    req.headers.authorization === undefined ||
+    req.headers.authorization.split(' ')[0] !== 'Bearer'
+  ) {
     const status = 401;
     const message = 'Token inválido';
     res.status(status).json({ status, message });
@@ -322,19 +350,5 @@ server.use(/^(?!\/(public|livros|autores|categorias|tags)).*$/, (req, res, next)
 server.use(router);
 
 server.listen(8000, () => {
-  console.log(`
-  API disponível em http://localhost:8000
-
-  Últimos lançamentos disponíveis em http://localhost:8000/public/lancamentos
-
-  Mais vendidos disponíveis em http://localhost:8000/public/mais-vendidos
-
-  Livros disponíveis em http://localhost:8000/livros
-
-  Autores disponíveis em http://localhost:8000/autores
-
-  Categorias disponíveis em http://localhost:8000/categorias
-  
-  Tags disponíveis em http://localhost:8000/tags
-  `);
+  console.log('API disponível em http://localhost:8000');
 });
