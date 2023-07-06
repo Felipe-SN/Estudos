@@ -1,0 +1,18 @@
+{
+  "name": "json-server-api",
+  "version": "1.0.0",
+  "description": "Simple Fake API",
+  "main": "main.js",
+  "packageManager": "yarn@3.6.1",
+  "scripts": {
+    "start": "json-server --watch ./database.json",
+    "server": "node server.js"
+  },
+  "author": "ME:)",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "json-server": "^0.17.2",
+    "jsonwebtoken": "^9.0.0"
+  }
+}
