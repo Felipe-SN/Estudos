@@ -9,7 +9,7 @@ export default function CategoryList() {
   const { categoryListOpen } = useNavBarMenusState();
 
   return (
-    <CategoryMenu isOpen={categoryListOpen}>
+    <CategoryMenu $isOpen={categoryListOpen}>
       {categories?.map(category => (
         <li key={category.id}>
           <Link to={`categorias/${category.slug}`}>{category.nome}</Link>
@@ -19,7 +19,7 @@ export default function CategoryList() {
   );
 }
 
-const CategoryMenu = styled.ul<{ isOpen?: boolean }>`
+const CategoryMenu = styled.ul<{ $isOpen?: boolean }>`
   background-color: ${colors.branca};
   position: absolute;
   left: 0;
@@ -29,7 +29,7 @@ const CategoryMenu = styled.ul<{ isOpen?: boolean }>`
   width: 65vw;
 
   ${props =>
-    props.isOpen
+    props.$isOpen
       ? css`
           visibility: visible;
           opacity: 1;

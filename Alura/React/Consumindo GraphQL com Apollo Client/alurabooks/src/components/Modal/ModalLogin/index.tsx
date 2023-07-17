@@ -1,9 +1,8 @@
 import { colors } from 'components/UI/variables';
+import { FormEvent, SetStateAction, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { userCalls } from 'Services/apiServices';
-import { useState } from 'react';
 import Button from 'components/Button';
-import IDHelper from 'helpers/IDHelper';
 import InputField from 'components/InputField';
 import Modal from '..';
 import sessionTokenHelper from 'helpers/sessionTokenHelper';
@@ -36,35 +35,39 @@ export default function ModalLogin() {
 
   return (
     <Modal title="Login">
-      <StyledForm onSubmit={e => handleOnSubmit(e)}>
+      <StyledForm onSubmit={(e: FormEvent<HTMLFormElement>) => handleOnSubmit(e)}>
         <InputsArea>
-          <CustomInput
-            index={IDHelper()}
-            hasIcon={false}
-            inputLabel="Email"
-            type="email"
-            onChange={e => setEmailValue(e.target.value)}
+          <InputField
+            $hasIcon={false}
+            $inputLabel="Email"
+            className="modal-sing-in__form-input"
+            onChange={(e: { target: { value: SetStateAction<string> } }) => setEmailValue(e.target.value)}
             placeholder="seuemail@maneiro.com.br"
             required={true}
+            type="email"
             value={emailValue}
           />
-          <CustomInput
-            index={IDHelper()}
-            inputLabel="Senha"
+          <InputField
+            $inputLabel="Senha"
+            className="modal-sing-in__form-input"
             type="password"
-            onChange={e => setPassValue(e.target.value)}
+            onChange={(e: { target: { value: SetStateAction<string> } }) => setPassValue(e.target.value)}
             placeholder="************"
             required={true}
             value={passValue}
           />
         </InputsArea>
         <ResetPassword to={'!#'}>Esqueci minha senha</ResetPassword>
-        <ButtonLogin text="Fazer login" />
+        <Button className="modal-sing-in__button" $text="Fazer login" />
       </StyledForm>
-      <SingUpArea>
-        <SingUpText>Ainda não tem uma conta?</SingUpText>
-        <ModalButton onClick={() => setModalSingInIsOpen(false)} text="Criar conta" />
-      </SingUpArea>
+      <SingInArea>
+        <p>Ainda não tem uma conta?</p>
+        <Button
+          className="modal-sing-in__button--login"
+          onClick={() => setModalSingInIsOpen(false)}
+          $text="Criar conta"
+        />
+      </SingInArea>
     </Modal>
   );
 }
@@ -77,6 +80,20 @@ const StyledForm = styled.form`
   grid-template-columns: repeat(2, max-content);
   grid-template-columns: repeat(2, max-content);
   row-gap: 1rem;
+
+  .modal-sing-in__form-input {
+    max-height: 2.75rem;
+    max-width: 31.75rem;
+  }
+
+  .modal-sing-in__button {
+    justify-self: end;
+    font-size: 1rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+  }
 `;
 
 const InputsArea = styled.div`
@@ -85,30 +102,12 @@ const InputsArea = styled.div`
   row-gap: 1rem;
 `;
 
-const CustomInput = styled(InputField)`
-  max-height: 2.75rem;
-  max-width: 31.75rem;
-`;
-
 const ResetPassword = styled(Link)`
   color: ${colors.azul};
   margin-left: 1.5rem;
 `;
 
-const ModalButton = styled(Button)`
-  justify-self: end;
-  font-size: 1rem;
-  padding-bottom: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-`;
-
-const ButtonLogin = styled(ModalButton)`
-  margin-right: 1.5rem;
-`;
-
-const SingUpArea = styled.div`
+const SingInArea = styled.div`
   border-top: 0.063rem solid ${colors.azul};
   margin-top: 3rem;
   padding-top: 2rem;
@@ -117,11 +116,19 @@ const SingUpArea = styled.div`
   display: grid;
   align-items: center;
   grid-template-columns: repeat(2, auto);
-`;
+  & > p {
+    color: ${colors.azul};
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.875rem;
+  }
 
-const SingUpText = styled.p`
-  color: ${colors.azul};
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.875rem;
+  .modal-sing-in__button--login {
+    justify-self: end;
+    font-size: 1rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+  }
 `;

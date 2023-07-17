@@ -5,13 +5,13 @@ import Book from 'types/Book';
 import Category from 'types/Category';
 
 export default function useBookQueryByCategoryID(category: Category) {
-  const { data, error, isLoading } = useQuery<Book[] | null, AxiosError>(
-    ['BookBySlug', category],
+  const booksInfo = useQuery<Book[] | null, AxiosError>(
+    ['BookByCategoryID', category],
     <T>() => getAll<T>('livros', { params: { categoria: category.id } }),
     { enabled: !!category }
   );
 
-  if (data) return { data, error, isLoading };
+  if (booksInfo.data) return { ...booksInfo };
 
-  return { data: null, error, isLoading };
+  return { ...booksInfo, data: null };
 }

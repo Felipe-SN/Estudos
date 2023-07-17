@@ -1,6 +1,5 @@
 import Button from 'components/Button';
 import InputField from 'components/InputField';
-import IDHelper from 'helpers/IDHelper';
 import { useState } from 'react';
 import CEPSearch from 'Services/CEPSearch';
 import useModalOpenState from 'state/recoil/hooks/useModalOpenState';
@@ -53,70 +52,70 @@ export default function ModalSingUp() {
 
   return (
     <Modal title="cadastro">
-      <StyledForm onSubmit={event => handleOnsubmit(event)}>
-        <CustomInput
-          gridArea="name"
-          index={IDHelper()}
-          inputLabel="nome"
+      <StyledForm onSubmit={(event: React.FormEvent<HTMLFormElement>) => handleOnsubmit(event)}>
+        <InputField
+          $gridArea="name"
+          $inputLabel="nome"
+          className="form-input"
           minLength={3}
-          onChange={e => setNameValue(e.target.value)}
+          onChange={(e: { target: { value: React.SetStateAction<string> } }) => setNameValue(e.target.value)}
           pattern="^(?=.*[a-z])(?=.{1,}[ ]\b)(?=.*[A-Z]).{3,}$"
           placeholder="Seu nome completo"
           required={true}
           type="text"
           value={nameValue}
         />
-        <CustomInput
-          gridArea="email"
-          hasIcon={false}
-          index={IDHelper()}
-          inputLabel="email"
-          onChange={e => setEmailValue(e.target.value)}
+        <InputField
+          $gridArea="email"
+          $hasIcon={false}
+          $inputLabel="email"
+          className="form-input"
+          onChange={(e: { target: { value: React.SetStateAction<string> } }) => setEmailValue(e.target.value)}
           placeholder="seuemail@maneiro.com.br"
           required={true}
           type="email"
           value={emailValue}
         />
-        <CustomInput
-          gridArea="address"
-          index={IDHelper()}
-          inputLabel="endereço"
+        <InputField
+          $gridArea="address"
+          $inputLabel="endereço"
+          className="form-input"
           minLength={5}
-          onChange={e => setAddressValue(e.target.value)}
+          onChange={(e: { target: { value: React.SetStateAction<string> } }) => setAddressValue(e.target.value)}
           placeholder="Sua rua e número"
           required={true}
           type="text"
           value={addressValue}
         />
-        <CustomInput
-          gridArea="complement"
-          index={IDHelper()}
-          inputLabel="complemento"
-          onChange={e => setComplementValue(e.target.value)}
+        <InputField
+          $gridArea="complement"
+          $inputLabel="complemento"
+          className="form-input"
+          onChange={(e: { target: { value: React.SetStateAction<string> } }) => setComplementValue(e.target.value)}
           placeholder="Apto/casa, bloco, referência"
           type="text"
           value={complementValue}
         />
-        <CustomInput
-          gridArea="cep"
-          index={IDHelper()}
-          inputLabel="CEP"
+        <InputField
+          $gridArea="cep"
+          $inputLabel="CEP"
+          className="form-input"
           maxLength={8}
           onBlur={() => handleOnBlur(cepValue)}
-          onChange={e => setCepValue(e.target.value)}
+          onChange={(e: { target: { value: React.SetStateAction<string> } }) => setCepValue(e.target.value)}
           pattern="[\d]{5}-?[\d]{3}"
           placeholder="00000-000"
           required={true}
           type="text"
           value={cepValue}
         />
-        <CustomInput
-          gridArea="password"
-          index={IDHelper()}
-          inputLabel="Senha"
+        <InputField
+          $gridArea="password"
+          $inputLabel="Senha"
+          className="form-input"
           maxLength={32}
           minLength={8}
-          onChange={e => setPasswordValue(e.target.value)}
+          onChange={(e: { target: { value: React.SetStateAction<string> } }) => setPasswordValue(e.target.value)}
           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+_])(?!.*[\s]).{8,32}$"
           placeholder="************"
           required={true}
@@ -124,13 +123,13 @@ export default function ModalSingUp() {
           type="password"
           value={passwordValue}
         />
-        <CustomInput
-          gridArea="passConfirm"
-          index={IDHelper()}
-          inputLabel="Confirmar senha"
+        <InputField
+          $gridArea="passConfirm"
+          $inputLabel="Confirmar senha"
+          className="form-input"
           maxLength={32}
           minLength={8}
-          onChange={e => setPassConfirmValue(e.target.value)}
+          onChange={(e: { target: { value: React.SetStateAction<string> } }) => setPassConfirmValue(e.target.value)}
           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+_])(?!.*[\s]).{6,16}$"
           placeholder="************"
           required={true}
@@ -138,7 +137,11 @@ export default function ModalSingUp() {
           type="password"
           value={PassConfirmValue}
         />
-        <ButtonSingUp disabled={passwordValue.length < 8 || passwordValue !== PassConfirmValue} text="Cadastrar" />
+        <Button
+          className="modal__form-button-sing-up"
+          disabled={passwordValue.length < 8 || passwordValue !== PassConfirmValue}
+          $text="Cadastrar"
+        />
       </StyledForm>
     </Modal>
   );
@@ -160,21 +163,20 @@ const StyledForm = styled.form`
 
   grid-row-gap: 1rem;
   grid-column-gap: 1.5rem;
-`;
 
-const CustomInput = styled(InputField)`
-  max-height: 2.75rem;
-  max-width: -webkit-fill-available;
-`;
-
-const ButtonSingUp = styled(Button)`
-  grid-area: submit;
-  height: fit-content;
-  justify-self: center;
-  margin-top: 2rem;
-  padding-bottom: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  width: fit-content;
+  .form-input {
+    max-height: 2.75rem;
+    max-width: -webkit-fill-available;
+  }
+  .modal__form-button-sing-up {
+    grid-area: submit;
+    height: fit-content;
+    justify-self: center;
+    margin-top: 2rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    width: fit-content;
+  }
 `;

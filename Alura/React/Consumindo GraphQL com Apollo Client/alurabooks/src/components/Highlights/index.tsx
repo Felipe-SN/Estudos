@@ -1,7 +1,8 @@
 import { colors } from 'components/UI/variables';
+import { Link } from 'react-router-dom';
 import { priceFormatter } from 'helpers/formatters';
 import { useEffect, useState } from 'react';
-import { BookFull } from 'types/Book';
+import Book from 'types/Book';
 import Button from 'components/Button';
 import Card from 'components/Card';
 import icons from 'data/icons.json';
@@ -9,61 +10,64 @@ import Loader from 'components/Loader';
 import styled, { css } from 'styled-components';
 
 export default function Highlight({ books, title, isLoading }: HighlightsProps) {
-  const [selectedBook, setSelectedBook] = useState<BookFull>(hollowBook);
+  const [selectedBook, setSelectedBook] = useState<Book>(hollowBook);
 
   useEffect(() => {
     if (books) setSelectedBook(books[1]);
   }, [books]);
 
-  const handleClick = (book: BookFull) => {
+  const handleClick = (book: Book) => {
     setSelectedBook(book);
   };
 
-  const getMinPrice = (book: BookFull) => Math.min(...book.opcoesCompra.map(op => op.preco));
+  const getMinPrice = (book: Book) => Math.min(...book.opcoesCompra.map(op => op.preco));
 
-  return (
-    <StyledSection>
-      <h2>{title}</h2>
-      <div>
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <BooksHighlighted booksLength={books!.length + 1}>
-            {books!.map(book => (
-              <StyledBook key={book.id} selectedID={book.id === selectedBook?.id} onClick={() => handleClick(book)}>
-                <img src={book.imagemCapa} alt={`Livro sobre ${book.descricao}`} />
-              </StyledBook>
-            ))}
-          </BooksHighlighted>
-        )}
-        {selectedBook && (
-          <>
-            <StyledCard>
-              <h2>Sobre o livro:</h2>
-              <StyledIcons>
-                <button>
-                  <img alt="Carrinho de compras" src={icons.sacola} />
-                </button>
-                <button>
-                  <img alt="Meus favoritos" src={icons.favoritos} />
-                </button>
-              </StyledIcons>
-              <h3>{selectedBook.titulo}</h3>
-              <Description>
-                <p>{selectedBook.descricao}</p>
-                <p>{`Por: ${selectedBook.autor.nome}`}</p>
-              </Description>
-              <StyledPrice>
-                <em>A partir de:</em>
-                <strong>{priceFormatter(getMinPrice(selectedBook))}</strong>
-              </StyledPrice>
-              <ButtonPosition text="Comprar" />
-            </StyledCard>
-          </>
-        )}
-      </div>
-    </StyledSection>
-  );
+  if (books)
+    return (
+      <StyledSection>
+        <h2>{title}</h2>
+        <div>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <BooksHighlighted $booksLength={books.length + 1}>
+              {books.map(book => (
+                <StyledBook key={book.id} $selectedID={book.id === selectedBook?.id} onClick={() => handleClick(book)}>
+                  <img src={book.imagemCapa} alt={`Livro sobre ${book.descricao}`} />
+                </StyledBook>
+              ))}
+            </BooksHighlighted>
+          )}
+          {selectedBook && (
+            <>
+              <StyledCard>
+                <h2>Sobre o livro:</h2>
+                <StyledIcons>
+                  <button>
+                    <img alt="Carrinho de compras" src={icons.sacola} />
+                  </button>
+                  <button>
+                    <img alt="Meus favoritos" src={icons.favoritos} />
+                  </button>
+                </StyledIcons>
+                <h3>{selectedBook.titulo}</h3>
+                <Description>
+                  <p>{selectedBook.descricao}</p>
+                  <p>{`Por: ${selectedBook.autor?.nome}`}</p>
+                </Description>
+                <StyledPrice>
+                  <em>A partir de:</em>
+                  <strong>{priceFormatter(getMinPrice(selectedBook))}</strong>
+                </StyledPrice>
+                <Link className="card__price-button" to={`/livro/${selectedBook.slug}`}>
+                  <Button $text="Comprar" />
+                </Link>
+              </StyledCard>
+            </>
+          )}
+        </div>
+      </StyledSection>
+    );
 }
 
 const StyledSection = styled.section`
@@ -95,7 +99,7 @@ const StyledSection = styled.section`
   }
 `;
 
-const BooksHighlighted = styled.ul<{ booksLength: number }>`
+const BooksHighlighted = styled.ul<{ $booksLength: number }>`
   align-items: center;
   box-sizing: border-box;
   column-gap: 1.5rem;
@@ -105,16 +109,16 @@ const BooksHighlighted = styled.ul<{ booksLength: number }>`
   overflow: hidden;
   width: 41.75rem;
   ${props =>
-    props.booksLength
+    props.$booksLength
       ? css`
-          grid-template-columns: repeat(${props.booksLength}, max-content);
+          grid-template-columns: repeat(${props.$booksLength}, max-content);
         `
       : css`
           grid-template-columns: repeat(3, max-content);
         `}
 `;
 
-const StyledBook = styled.li<{ selectedID: boolean }>`
+const StyledBook = styled.li<{ $selectedID: boolean }>`
   filter: drop-shadow(0.125rem 0.25rem 0.5rem ${colors.sombraFiltro});
   > img {
     transition-duration: 500ms;
@@ -122,7 +126,7 @@ const StyledBook = styled.li<{ selectedID: boolean }>`
     transition-timing-function: ease-in-out;
     width: 11.25rem;
     ${props =>
-      props.selectedID &&
+      props.$selectedID &&
       css`
         width: 16.375rem;
       `}
@@ -163,6 +167,12 @@ const StyledCard = styled(Card)`
     grid-area: title;
     letter-spacing: 0rem;
     line-height: 1.625rem;
+  }
+
+  .card__price-button {
+    align-self: end;
+    grid-area: buy-button;
+    justify-self: end;
   }
 `;
 
@@ -231,40 +241,25 @@ const StyledPrice = styled.div`
   }
 `;
 
-const ButtonPosition = styled(Button)`
-  align-self: end;
-  grid-area: buy-button;
-  justify-self: end;
-`;
-
 const hollowBook = {
-  id: 0,
-  categoria: 0,
-  titulo: '',
-  slug: '',
+  autor: { id: 0, nome: '', sobre: '' },
+  autorId: 0,
+  categoriaId: 0,
   descricao: '',
-  isbn: '',
-  numeroPaginas: 163,
-  publicacao: '',
+  id: 0,
   imagemCapa: '',
-  autor: {
-    id: 0,
-    nome: '',
-    sobre: '',
-  },
-  opcoesCompra: [
-    {
-      id: 0,
-      titulo: '',
-      preco: 0,
-      formatos: [''],
-    },
-  ],
+  isbn: '',
+  numeroPaginas: 0,
+  opcoesCompra: [{ id: 0, titulo: '', preco: 0, formatos: [''] }],
+  publicacao: '',
+  slug: '',
   sobre: '',
+  tagIds: [0],
+  titulo: '',
 };
 
 type HighlightsProps = {
-  books: BookFull[] | null | undefined;
+  books: Book[] | null | undefined;
   isLoading: boolean;
   title: string;
 };

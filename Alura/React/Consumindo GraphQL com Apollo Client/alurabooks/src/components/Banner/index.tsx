@@ -4,19 +4,24 @@ import InputField from 'components/InputField';
 import styled, { css } from 'styled-components';
 
 export default function Banner({ ...props }: BannerProps) {
-  const { title, subTitle, haveSearchField = false, variantType = 'img' } = props;
+  const { title, subTitle, haveSearchField = false, $variantType = 'img' } = props;
   return (
-    <StyledBanner variantType={variantType}>
+    <StyledBanner $variantType={$variantType}>
       {title && <h2>{title}</h2>}
       {subTitle && <p>{subTitle}</p>}
       {haveSearchField && (
-        <CustomInput inputVariable="secondary" placeholder="Qual será sua próxima leitura?" type="search" />
+        <InputField
+          className="input-banner"
+          $inputVariable="secondary"
+          placeholder="Qual será sua próxima leitura?"
+          type="search"
+        />
       )}
     </StyledBanner>
   );
 }
 
-const StyledBanner = styled.section<{ variantType?: 'img' | 'gradient' }>`
+const StyledBanner = styled.section<{ $variantType?: 'img' | 'gradient' }>`
   background-image: ${colors.gradienteAzul};
   background-position: center;
   background-repeat: no-repeat;
@@ -31,7 +36,7 @@ const StyledBanner = styled.section<{ variantType?: 'img' | 'gradient' }>`
   width: 100%;
 
   ${props =>
-    props.variantType === 'img' &&
+    props.$variantType === 'img' &&
     css`
       background-image: url(${img.banner});
       grid-template-columns: auto;
@@ -50,17 +55,17 @@ const StyledBanner = styled.section<{ variantType?: 'img' | 'gradient' }>`
     line-height: 1.5rem;
     margin-bottom: 1.75rem;
   }
-`;
 
-const CustomInput = styled(InputField)`
-  height: 3.5rem;
-  line-height: 1.5rem;
-  width: 36.625rem;
+  .input-banner {
+    height: 3.5rem;
+    line-height: 1.5rem;
+    width: 36.625rem;
+  }
 `;
 
 type BannerProps = {
   haveSearchField?: boolean;
   subTitle?: string;
   title?: string;
-  variantType?: 'img' | 'gradient';
+  $variantType?: 'img' | 'gradient';
 };

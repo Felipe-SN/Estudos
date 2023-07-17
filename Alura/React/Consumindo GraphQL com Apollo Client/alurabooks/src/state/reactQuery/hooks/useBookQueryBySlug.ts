@@ -5,23 +5,22 @@ import Author from 'types/Author';
 import Book from 'types/Book';
 
 export default function useBookQueryBySlug(slug: string) {
-  const {
-    data: book,
-    error,
-    isLoading: bookLoading,
-  } = useQuery<Book | null, AxiosError>(['BookBySlug', slug], <T>() => get<T>('livros', { params: { slug: slug } }));
+  const bookInfo = useQuery<Book | null, AxiosError>(['BookBySlug', slug], ({ signal }) =>
+    get('livros', { params: { slug: slug }, signal })
+  );
 
-  const { data: author, isLoading } = useQuery<Author | null, AxiosError>(
-    ['authorByID', book],
-    <T>() => get<T>('autores', { params: { id: book?.autor } }),
+  const { data: author } = useQuery<Author | null, AxiosError>(
+    ['authorByID', bookInfo.data],
+    ({ signal }) => get('autores', { params: { id: bookInfo.data?.autorId }, signal }),
     {
-      enabled: !!book,
+      enabled: !!bookInfo.data,
     }
   );
 
-  if (book) {
-    const data = { ...book, autor: author };
-    return { data, error, isLoading };
+  if (author) {
+    const newData = { ...bookInfo.data, autor: author };
+    return { ...bookInfo, data: newData };
   }
-  return { data: null, error, isLoading: bookLoading };
+
+  return { ...bookInfo, data: null };
 }

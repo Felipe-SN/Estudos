@@ -12,7 +12,7 @@ export default function Requests() {
 
   return (
     <section>
-      <Banner variantType="gradient" title="Meus Pedidos" />
+      <Banner $variantType="gradient" title="Meus Pedidos" />
       <MenuArea>
         <NavMenu>
           <ul>
@@ -64,7 +64,7 @@ const NavMenu = styled.nav`
   display: grid;
   justify-items: center;
 
-  > ul {
+  & > ul {
     align-items: center;
     display: flex;
     flex-direction: column;

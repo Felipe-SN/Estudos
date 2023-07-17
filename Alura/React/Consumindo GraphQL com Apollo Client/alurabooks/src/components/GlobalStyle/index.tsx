@@ -57,18 +57,18 @@ table {
 }
 
 @media screen and (min-width: 1024px) {
-	.deskHide {
+	.desk-hide {
 		display: none;
 	}
 
-	.midDeskHide {
+	.mid-desk-hide {
 		display: none;
 	}
 
 }
 
 @media screen and (min-width: 1728px) {
-  .midDeskHide {
+  .mid-desk-hide {
     display: block;
   }
 }

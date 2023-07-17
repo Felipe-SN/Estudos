@@ -5,9 +5,7 @@ import { RequestProps } from 'types/RequestProps';
 import { queryClient as client } from '../client';
 
 export default function useRequestQuery() {
-  const { ...queryInfo } = useQuery<RequestProps[] | null, AxiosError>(['getUserRequests'], <T>() =>
-    getAll<T>('pedidos')
-  );
+  const queryInfo = useQuery<RequestProps[] | null, AxiosError>(['getUserRequests'], <T>() => getAll<T>('pedidos'));
 
   const deleteRequest = useMutation({
     mutationFn: (id: number) => remove('pedidos', id),

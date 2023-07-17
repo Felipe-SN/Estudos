@@ -22,7 +22,7 @@ export default function MiniCard(book: Book) {
         </li>
       </Info>
       <Link to={`/livro/${book.slug}`}>
-        <MiniCardButton type="button" text="Comprar" />
+        <Button className="mini-card__button" type="button" $text="Comprar" />
       </Link>
     </MiniCardWrapper>
   );
@@ -37,13 +37,19 @@ const MiniCardWrapper = styled.div`
   max-width: ${cardWidth};
   overflow: hidden;
 
-  && a {
+  & a {
+    width: 100%;
+  }
+
+  .mini-card__button {
+    height: 3.875rem;
     width: 100%;
   }
 `;
 
 const Cover = styled.img`
   /* filter: drop-shadow(0.125rem 0.25rem 0.5rem ${colors.sombra}); */
+  height: 21.5rem;
   max-height: 21.5rem;
   max-width: ${cardWidth};
 `;
@@ -56,7 +62,7 @@ const Info = styled.ul`
   text-align: center;
   width: 100%;
 
-  && li {
+  & li {
     h4 {
       font-size: 1.125rem;
       font-weight: 700;
@@ -77,9 +83,4 @@ const Info = styled.ul`
       }
     }
   }
-`;
-
-const MiniCardButton = styled(Button)`
-  height: 3.875rem;
-  width: 100%;
 `;

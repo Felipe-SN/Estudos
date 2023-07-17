@@ -19,7 +19,7 @@ export default function Categories() {
 
   return (
     <CategorySection>
-      <Banner title={category?.nome} variantType="gradient" />
+      <Banner title={category?.nome} $variantType="gradient" />
       <BookSection>
         <BookList category={category} />
       </BookSection>

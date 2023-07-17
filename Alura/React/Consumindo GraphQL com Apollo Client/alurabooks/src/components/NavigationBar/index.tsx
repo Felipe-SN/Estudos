@@ -14,12 +14,13 @@ export default function NavigationBar() {
   const { setModalIsOpen, setModalSingInIsOpen } = useModalOpenState();
 
   const handleUserIconInteractions = (toggle?: boolean): void => {
-    if (!isLogged) {
-      setModalSingInIsOpen(true);
-      setModalIsOpen(true);
+    if (isLogged) {
+      if (toggle) return setUserMenuOpen(!userMenuOpen);
+      setTimeout(() => setUserMenuOpen(false), 300);
+      return;
     }
-    if (toggle) return setUserMenuOpen(!userMenuOpen);
-    setTimeout(() => setUserMenuOpen(false), 300);
+    setModalSingInIsOpen(true);
+    setModalIsOpen(true);
   };
 
   const handleMenusCategoryInteractions = (toggle?: boolean): void => {
@@ -66,15 +67,15 @@ export default function NavigationBar() {
           <CategoryList />
         </div>
       </LeftWrapper>
-      <RightWrapper isLogged={isLogged}>
+      <RightWrapper $isLogged={isLogged}>
         {isLogged && (
           <>
-            <IconButtons as={CustomLink} className="deskHide" to={'#'}>
+            <IconButtons as={CustomLink} className="desk-hide" to={'#'}>
               <img alt="Meus favoritos" src={icons.favoritos} />
             </IconButtons>
             <IconButtons as={CustomLink} to={'#'}>
               <img alt="Carrinho de compras" src={icons.sacola} />
-              <p className="midDeskHide">Minha sacola</p>
+              <p className="mid-desk-hide">Minha sacola</p>
             </IconButtons>
           </>
         )}
@@ -82,7 +83,7 @@ export default function NavigationBar() {
           <IconButtons
             aria-expanded={userMenuOpen}
             className="userIcon"
-            isLogged={isLogged}
+            $isLogged={isLogged}
             onBlur={() => handleUserIconInteractions()}
             onClick={() => handleUserIconInteractions(true)}
           >
@@ -135,7 +136,7 @@ const HamburgerButton = styled.button`
   justify-content: center;
   width: 5rem;
 
-  ::before {
+  &::before {
     content: url(${icons.menu});
     height: 1.5rem;
     width: 2.25rem;
@@ -178,7 +179,7 @@ const NavBarDeskOptions = styled.ul`
     column-gap: 1.375rem;
     grid-template-columns: repeat(3, max-content);
 
-    > li > * {
+    & > li > * {
       background-color: transparent;
       font-size: 1rem;
       color: ${colors.preto};
@@ -196,7 +197,7 @@ const NavBarDeskOptions = styled.ul`
     }
   }
 
-  li > button {
+  & li > button {
     border: none;
     cursor: pointer;
     font-family: ${fonts.poppins};
@@ -219,7 +220,7 @@ const RightWrapper = styled(LeftWrapper)<MenuStateProps>`
   }
 
   ${props =>
-    props.isLogged
+    props.$isLogged
       ? css`
           @media screen and (min-width: 1024px) {
             grid-template-columns: repeat(2, max-content);
@@ -242,7 +243,7 @@ const IconButtons = styled.button<MenuStateProps>`
   justify-content: center;
   padding: 0;
 
-  > p {
+  & > p {
     display: none;
     font-size: 1.25rem;
 
@@ -257,7 +258,7 @@ const IconButtons = styled.button<MenuStateProps>`
     > p {
       @media screen and (min-width: 1024px) {
         ${props =>
-          props.isLogged
+          props.$isLogged
             ? css`
                 display: none;
               `
@@ -280,5 +281,5 @@ const CustomLink = styled(Link)`
 
 type MenuStateProps = {
   isOpen?: boolean;
-  isLogged?: boolean;
+  $isLogged?: boolean;
 };

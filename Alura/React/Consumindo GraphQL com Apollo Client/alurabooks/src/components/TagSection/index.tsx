@@ -16,8 +16,8 @@ export default function TagSection() {
           {error && <h2>{error.message || 'Ops aconteceu um erro inesperado!'}</h2>}
           <ul>
             {tags?.map(tag => (
-              <li key={tag.name}>
-                <StyledTag href="#!">{tag.name}</StyledTag>
+              <li key={tag.nome}>
+                <StyledTag href="#!">{tag.nome}</StyledTag>
               </li>
             ))}
           </ul>

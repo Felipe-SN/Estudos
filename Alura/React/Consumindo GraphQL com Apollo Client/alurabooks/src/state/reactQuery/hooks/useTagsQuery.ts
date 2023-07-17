@@ -1,15 +1,19 @@
 import { AxiosError } from 'axios';
 import { getAll } from 'Services/apiServices';
 import { useQuery } from '@tanstack/react-query';
+import sortByLength from 'helpers/sortByLength';
 
 export default function useTagsQuery() {
-  const { data, isLoading, error } = useQuery<TagProps[] | null, AxiosError>(['queryTags'], ({ signal }) =>
-    getAll('tags', { signal })
-  );
+  const tagsInfo = useQuery<Tag[] | null, AxiosError>(['queryTags'], ({ signal }) => getAll('tags', { signal }), {
+    select: data => {
+      if (data) return sortByLength(data, 'nome');
+      return null;
+    },
+  });
 
-  if (data) return { data, isLoading, error };
+  if (tagsInfo.data) return { ...tagsInfo };
 
-  return { data: null, isLoading, error };
+  return { ...tagsInfo, data: null };
 }
 
-type TagProps = { id: number; name: string };
+type Tag = { id: number; nome: string };

@@ -30,9 +30,9 @@ export default function RequestsList() {
                 Entrega realizada em: <strong>{dateFormatter(new Date(request.entrega))}</strong>
               </DetailItem>
             </ul>
-            <div className="buttonsArea">
-              <DetailButton text="Excluir" onClick={() => exclude(request.id)} />
-              <DetailButton text="Detalhes" />
+            <div className="buttons-area">
+              <Button className="action-button" $text="Excluir" onClick={() => exclude(request.id)} />
+              <Button className="action-button" $text="Detalhes" />
             </div>
           </RequestItem>
         ))}
@@ -56,6 +56,13 @@ const StyledRequestsList = styled.ul`
   &::-webkit-scrollbar-thumb {
     background-color: transparent;
   }
+
+  .action-button {
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+  }
 `;
 
 const RequestItem = styled.li`
@@ -65,17 +72,17 @@ const RequestItem = styled.li`
   padding-left: 1rem;
   padding-right: 1rem;
 
-  :not(:first-child) {
+  &:not(:first-child) {
     padding-top: 2.5rem;
   }
 
-  :not(:last-child) {
+  &:not(:last-child) {
     border-bottom-color: ${colors.azul};
     border-bottom-style: solid;
     border-bottom-width: 0.063rem;
   }
 
-  .buttonsArea {
+  .buttons-area {
     align-self: end;
     display: flex;
     gap: 1rem;
@@ -91,11 +98,4 @@ const DetailItem = styled.li`
   > strong {
     font-weight: 700;
   }
-`;
-
-const DetailButton = styled(Button)`
-  padding-bottom: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
 `;

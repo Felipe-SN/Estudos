@@ -8,7 +8,13 @@ export default function NotFound({ text }: { text?: string }) {
   const navigate = useNavigate();
   return (
     <Main>
-      <BackButton onClick={() => navigate(-1)} title=" Voltar a pagina inicial" type="button" variantType="Secondary" />
+      <Button
+        className="back-button"
+        onClick={() => navigate(-1)}
+        title="Voltar a pagina inicial"
+        type="button"
+        $variantType="Secondary"
+      />
       {!text && <Title>Erro 404</Title>}
       <Text>{'Ops! Algum erro inesperado aconteceu!'}</Text>
       <Title>{text}</Title>
@@ -21,35 +27,39 @@ const Main = styled.section`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(3, auto);
-  height: 1fr;
+  height: inherit;
   justify-items: center;
   padding: 2rem;
   row-gap: 2rem;
-  width: 1fr;
+  width: inherit;
   padding: 4rem;
-`;
 
-const BackButton = styled(Button)`
-  align-self: start;
-  justify-self: start;
-  display: flex;
-  padding: 1rem;
-  border-radius: 50%;
+  .back-button {
+    align-self: start;
+    justify-self: start;
+    display: flex;
+    padding: 1rem;
+    border-radius: 50%;
 
-  ::before {
-    mask: url(${icons.arrow});
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-position: center;
-    background-color: ${colors.mostarda};
-    width: 2rem;
-    height: 2rem;
-    content: '';
-    scale: -1;
-  }
+    &::before {
+      -webkit-mask: url(${icons.arrow});
+      -webkit-mask-position: center;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-size: contain;
+      background-color: ${colors.mostarda};
+      content: '';
+      height: 2rem;
+      mask-position: center;
+      mask-repeat: no-repeat;
+      mask-size: contain;
+      mask: url(${icons.arrow});
+      scale: -1;
+      width: 2rem;
+    }
 
-  :hover::before {
-    background-color: ${colors.mostardaEscura};
+    &:hover::before {
+      background-color: ${colors.mostardaEscura};
+    }
   }
 `;
 

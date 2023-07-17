@@ -63,14 +63,14 @@ const StyledButton = styled.button`
   justify-content: center;
   width: 1.75rem;
 
-  :hover,
-  :active {
+  &:hover,
+  &:active {
     filter: saturate(70%);
   }
 `;
 
 const ButtonPlus = styled(StyledButton)`
-  ::before {
+  &::before {
     content: '+';
   }
 `;
@@ -87,7 +87,7 @@ const StyledCounter = styled.span`
 `;
 
 const ButtonMinus = styled(StyledButton)`
-  ::before {
+  &::before {
     content: '-';
   }
 `;

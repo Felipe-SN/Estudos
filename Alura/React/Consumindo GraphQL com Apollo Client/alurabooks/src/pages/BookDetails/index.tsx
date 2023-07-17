@@ -11,7 +11,7 @@ import useBookQueryBySlug from 'state/reactQuery/hooks/useBookQueryBySlug';
 
 export default function BookDetails() {
   const { slug = '' } = useParams();
-  const { data: book, isLoading, error } = useBookQueryBySlug(slug);
+  const { data: book, error, isLoading } = useBookQueryBySlug(slug);
 
   if (error) {
     return (
@@ -30,7 +30,7 @@ export default function BookDetails() {
 
   return (
     <>
-      <Banner title="Detalhes do livro" variantType="gradient" />
+      <Banner title="Detalhes do livro" $variantType="gradient" />
       <ShowCase>
         {isLoading ? (
           <Loader />
@@ -47,7 +47,7 @@ export default function BookDetails() {
                 <span>*Você terá acesso às futuras atualizações do livro.</span>
               </div>
               <CounterInput label="Quantidade" />
-              <Button text="Comprar" />
+              <Button $text="Comprar" />
             </BookInfo>
             <BookAbout>
               <h3>Sobre o Autor</h3>

@@ -4,12 +4,12 @@ import { AxiosError } from 'axios';
 import Category from 'types/Category';
 
 export default function useCategoryQueryBySlug(slug: string) {
-  const { data, error, isLoading } = useQuery<Category | null, AxiosError>(
+  const categoryInfo = useQuery<Category | null, AxiosError>(
     ['getCategoryBySlug', slug],
     <T>() => <T>get('categorias', { params: { slug: slug } })
   );
 
-  if (data) return { data, error, isLoading };
+  if (categoryInfo.data) return { ...categoryInfo };
 
-  return { data: null, error, isLoading };
+  return { ...categoryInfo, data: null };
 }

@@ -11,7 +11,7 @@ export default function Footer() {
           <li key={category.id}>{category.categoryTitle}</li>
           {category.itens.map(item => (
             <li key={item.id}>
-              <StyledLink href="#" imgURL={item.imgURL}>
+              <StyledLink href="#" $imgURL={item.imgURL}>
                 {item.name}
               </StyledLink>
             </li>
@@ -52,18 +52,18 @@ const StyledList = styled.ul`
   line-height: 1.25rem;
   padding-left: 1.25rem;
 
-  :not(:last-child) {
+  &:not(:last-child) {
     margin-right: 11.75rem;
   }
 `;
 
-const StyledLink = styled.a<{ imgURL: string }>`
+const StyledLink = styled.a<{ $imgURL: string }>`
   display: flex;
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
   color: ${colors.cinzaEscuro};
-  ::before {
-    content: url(${props => props.imgURL});
+  &::before {
+    content: url(${props => props.$imgURL});
   }
 `;

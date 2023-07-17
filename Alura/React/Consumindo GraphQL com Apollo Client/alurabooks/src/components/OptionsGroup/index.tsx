@@ -16,7 +16,7 @@ export default function AbOptionGroup({ defaultValue, onChange, options }: Optio
       {options?.map(option => (
         <OptionItem
           key={option.id}
-          selectedID={optionID?.id === option.id}
+          $selectedID={optionID?.id === option.id}
           onClick={() => {
             onOptionSelected(option);
           }}
@@ -36,16 +36,16 @@ const OptionsList = styled.ul`
   column-gap: 1.5rem;
 `;
 
-const OptionItem = styled.li<{ selectedID: boolean }>`
+const OptionItem = styled.li<{ $selectedID: boolean }>`
   ${props =>
-    props.selectedID
+    props.$selectedID
       ? css`
           border: none;
         `
       : css`
           border: 0.063rem solid ${colors.mostarda};
         `};
-  background: ${props => (props.selectedID ? colors.gradienteAzul : colors.branca)};
+  background: ${props => (props.$selectedID ? colors.gradienteAzul : colors.branca)};
   border-radius: 0.5rem;
   box-sizing: border-box;
   cursor: pointer;
@@ -59,18 +59,18 @@ const OptionItem = styled.li<{ selectedID: boolean }>`
   place-items: center;
 
   header {
-    color: ${props => (props.selectedID ? colors.branca : colors.mostarda)};
+    color: ${props => (props.$selectedID ? colors.branca : colors.mostarda)};
     font-size: 0.75rem;
   }
 
   div {
-    color: ${props => (props.selectedID ? colors.branca : colors.mostarda)};
+    color: ${props => (props.$selectedID ? colors.branca : colors.mostarda)};
     font-size: 1rem;
     font-weight: 700;
   }
 
   footer {
-    color: ${props => (props.selectedID ? colors.branca : colors.cinzaTransparente)};
+    color: ${props => (props.$selectedID ? colors.branca : colors.cinzaTransparente)};
     font-size: 0.75rem;
   }
 `;
