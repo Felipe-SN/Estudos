@@ -2,17 +2,17 @@ import Category from 'types/Category';
 import Loader from 'components/Loader';
 import MiniCard from 'components/MiniCard';
 import styled from 'styled-components';
-import useBookQueryByCategoryID from 'state/reactQuery/hooks/useBookQueryByCategoryID';
+import useQueryBooksByCategoryID from 'state/apolloClient/hooks/useQueryBooksByCategoryID';
 
 export default function BookList({ category }: { category: Category }) {
-  const { data: books, isLoading } = useBookQueryByCategoryID(category);
+  const { data, loading } = useQueryBooksByCategoryID(category.id);
 
   return (
     <ShowCase>
-      {isLoading ? (
+      {loading ? (
         <Loader />
       ) : (
-        books?.map(book => (
+        data?.livros.map(book => (
           <li key={book.id}>
             <MiniCard {...book} />
           </li>

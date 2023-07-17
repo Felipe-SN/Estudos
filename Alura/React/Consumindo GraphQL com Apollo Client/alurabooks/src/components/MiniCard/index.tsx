@@ -10,7 +10,7 @@ export default function MiniCard(book: Book) {
 
   return (
     <MiniCardWrapper>
-      <Cover src={book.imagemCapa} alt={book.descricao} />
+      <Cover src={book.imagemCapa} alt={book.titulo} />
       <Info>
         <li>
           <h4>{book.titulo}</h4>

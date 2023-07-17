@@ -1,16 +1,19 @@
 import { RecoilRoot } from 'recoil';
 import { RouterProvider } from 'Routes';
 import GlobalStyle from 'components/GlobalStyle';
-import ReactQueryClient from 'components/ReactQueryClient';
+import ClientReactQuery from 'components/ClientReactQuery';
+import ClientApollo from 'components/ClientApollo';
 
 function App() {
   return (
-    <RecoilRoot>
-      <ReactQueryClient>
-        <GlobalStyle />
-        <RouterProvider />
-      </ReactQueryClient>
-    </RecoilRoot>
+    <ClientApollo>
+      <RecoilRoot>
+        <ClientReactQuery>
+          <GlobalStyle />
+          <RouterProvider />
+        </ClientReactQuery>
+      </RecoilRoot>
+    </ClientApollo>
   );
 }
 
