@@ -1,16 +1,19 @@
 import { colors } from 'components/UI/variables';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import useCategoriesQuery from 'state/reactQuery/hooks/useCategoriesQuery';
 import useNavBarMenusState from 'state/recoil/hooks/useNavBarMenusState';
+import { useCategoriesQuery } from 'graphQL/categories/hooks';
+import { useReactiveVar } from '@apollo/client';
+import { categoriesVar } from 'graphQL/categories/state';
 
 export default function CategoryList() {
-  const { data: categories } = useCategoriesQuery();
+  useCategoriesQuery();
   const { categoryListOpen } = useNavBarMenusState();
+  const categories = useReactiveVar(categoriesVar);
 
   return (
     <CategoryMenu $isOpen={categoryListOpen}>
-      {categories?.map(category => (
+      {categories.map(category => (
         <li key={category.id}>
           <Link to={`categorias/${category.slug}`}>{category.nome}</Link>
         </li>

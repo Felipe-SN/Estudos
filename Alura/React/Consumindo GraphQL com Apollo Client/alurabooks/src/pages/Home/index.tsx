@@ -1,12 +1,15 @@
+import { useReactiveVar } from '@apollo/client';
 import Banner from 'components/Banner';
 import Highlight from 'components/Highlights';
 import NewsLetter from 'components/NewsLatter';
 import TagSection from 'components/TagSection';
-import useBookQueryHighlights from 'state/reactQuery/hooks/useBookQueryHighlights';
+import { useHighlightsQuery } from 'graphQL/books/hooks';
+import { highlightsVar } from 'graphQL/books/state';
 import styled from 'styled-components';
 
 export default function Home() {
-  const { releases, bestSellers } = useBookQueryHighlights();
+  const { loading } = useHighlightsQuery();
+  const { lancamentos, maisVendidos } = useReactiveVar(highlightsVar);
   return (
     <HomeSection>
       <Banner
@@ -14,8 +17,8 @@ export default function Home() {
         subTitle="Encontre em nossa estante o que precisa para seu desenvolvimento!"
         haveSearchField={true}
       />
-      <Highlight books={releases.data} isLoading={releases.isLoading} title="ÚLTIMOS LANÇAMENTOS" />
-      <Highlight books={bestSellers.data} isLoading={bestSellers.isLoading} title="MAIS VENDIDOS" />
+      <Highlight books={lancamentos} isLoading={loading} title="ÚLTIMOS LANÇAMENTOS" />
+      <Highlight books={maisVendidos} isLoading={loading} title="MAIS VENDIDOS" />
       <TagSection />
       <NewsLetter />
     </HomeSection>
