@@ -1,5 +1,5 @@
-import { bookFilterVar, booksVar, highlightsVar } from './state';
-import { GET_BOOKS_BY_CAT_ID, GET_BOOKS_HIGHLIGHTS } from './queries';
+import { bookDetailsVar, bookFilterVar, booksVar, highlightsVar } from './state';
+import { GET_BOOKS_BY_CAT_ID, GET_BOOKS_BY_SLUG, GET_BOOKS_HIGHLIGHTS } from './queries';
 import { useQuery, useReactiveVar } from '@apollo/client';
 import Book from 'types/Book';
 
@@ -10,6 +10,17 @@ export function useBooksQueryByCategoryID() {
     onCompleted(data) {
       if (data.livros) {
         booksVar(data.livros);
+      }
+    },
+  });
+}
+
+export function useBookQueryBySlug(slug: string) {
+  return useQuery<{ livro: Book }>(GET_BOOKS_BY_SLUG, {
+    variables: { slug: slug },
+    onCompleted(data) {
+      if (data.livro) {
+        bookDetailsVar(data.livro);
       }
     },
   });

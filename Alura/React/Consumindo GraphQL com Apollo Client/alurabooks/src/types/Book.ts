@@ -15,6 +15,7 @@ type Book = {
   slug: string;
   sobre: string;
   tagIds: number[];
+  tags?: { id: number; nome: string }[];
   titulo: string;
 };
 

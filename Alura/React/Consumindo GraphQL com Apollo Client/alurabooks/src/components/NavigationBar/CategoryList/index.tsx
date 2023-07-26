@@ -9,7 +9,7 @@ import { categoriesVar } from 'graphQL/categories/state';
 export default function CategoryList() {
   useCategoriesQuery();
   const { categoryListOpen } = useNavBarMenusState();
-  const categories = useReactiveVar(categoriesVar);
+  const { data: categories } = useReactiveVar(categoriesVar);
 
   return (
     <CategoryMenu $isOpen={categoryListOpen}>

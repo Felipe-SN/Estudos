@@ -1,28 +1,30 @@
+import { categoriesVar } from 'graphQL/categories/state';
 import { colors } from 'components/UI/variables';
 import { useParams } from 'react-router-dom';
+import { useReactiveVar } from '@apollo/client';
 import Banner from 'components/Banner';
 import BookList from 'components/BookList';
 import Loader from 'components/Loader';
 import NotFound from 'pages/NotFound';
 import styled from 'styled-components';
-import useCategoryQueryBySlug from 'state/reactQuery/hooks/useCategoryQueryBySlug';
 
 export default function Categories() {
   const { slug = '' } = useParams();
-  const { data: category, error, isLoading } = useCategoryQueryBySlug(slug);
+  const { data: categories, error, loading } = useReactiveVar(categoriesVar);
+  const category = categories.find(cat => cat.slug === slug) || null;
 
   if (error) return <NotFound text={error.message} />;
 
-  if (isLoading) return <Loader />;
+  if (loading) return <Loader />;
 
   if (category === null) return <NotFound text="Categoria não encontrada!" />;
 
   return (
     <CategorySection>
       <Banner title={category?.nome} $variantType="gradient" />
-      <BookSection>
+      <BooksArea>
         <BookList category={category} />
-      </BookSection>
+      </BooksArea>
     </CategorySection>
   );
 }
@@ -34,7 +36,7 @@ const CategorySection = styled.section`
   flex-direction: column;
 `;
 
-const BookSection = styled.section`
+const BooksArea = styled.div`
   display: grid;
   padding-bottom: 12rem;
   padding-top: 6rem;

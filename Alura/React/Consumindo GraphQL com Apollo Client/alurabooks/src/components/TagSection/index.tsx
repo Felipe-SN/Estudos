@@ -3,6 +3,7 @@ import SingUp from './SingUp';
 import styled from 'styled-components';
 import useIsLoggedState from 'state/recoil/hooks/useIsLoggedState';
 import useTagsQuery from 'state/reactQuery/hooks/useTagsQuery';
+import TagList from 'components/TagsList';
 
 export default function TagSection() {
   const { data: tags, error } = useTagsQuery();
@@ -14,13 +15,7 @@ export default function TagSection() {
         <>
           <h2>CATEGORIAS MAIS BUSCADAS</h2>
           {error && <h2>{error.message || 'Ops aconteceu um erro inesperado!'}</h2>}
-          <ul>
-            {tags?.map(tag => (
-              <li key={tag.nome}>
-                <StyledTag href="#!">{tag.nome}</StyledTag>
-              </li>
-            ))}
-          </ul>
+          <TagList tags={tags} />
         </>
       ) : (
         <SingUp />
@@ -51,21 +46,6 @@ const StyledSection = styled.section`
     gap: 1.5rem;
     justify-content: center;
     justify-self: center;
-    max-width: 49rem;
+    max-width: 40vw;
   }
-`;
-
-const StyledTag = styled.a`
-  background-color: ${colors.mostarda};
-  color: ${colors.branca};
-  display: flex;
-  font-size: 1.5rem;
-  font-weight: 700;
-  padding-bottom: 1.5rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  padding-top: 1.5rem;
-  place-items: center;
-  text-decoration: none;
-  width: fit-content;
 `;

@@ -4,11 +4,12 @@ import { useQuery } from '@apollo/client';
 import Category from 'types/Category';
 
 export function useCategoriesQuery() {
-  return useQuery<{ categorias: Category[] }>(GET_CATEGORIES, {
+  const { data, loading, error } = useQuery<{ categorias: Category[] }>(GET_CATEGORIES, {
     onCompleted(data) {
       if (data.categorias) {
-        categoriesVar(data.categorias);
+        categoriesVar({ data: data.categorias, loading: false, error: undefined });
       }
     },
   });
+  if (!data?.categorias) categoriesVar({ data: [], loading, error });
 }

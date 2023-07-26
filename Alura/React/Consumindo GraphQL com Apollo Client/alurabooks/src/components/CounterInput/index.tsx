@@ -49,13 +49,13 @@ const StyledLabel = styled.label`
 `;
 
 const StyledButton = styled.button`
-  align-items: flex-end;
+  align-items: center;
   background: ${colors.gradienteAzul};
   border-radius: 50%;
   border: none;
   box-sizing: border-box;
-  cursor: pointer;
   color: ${colors.branca};
+  cursor: pointer;
   display: flex;
   font-size: 1.5rem;
   font-weight: 500;
@@ -87,6 +87,7 @@ const StyledCounter = styled.span`
 `;
 
 const ButtonMinus = styled(StyledButton)`
+  padding-bottom: 0.3rem;
   &::before {
     content: '-';
   }

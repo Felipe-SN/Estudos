@@ -1,5 +1,8 @@
+import { bookDetailsVar } from 'graphQL/books/state';
 import { colors } from 'components/UI/variables';
+import { useBookQueryBySlug } from 'graphQL/books/hooks';
 import { useParams } from 'react-router-dom';
+import { useReactiveVar } from '@apollo/client';
 import Banner from 'components/Banner';
 import Button from 'components/Button';
 import CounterInput from 'components/CounterInput';
@@ -7,11 +10,12 @@ import Loader from 'components/Loader';
 import NotFound from 'pages/NotFound';
 import OptionsGroup from 'components/OptionsGroup';
 import styled from 'styled-components';
-import useBookQueryBySlug from 'state/reactQuery/hooks/useBookQueryBySlug';
+import TagList from 'components/TagsList';
 
 export default function BookDetails() {
   const { slug = '' } = useParams();
-  const { data: book, error, isLoading } = useBookQueryBySlug(slug);
+  const { error, loading } = useBookQueryBySlug(slug);
+  const book = useReactiveVar(bookDetailsVar);
 
   if (error) {
     return (
@@ -21,7 +25,7 @@ export default function BookDetails() {
     );
   }
 
-  if (!isLoading && book === null)
+  if (!loading && book === null)
     return (
       <ShowCase>
         <NotFound text="Livro não encontrado!" />;
@@ -32,7 +36,7 @@ export default function BookDetails() {
     <>
       <Banner title="Detalhes do livro" $variantType="gradient" />
       <ShowCase>
-        {isLoading ? (
+        {loading ? (
           <Loader />
         ) : (
           <BookData>
@@ -54,6 +58,7 @@ export default function BookDetails() {
               <p>{book?.autor?.sobre}</p>
               <h3>Sobre o livro</h3>
               <p>{book?.sobre}</p>
+              <TagList tags={book.tags} $variantType="secondary" />
             </BookAbout>
           </BookData>
         )}
@@ -67,13 +72,12 @@ const ShowCase = styled.section`
   background-color: ${colors.branca};
   display: grid;
   justify-items: center;
-  padding-bottom: 8.25rem;
+  padding-bottom: 5rem;
   padding-top: 6.5rem;
 `;
 
 const BookData = styled.div`
   display: grid;
-  max-height: 58.125rem;
   max-width: 65rem;
   row-gap: 2.5rem;
 `;
@@ -93,14 +97,14 @@ const BookInfo = styled.div`
     'cover info5'
     'cover info6';
 
-  > img {
-    filter: drop-shadow(0.25rem 0.25rem 1rem ${colors.sombra});
+  & > img {
     grid-area: cover;
     max-width: 23.625rem;
     width: 23.625rem;
+    box-shadow: 0.25rem 0.25rem 1rem ${colors.sombra};
   }
 
-  > h2 {
+  & > h2 {
     background: ${colors.gradienteAzul};
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -113,7 +117,7 @@ const BookInfo = styled.div`
     margin-bottom: 0.5rem;
   }
 
-  > p {
+  & > p {
     color: ${colors.pretoMidOpacity};
     font-size: 1.125rem;
     grid-area: description;
@@ -122,7 +126,7 @@ const BookInfo = styled.div`
     margin-bottom: 1rem;
   }
 
-  > h3 {
+  & > h3 {
     color: ${colors.pretoMidOpacity};
     font-size: 0.875rem;
     grid-area: author;
@@ -130,14 +134,14 @@ const BookInfo = styled.div`
     line-height: 1.25rem;
   }
 
-  > .book-formats {
+  & > .book-formats {
     display: grid;
     grid-area: formats;
     margin-bottom: 2.75rem;
     margin-top: 2.75rem;
     row-gap: 1rem;
 
-    > label {
+    & > label {
       background: ${colors.gradienteAzul};
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -146,7 +150,7 @@ const BookInfo = styled.div`
       font-weight: 700;
       line-height: 1.5rem;
     }
-    > span {
+    & > span {
       color: ${colors.pretoLowOpacity};
       font-size: 0.875rem;
       font-weight: 700;
@@ -154,7 +158,7 @@ const BookInfo = styled.div`
     }
   }
 
-  > button {
+  & > button {
     margin-top: 2rem;
   }
 `;
@@ -163,7 +167,7 @@ const BookAbout = styled.div`
   display: grid;
   row-gap: 1.5rem;
 
-  > h3 {
+  & > h3 {
     border-bottom: 0.125rem solid ${colors.mostarda};
     color: ${colors.azul};
     font-size: 1.5rem;
@@ -175,7 +179,7 @@ const BookAbout = styled.div`
     text-align: center;
   }
 
-  > p {
+  & > p {
     color: ${colors.pretoMidOpacity};
     line-height: 1.5rem;
   }

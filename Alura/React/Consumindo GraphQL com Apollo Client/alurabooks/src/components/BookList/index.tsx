@@ -1,9 +1,8 @@
 import { bookFilterVar, booksVar } from 'graphQL/books/state';
 import { colors } from 'components/UI/variables';
 import { useBooksQueryByCategoryID } from 'graphQL/books/hooks';
-import { useReactiveVar } from '@apollo/client';
 import { useEffect, useState } from 'react';
-import Button from 'components/Button';
+import { useReactiveVar } from '@apollo/client';
 import Category from 'types/Category';
 import InputField from 'components/InputField';
 import Loader from 'components/Loader';

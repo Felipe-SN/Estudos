@@ -4,10 +4,10 @@ import { useState } from 'react';
 import styled, { css } from 'styled-components';
 
 export default function AbOptionGroup({ defaultValue, onChange, options }: OptionGroupProps) {
-  const [optionID, setOptionID] = useState<Option | null>(defaultValue ?? null);
+  const [optionSelected, setOptionSelected] = useState<Option | null>(defaultValue ?? null);
 
   const onOptionSelected = (option: Option): void => {
-    setOptionID(option);
+    setOptionSelected(option);
     if (onChange) onChange(option);
   };
 
@@ -16,7 +16,7 @@ export default function AbOptionGroup({ defaultValue, onChange, options }: Optio
       {options?.map(option => (
         <OptionItem
           key={option.id}
-          $selectedID={optionID?.id === option.id}
+          $selectedID={optionSelected?.id === option.id}
           onClick={() => {
             onOptionSelected(option);
           }}
@@ -58,18 +58,18 @@ const OptionItem = styled.li<{ $selectedID: boolean }>`
   padding: 0.5rem;
   place-items: center;
 
-  header {
+  & header {
     color: ${props => (props.$selectedID ? colors.branca : colors.mostarda)};
     font-size: 0.75rem;
   }
 
-  div {
+  & div {
     color: ${props => (props.$selectedID ? colors.branca : colors.mostarda)};
     font-size: 1rem;
     font-weight: 700;
   }
 
-  footer {
+  & footer {
     color: ${props => (props.$selectedID ? colors.branca : colors.cinzaTransparente)};
     font-size: 0.75rem;
   }

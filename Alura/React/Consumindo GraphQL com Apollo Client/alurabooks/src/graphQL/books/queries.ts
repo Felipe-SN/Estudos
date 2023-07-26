@@ -16,16 +16,26 @@ export const GET_BOOKS_BY_CAT_ID = gql`
 `;
 
 export const GET_BOOKS_BY_SLUG = gql`
-  query getBooksByCatId($catId: Int, $title: String) {
-    livros(categoriaId: $catId, titulo: $title) {
+  query getBooksBySlug($slug: String!) {
+    livro(slug: $slug) {
       id
       titulo
-      slug
-      opcoesCompra {
-        preco
-        id
-      }
+      descricao
       imagemCapa
+      sobre
+      opcoesCompra {
+        id
+        titulo
+        formatos
+        preco
+      }
+      autor {
+        nome
+        sobre
+      }
+      tags {
+        nome
+      }
     }
   }
 `;
