@@ -3,8 +3,7 @@ import Categories from 'pages/Categories';
 import ConfigurationPage from 'pages/ConfigurationPage';
 import Home from 'pages/Home';
 import NotFound from 'pages/NotFound';
-import Requests from 'pages/Requests';
-import RequestsList from 'pages/Requests/RequestsList';
+import Profile from 'pages/Profile';
 import BookDetails from 'pages/BookDetails';
 
 const routesConfig: RouteObject[] = [
@@ -18,14 +17,8 @@ const routesConfig: RouteObject[] = [
         element: <Home />,
       },
       {
-        path: 'meus-pedidos',
-        element: <Requests />,
-        children: [
-          {
-            path: ':slug',
-            element: <RequestsList />,
-          },
-        ],
+        path: 'perfil/:slug',
+        element: <Profile />,
       },
       {
         path: 'categorias/:slug',

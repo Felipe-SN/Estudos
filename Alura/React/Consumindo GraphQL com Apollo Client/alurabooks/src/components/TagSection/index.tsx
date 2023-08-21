@@ -10,42 +10,63 @@ export default function TagSection() {
   const { isLogged } = useIsLoggedState();
 
   return (
-    <StyledSection>
+    <SectionTags>
       {isLogged ? (
         <>
-          <h2>CATEGORIAS MAIS BUSCADAS</h2>
+          <h2>TÓPICOS VISITADOS RECENTEMENTE</h2>
           {error && <h2>{error.message || 'Ops aconteceu um erro inesperado!'}</h2>}
           <TagList tags={tags} />
         </>
       ) : (
         <SingUp />
       )}
-    </StyledSection>
+    </SectionTags>
   );
 }
 
-const StyledSection = styled.section`
+const SectionTags = styled.section`
   display: grid;
   background: ${colors.gradienteAzul};
-  padding-top: 4rem;
-  padding-bottom: 4.625rem;
+  padding: 1.5rem 1rem;
 
-  > h2 {
-    justify-self: center;
+  & > h2 {
     color: ${colors.branca};
-    font-size: 2rem;
     font-weight: 300;
-    letter-spacing: 0rem;
-    line-height: 3rem;
-    margin-bottom: 2.5rem;
+    justify-self: center;
+    margin-bottom: 2rem;
   }
 
-  > ul {
+  & > ul {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 1rem;
     justify-content: center;
     justify-self: center;
-    max-width: 40vw;
+
+    & > li > a {
+      font-size: 0.875rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding-top: 4rem;
+    padding-bottom: 4.625rem;
+
+    & > h2 {
+      font-size: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    & > ul {
+      gap: 1.5rem;
+      max-width: 60vw;
+
+      & > li > a {
+        font-size: 1.5rem;
+        padding: 1.5rem 2rem;
+      }
+    }
   }
 `;

@@ -34,8 +34,8 @@ export default function ModalLogin() {
   };
 
   return (
-    <Modal title="Login">
-      <StyledForm onSubmit={(e: FormEvent<HTMLFormElement>) => handleOnSubmit(e)}>
+    <ModalSingIn title="Login">
+      <SingInArea onSubmit={(e: FormEvent<HTMLFormElement>) => handleOnSubmit(e)}>
         <InputsArea>
           <InputField
             $hasIcon={false}
@@ -57,78 +57,107 @@ export default function ModalLogin() {
             value={passValue}
           />
         </InputsArea>
-        <ResetPassword to={'!#'}>Esqueci minha senha</ResetPassword>
-        <Button className="modal-sing-in__button" $text="Fazer login" />
-      </StyledForm>
-      <SingInArea>
-        <p>Ainda não tem uma conta?</p>
-        <Button
-          className="modal-sing-in__button--login"
-          onClick={() => setModalSingInIsOpen(false)}
-          $text="Criar conta"
-        />
+        <ResetPasswordLink to={'!#'}>Esqueci minha senha</ResetPasswordLink>
+        <Button className="modal-sing-in__button modal-sing-in__button--login" $text="Fazer login" />
       </SingInArea>
-    </Modal>
+      <NoAccountArea>
+        <p>Ainda não tem uma conta?</p>
+        <Button className="modal-sing-in__button" onClick={() => setModalSingInIsOpen(false)} $text="Criar conta" />
+      </NoAccountArea>
+    </ModalSingIn>
   );
 }
 
 const { token } = sessionTokenHelper();
 
-const StyledForm = styled.form`
-  display: grid;
-  grid-template-areas: 'formInputs formInputs' 'forgoPass loginBtn';
-  grid-template-columns: repeat(2, max-content);
-  grid-template-columns: repeat(2, max-content);
-  row-gap: 1rem;
-
-  .modal-sing-in__form-input {
-    max-height: 2.75rem;
-    max-width: 31.75rem;
-  }
-
+const ModalSingIn = styled(Modal)`
   .modal-sing-in__button {
     justify-self: end;
-    font-size: 1rem;
-    padding-bottom: 0.5rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.5rem;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+
+    &--login {
+      grid-area: loginBtn;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .modal-sing-in__button {
+      font-size: 1rem;
+      margin-right: 1.5rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+`;
+
+const SingInArea = styled.form`
+  align-items: center;
+  display: grid;
+  grid-template-areas: 'formInputs formInputs' 'forgoPass loginBtn';
+
+  @media screen and (min-width: 1024px) {
+    row-gap: 1rem;
+
+    & > a {
+      align-self: flex-start;
+    }
   }
 `;
 
 const InputsArea = styled.div`
   display: grid;
   grid-area: formInputs;
-  row-gap: 1rem;
-`;
+  row-gap: 0.75rem;
+  margin-bottom: 0.75rem;
 
-const ResetPassword = styled(Link)`
-  color: ${colors.azul};
-  margin-left: 1.5rem;
-`;
-
-const SingInArea = styled.div`
-  border-top: 0.063rem solid ${colors.azul};
-  margin-top: 3rem;
-  padding-top: 2rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  display: grid;
-  align-items: center;
-  grid-template-columns: repeat(2, auto);
-  & > p {
-    color: ${colors.azul};
-    font-size: 1.25rem;
-    font-weight: 700;
-    line-height: 1.875rem;
+  .modal-sing-in__form-input {
+    max-height: 2.125rem;
+    max-width: 20.625rem;
   }
 
-  .modal-sing-in__button--login {
-    justify-self: end;
+  @media screen and (min-width: 1024px) {
+    row-gap: 1rem;
+    margin-bottom: 0;
+
+    .modal-sing-in__form-input {
+      max-height: 2.75rem;
+      max-width: 31.75rem;
+    }
+  }
+`;
+
+const ResetPasswordLink = styled(Link)`
+  color: ${colors.azul};
+  font-size: 0.75rem;
+  grid-area: forgoPass;
+
+  @media screen and (min-width: 1024px) {
     font-size: 1rem;
-    padding-bottom: 0.5rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.5rem;
+    margin-left: 1.5rem;
+  }
+`;
+
+const NoAccountArea = styled.div`
+  align-items: center;
+  border-top: 0.063rem solid ${colors.azul};
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  margin-top: 1.5rem;
+  padding-top: 1.15rem;
+
+  & > p {
+    color: ${colors.azul};
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  @media screen and (min-width: 1024px) {
+    margin-top: 3rem;
+    padding-top: 2rem;
+
+    & > p {
+      font-size: 1.25rem;
+      margin-left: 1.5rem;
+    }
   }
 `;

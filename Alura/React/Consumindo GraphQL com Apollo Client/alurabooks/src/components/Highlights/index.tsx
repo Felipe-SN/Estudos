@@ -1,22 +1,28 @@
 import { colors } from 'components/UI/variables';
 import { Link } from 'react-router-dom';
 import { priceFormatter } from 'helpers/formatters';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Book from 'types/Book';
 import Button from 'components/Button';
 import Card from 'components/Card';
 import icons from 'data/icons.json';
 import Loader from 'components/Loader';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export default function Highlight({ books, title, isLoading }: HighlightsProps) {
-  const [selectedBook, setSelectedBook] = useState<Book>(hollowBook);
+  const [selectedBook, setSelectedBook] = useState<Book>();
+  const listRef = useRef() as React.MutableRefObject<HTMLUListElement>;
 
   useEffect(() => {
+    if (window.screen.width < 575 && listRef.current) {
+      listRef.current.scrollTo({ left: 50, behavior: 'instant' });
+    }
     if (books) setSelectedBook(books[1]);
   }, [books]);
 
-  const handleClick = (book: Book) => {
+  const handleClick = (book: Book, e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    if (window.screen.width < 575)
+      e.currentTarget.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
     setSelectedBook(book);
   };
 
@@ -24,239 +30,304 @@ export default function Highlight({ books, title, isLoading }: HighlightsProps) 
 
   if (books)
     return (
-      <StyledSection>
+      <SectionHighlight>
         <h2>{title}</h2>
         <div>
           {isLoading ? (
             <Loader />
           ) : (
-            <BooksHighlighted $booksLength={books.length + 1}>
+            <ul className="highlights-list" ref={listRef}>
               {books.map(book => (
-                <StyledBook key={book.id} $selectedID={book.id === selectedBook?.id} onClick={() => handleClick(book)}>
-                  <img src={book.imagemCapa} alt={`Livro sobre ${book.descricao}`} />
-                </StyledBook>
+                <li key={book.id} onClick={e => handleClick(book, e)}>
+                  <BookCover $selectedID={book.id === selectedBook?.id} src={book.imagemCapa} alt={book.titulo} />
+                </li>
               ))}
-            </BooksHighlighted>
+            </ul>
           )}
           {selectedBook && (
             <>
-              <StyledCard>
+              <Card className="highlights-card">
                 <h2>Sobre o livro:</h2>
-                <StyledIcons>
-                  <button>
-                    <img alt="Carrinho de compras" src={icons.sacola} />
-                  </button>
-                  <button>
-                    <img alt="Meus favoritos" src={icons.favoritos} />
-                  </button>
-                </StyledIcons>
+                <div className="card__icons">
+                  <button className="fav-icon" title="Meus favoritos" type="button" />
+                  <button className="cart-icon" title="Carrinho de compras" type="button" />
+                </div>
                 <h3>{selectedBook.titulo}</h3>
-                <Description>
+                <div className="card__description">
                   <p>{selectedBook.descricao}</p>
                   <p>{`Por: ${selectedBook.autor?.nome}`}</p>
-                </Description>
-                <StyledPrice>
+                </div>
+                <div className="card__price-area">
                   <em>A partir de:</em>
                   <strong>{priceFormatter(getMinPrice(selectedBook))}</strong>
-                </StyledPrice>
-                <Link className="card__price-button" to={`/livro/${selectedBook.slug}`}>
+                </div>
+                <Link className="card__buy-button" to={`/livro/${selectedBook.slug}`}>
                   <Button $text="Comprar" />
                 </Link>
-              </StyledCard>
+              </Card>
             </>
           )}
         </div>
-      </StyledSection>
+      </SectionHighlight>
     );
 }
 
-const StyledSection = styled.section`
+const SectionHighlight = styled.section`
   display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: repeat(2, auto);
   place-items: center;
 
-  > h2 {
+  & > h2 {
     background-color: ${colors.branca};
     color: ${colors.mostarda};
-    font-size: 1.625rem;
+    font-size: 1.125rem;
     font-weight: 700;
-    line-height: 2.375rem;
-    padding-bottom: 1rem;
-    padding-top: 3.25rem;
+    padding-bottom: 0.5rem;
+    padding-top: 1.5rem;
     text-align: center;
     text-transform: uppercase;
     width: 100vw;
+
+    @media screen and (min-width: 1024px) {
+      font-size: 1.625rem;
+      padding-bottom: 1rem;
+      padding-top: 3.5rem;
+    }
+
+    @media screen and (min-width: 1728px) {
+      padding-top: 3.25rem;
+    }
   }
 
-  > div {
-    column-gap: 2.875rem;
+  & > div {
     display: grid;
-    grid-template-columns: repeat(2, auto);
-    margin-bottom: 5.375rem;
-    margin-top: 2.875rem;
-    width: 100vw;
-  }
-`;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+    row-gap: 3rem;
+    justify-items: center;
 
-const BooksHighlighted = styled.ul<{ $booksLength: number }>`
-  align-items: center;
-  box-sizing: border-box;
-  column-gap: 1.5rem;
-  display: grid;
-  height: 23.125rem;
-  justify-self: end;
-  overflow: hidden;
-  width: 41.75rem;
-  ${props =>
-    props.$booksLength
-      ? css`
-          grid-template-columns: repeat(${props.$booksLength}, max-content);
-        `
-      : css`
-          grid-template-columns: repeat(3, max-content);
-        `}
-`;
+    @media screen and (min-width: 1024px) {
+      margin-bottom: 2rem;
+      margin-top: 2rem;
+      row-gap: 2.75rem;
+    }
 
-const StyledBook = styled.li<{ $selectedID: boolean }>`
-  filter: drop-shadow(0.125rem 0.25rem 0.5rem ${colors.sombraFiltro});
-  > img {
-    transition-duration: 500ms;
-    transition-property: width;
-    transition-timing-function: ease-in-out;
-    width: 11.25rem;
-    ${props =>
-      props.$selectedID &&
-      css`
-        width: 16.375rem;
-      `}
-  }
-`;
+    @media screen and (min-width: 1728px) {
+      column-gap: 2.875rem;
+      grid-template-columns: repeat(2, max-content);
+      margin-bottom: 5.375rem;
+      margin-top: 2.875rem;
+    }
 
-const StyledCard = styled(Card)`
-  align-content: stretch;
-  gap: 1rem;
-  grid-template-areas:
-    'about icons'
-    'title title'
-    'desc desc'
-    'price buy-button';
-  grid-template-columns: repeat(2, auto);
-  grid-template-rows: repeat(4, auto);
-  height: 100%;
-  justify-items: start;
-  padding-bottom: 3rem;
-  padding-left: 3rem;
-  padding-right: 2rem;
-  padding-top: 3rem;
-  width: 100%;
+    & > .highlights-list {
+      align-items: center;
+      column-gap: 1.25rem;
+      display: flex;
+      overflow-x: scroll;
+      width: -webkit-fill-available;
 
-  > h2 {
-    color: ${colors.mostarda};
-    font-size: 2rem;
-    font-weight: 700;
-    grid-area: about;
-    letter-spacing: 0rem;
-    line-height: 3rem;
-  }
+      @media screen and (min-width: 1024px) {
+        column-gap: 1.5rem;
+        height: 25.5rem;
+      }
 
-  > h3 {
-    color: ${colors.azul};
-    font-size: 1.125rem;
-    font-weight: 700;
-    grid-area: title;
-    letter-spacing: 0rem;
-    line-height: 1.625rem;
-  }
+      @media screen and (min-width: 1728px) {
+        height: 24rem;
+      }
 
-  .card__price-button {
-    align-self: end;
-    grid-area: buy-button;
-    justify-self: end;
-  }
-`;
+      &::-webkit-scrollbar {
+        display: none;
+      }
 
-const StyledIcons = styled.div`
-  align-self: flex-start;
-  display: grid;
-  gap: 1.25rem;
-  grid-area: icons;
-  grid-template-columns: repeat(2, max-content);
-  justify-self: end;
+      & > li {
+        filter: drop-shadow(0.125rem 0.25rem 0.5rem ${colors.sombraFiltro});
+      }
+    }
 
-  > button {
-    align-items: center;
-    background-color: transparent;
-    border-radius: 50%;
-    border: none;
-    box-sizing: border-box;
-    column-gap: 0.5rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    padding: 0;
+    & > .highlights-card {
+      grid-template-areas:
+        'about about'
+        'title title'
+        'desc desc'
+        'price price'
+        'icons buy-button';
+      justify-items: start;
+      padding: 1rem 1rem 1.75rem 1rem;
+      row-gap: 0.5rem;
+      width: 23.75rem;
 
-    > img {
-      height: 2rem;
-      width: 2rem;
+      @media screen and (min-width: 1024px) {
+        grid-template-areas:
+          'about icons'
+          'title title'
+          'desc desc'
+          'price buy-button';
+        padding: 1.5rem;
+        width: 45.3125rem;
+      }
+
+      @media screen and (min-width: 1728px) {
+        gap: 1rem;
+        padding: 3rem 2rem;
+        width: 34.4375rem;
+      }
+
+      & > h2 {
+        color: ${colors.mostarda};
+        font-weight: 700;
+        grid-area: about;
+
+        @media screen and (min-width: 1728px) {
+          font-size: 2rem;
+        }
+      }
+
+      & > h3 {
+        color: ${colors.azul};
+        font-size: 1.125rem;
+        font-weight: 700;
+        grid-area: title;
+      }
+
+      .card__icons {
+        display: grid;
+        gap: 1.25rem;
+        grid-area: icons;
+        grid-template-columns: repeat(2, max-content);
+        justify-self: start;
+
+        @media screen and (min-width: 1024px) {
+          gap: 2rem;
+          justify-self: end;
+        }
+
+        @media screen and (min-width: 1728px) {
+          gap: 1.25rem;
+        }
+
+        .cart-icon {
+          background-image: url(${icons.sacola});
+        }
+
+        .fav-icon {
+          background-image: url(${icons.favoritos});
+        }
+
+        .fav-icon,
+        .cart-icon {
+          background-color: transparent;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: contain;
+          border: none;
+          cursor: pointer;
+          height: 2rem;
+          width: 2rem;
+        }
+      }
+
+      .card__description {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        grid-area: desc;
+        max-width: 22rem;
+
+        @media screen and (min-width: 1024px) {
+          max-width: 100%;
+          margin-bottom: 1.2rem;
+        }
+
+        @media screen and (min-width: 1728px) {
+          max-width: 22rem;
+          margin-bottom: 0;
+        }
+
+        & > p {
+          color: ${colors.pretoMidOpacity};
+          font-size: 0.875rem;
+
+          &:first-child {
+            min-height: 2rem;
+
+            @media screen and (min-width: 1024px) {
+              min-height: 0;
+            }
+
+            @media screen and (min-width: 1728px) {
+              min-height: 2rem;
+            }
+          }
+        }
+      }
+
+      .card__price-area {
+        align-items: center;
+        display: flex;
+        gap: 0.5rem;
+        grid-area: price;
+        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
+
+        @media screen and (min-width: 1024px) {
+          align-items: start;
+          flex-direction: column;
+          margin: 0;
+        }
+
+        & > em {
+          color: ${colors.pretoLowOpacity};
+
+          @media screen and (min-width: 1728px) {
+            font-size: 0.875rem;
+          }
+        }
+
+        & > strong {
+          color: ${colors.azul};
+          font-size: 1.5rem;
+          font-weight: 700;
+
+          @media screen and (min-width: 1024px) {
+            font-size: 2.25rem;
+          }
+        }
+      }
+
+      .card__buy-button {
+        align-self: end;
+        grid-area: buy-button;
+        justify-self: end;
+
+        & > button {
+          padding: 0.5rem 1rem;
+          width: 10.0625rem;
+
+          @media screen and (min-width: 1024px) {
+            padding: 1rem 1.5rem;
+            width: 10.5625rem;
+          }
+        }
+      }
     }
   }
 `;
 
-const Description = styled.div`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  grid-area: desc;
-  height: 4.375rem;
-  max-width: 22rem;
-  > p {
-    color: ${colors.pretoMidOpacity};
-    font-size: 0.875rem;
-    font-weight: 400;
-    letter-spacing: 0rem;
-    line-height: 1.313rem;
+const BookCover = styled.img<{ $selectedID: boolean }>`
+  object-fit: contain;
+  object-position: center;
+  width: 11.1875rem;
+
+  @media screen and (min-width: 1024px) {
+    transition-duration: 500ms;
+    transition-property: width;
+    transition-timing-function: ease-in-out;
+    width: ${props => (props.$selectedID ? '17.56981rem' : '12rem')};
+  }
+
+  @media screen and (min-width: 1728px) {
+    width: ${props => (props.$selectedID ? '16.375rem' : '11.25rem')};
   }
 `;
-
-const StyledPrice = styled.div`
-  display: grid;
-  grid-area: price;
-
-  > em {
-    color: ${colors.pretoLowOpacity};
-    font-size: 0.875rem;
-    font-weight: 400;
-    letter-spacing: 0rem;
-    line-height: 1.313rem;
-  }
-
-  > strong {
-    color: ${colors.azul};
-    font-size: 2.25rem;
-    font-weight: 700;
-    letter-spacing: 0rem;
-    line-height: 3.375rem;
-  }
-`;
-
-const hollowBook = {
-  autor: { id: 0, nome: '', sobre: '' },
-  autorId: 0,
-  categoriaId: 0,
-  descricao: '',
-  id: 0,
-  imagemCapa: '',
-  isbn: '',
-  numeroPaginas: 0,
-  opcoesCompra: [{ id: 0, titulo: '', preco: 0, formatos: [''] }],
-  publicacao: '',
-  slug: '',
-  sobre: '',
-  tagIds: [0],
-  titulo: '',
-};
 
 type HighlightsProps = {
   books: Book[] | null | undefined;

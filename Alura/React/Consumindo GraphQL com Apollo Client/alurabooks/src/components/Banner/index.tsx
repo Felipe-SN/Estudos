@@ -1,7 +1,7 @@
 import { colors } from 'components/UI/variables';
 import img from 'data/images.json';
 import InputField from 'components/InputField';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export default function Banner({ ...props }: BannerProps) {
   const { title, subTitle, haveSearchField = false, $variantType = 'img' } = props;
@@ -22,44 +22,52 @@ export default function Banner({ ...props }: BannerProps) {
 }
 
 const StyledBanner = styled.section<{ $variantType?: 'img' | 'gradient' }>`
-  background-image: ${colors.gradienteAzul};
+  background-image: ${props => (props.$variantType === 'img' ? `url(${img.banner})` : `${colors.gradienteAzul}`)};
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  box-sizing: border-box;
   color: ${colors.branca};
   display: grid;
-  max-height: 23.5rem;
-  padding: 2rem;
-  place-content: center;
-  place-items: center;
-  width: 100%;
+  justify-items: center;
+  padding-bottom: ${props => (props.$variantType === 'img' ? `2rem` : `1rem`)};
+  padding-top: ${props => (props.$variantType === 'img' ? `2rem` : `1rem`)};
+  text-align: center;
 
-  ${props =>
-    props.$variantType === 'img' &&
-    css`
-      background-image: url(${img.banner});
-      grid-template-columns: auto;
-      grid-template-rows: repeat(3, max-content);
-      height: 100vh;
-    `}
+  @media screen and (min-width: 1024px) {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+  }
 
-  > h2 {
+  & > h2 {
+    font-size: 1.125rem;
     font-weight: 700;
-    font-size: 2.25rem;
-    line-height: 3.375rem;
+    margin-bottom: ${props => (props.$variantType === 'img' ? `0.5rem` : ``)};
+
+    @media screen and (min-width: 1024px) {
+      font-size: 2.25rem;
+    }
   }
 
-  > p {
+  & > p {
     font-weight: 500;
-    line-height: 1.5rem;
-    margin-bottom: 1.75rem;
+    width: 19.75rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+
+    @media screen and (min-width: 1024px) {
+      margin-bottom: 1.75rem;
+      width: auto;
+    }
   }
 
-  .input-banner {
-    height: 3.5rem;
-    line-height: 1.5rem;
-    width: 36.625rem;
+  & input {
+    height: 2.75rem;
+    width: 23.75rem;
+
+    @media screen and (min-width: 1024px) {
+      height: 3.5rem;
+      width: 36.625rem;
+    }
   }
 `;
 

@@ -22,17 +22,15 @@ export default function BookList({ category }: { category: Category }) {
   }, [category, searchText]);
 
   return (
-    <>
-      <SearchArea>
-        <InputField
-          $hasIcon={false}
-          onChange={e => setSearchText(e.target.value)}
-          placeholder="Digite o título ou autor do livro"
-          type="search"
-          value={searchText}
-        />
-      </SearchArea>
-      <ShowCase>
+    <BookListSection>
+      <InputField
+        $hasIcon={false}
+        onChange={e => setSearchText(e.target.value)}
+        placeholder="Digite o título ou autor do livro"
+        type="search"
+        value={searchText}
+      />
+      <ul>
         {loading ? (
           <Loader />
         ) : (
@@ -42,42 +40,56 @@ export default function BookList({ category }: { category: Category }) {
             </li>
           ))
         )}
-      </ShowCase>
-    </>
+      </ul>
+    </BookListSection>
   );
 }
 
-const SearchArea = styled.form`
+const BookListSection = styled.section`
+  background-color: ${colors.branca};
   display: grid;
-  justify-items: center;
-  justify-self: center;
-  margin-bottom: 4.125rem;
-  max-width: 48.1875rem;
-  row-gap: 1rem;
+  justify-content: center;
+  padding: 3rem 1.5rem 5rem 1.5rem;
 
-  & input {
-    max-height: 3.5rem;
-    max-width: 48.1875rem;
-    text-align: center;
+  @media screen and (min-width: 1024px) {
+    justify-items: center;
+    padding-bottom: 12rem;
+    padding-top: 6rem;
+  }
 
-    &::placeholder {
-      color: ${colors.azul};
+  & span {
+    margin-bottom: 2.125rem;
+
+    @media screen and (min-width: 1024px) {
+      max-width: 48.1875rem;
+    }
+
+    & input {
+      max-height: 3.5rem;
+      max-width: 23.75rem;
+      text-align: center;
+
+      @media screen and (min-width: 1024px) {
+        max-width: 48.1875rem;
+      }
+
+      &::placeholder {
+        color: ${colors.azul};
+      }
     }
   }
 
-  & button {
-    width: 10.5625rem;
-  }
-`;
+  & ul {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, 11.125rem);
+    justify-content: center;
 
-const ShowCase = styled.ul`
-  align-items: center;
-  column-gap: 1.125rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 15.25rem);
-  justify-content: center;
-  justify-items: center;
-  justify-self: center;
-  max-width: 64.875rem;
-  row-gap: 5rem;
+    @media screen and (min-width: 1024px) {
+      column-gap: 1.125rem;
+      grid-template-columns: repeat(auto-fit, 15.25rem);
+      max-width: 64.875rem;
+      row-gap: 5rem;
+    }
+  }
 `;

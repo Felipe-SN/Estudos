@@ -24,7 +24,7 @@ export default function UserMenuOptions() {
             <Link to={'#'}>Minha conta</Link>
           </li>
           <li>
-            <Link to={'meus-pedidos/pedidos'}>Meus pedidos</Link>
+            <Link to={'perfil/pedidos'}>Meus pedidos</Link>
           </li>
           <li>
             <Link to={'#'}>Preferências</Link>

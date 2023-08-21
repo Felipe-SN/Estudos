@@ -29,17 +29,24 @@ const Main = styled.section`
   grid-template-rows: repeat(3, auto);
   height: inherit;
   justify-items: center;
-  padding: 2rem;
+  padding: 1rem;
   row-gap: 2rem;
   width: inherit;
-  padding: 4rem;
+
+  @media screen and (min-width: 1024px) {
+    padding: 4rem;
+  }
 
   .back-button {
     align-self: start;
     justify-self: start;
+    padding: 0.5rem;
     display: flex;
-    padding: 1rem;
     border-radius: 50%;
+
+    @media screen and (min-width: 1024px) {
+      padding: 1rem;
+    }
 
     &::before {
       -webkit-mask: url(${icons.arrow});
@@ -48,13 +55,18 @@ const Main = styled.section`
       -webkit-mask-size: contain;
       background-color: ${colors.mostarda};
       content: '';
-      height: 2rem;
+      height: 1rem;
       mask-position: center;
       mask-repeat: no-repeat;
       mask-size: contain;
       mask: url(${icons.arrow});
       scale: -1;
-      width: 2rem;
+      width: 1rem;
+
+      @media screen and (min-width: 1024px) {
+        height: 2rem;
+        width: 2rem;
+      }
     }
 
     &:hover::before {
@@ -65,14 +77,20 @@ const Main = styled.section`
 
 const Title = styled.h2`
   color: ${colors.branca};
-  font-size: 10rem;
-  line-height: 12rem;
+  font-size: 2rem;
   text-align: center;
+
+  @media screen and (min-width: 1024px) {
+    font-size: 10rem;
+  }
 `;
 
 const Text = styled.p`
   color: ${colors.branca};
-  font-size: 4rem;
-  line-height: 6rem;
+  font-size: 1rem;
   text-align: center;
+
+  @media screen and (min-width: 1024px) {
+    font-size: 4rem;
+  }
 `;

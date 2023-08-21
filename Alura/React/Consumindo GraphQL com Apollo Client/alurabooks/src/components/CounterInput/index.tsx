@@ -17,79 +17,99 @@ export default function CounterInput({ className, label, onChange }: InputCounte
   };
 
   return (
-    <StyledDiv className={className}>
-      {label && <StyledLabel>{label}</StyledLabel>}
-      <ButtonMinus onClick={() => incrementCounter(-1)} />
-      <StyledCounter>{counter.toString().padStart(2, '0')}</StyledCounter>
-      <ButtonPlus onClick={() => incrementCounter(1)} />
-    </StyledDiv>
+    <CounterComponent className={className}>
+      {label && <label>{label}</label>}
+      <div>
+        <button className="minus" title="remover" onClick={() => incrementCounter(-1)} />
+        <span>{counter.toString().padStart(2, '0')}</span>
+        <button className="plus" title="adicionar" onClick={() => incrementCounter(1)} />
+      </div>
+    </CounterComponent>
   );
 }
 
-const StyledDiv = styled.div`
-  display: grid;
-  font-family: inherit;
-  grid-template-columns: repeat(3, auto);
-  grid-template-rows: repeat(2, auto);
-  column-gap: 0.75rem;
-  place-items: center;
-  row-gap: 1rem;
-  width: fit-content;
-`;
-
-const StyledLabel = styled.label`
-  background: ${colors.gradienteAzul};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-  font-size: 1.25rem;
-  font-weight: 700;
-  grid-column: span 3;
-`;
-
-const StyledButton = styled.button`
+const CounterComponent = styled.div`
   align-items: center;
-  background: ${colors.gradienteAzul};
-  border-radius: 50%;
-  border: none;
-  box-sizing: border-box;
-  color: ${colors.branca};
-  cursor: pointer;
   display: flex;
-  font-size: 1.5rem;
-  font-weight: 500;
-  height: 1.75rem;
-  justify-content: center;
-  width: 1.75rem;
-
-  &:hover,
-  &:active {
-    filter: saturate(70%);
+  gap: 1rem;
+  
+  @media screen and (min-width: 1728px) {
+    display: grid;
+    gap: 1.625rem;
+    justify-items: center;
   }
-`;
 
-const ButtonPlus = styled(StyledButton)`
-  &::before {
-    content: '+';
+  & > label {
+    background: ${colors.gradienteAzul};
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    font-size: 1.125rem;
+    font-weight: 700;
+
+    @media screen and (min-width: 1728px) {
+      font-size: 1.25rem;
+    }
   }
-`;
 
-const StyledCounter = styled.span`
-  background: ${colors.gradienteAzul};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  margin: 0;
-`;
+  & > div {
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
 
-const ButtonMinus = styled(StyledButton)`
-  padding-bottom: 0.3rem;
-  &::before {
-    content: '-';
+    @media screen and (min-width: 1728px) {
+      gap: 1rem;
+    }
+
+    & > button {
+      align-items: center;
+      background: ${colors.gradienteAzul};
+      border-radius: 50%;
+      border: none;
+      color: ${colors.branca};
+      cursor: pointer;
+      display: flex;
+      font-size: 1.5rem;
+      font-weight: 500;
+      height: 2rem;
+      justify-content: center;
+      padding: 0;
+      width: 2rem;
+
+      @media screen and (min-width: 1024px) {
+      }
+
+      &:hover,
+      &:active {
+        filter: saturate(70%);
+      }
+
+      &.minus::before {
+        content: '\u2212';
+      }
+
+      &.plus::before {
+        content: '\u002B';
+      }
+    }
+
+    & > span {
+      background: ${colors.gradienteAzul};
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      font-size: 1.125rem;
+      margin: 0;
+      min-width: 1.5rem;
+      text-align: center;
+
+      @media screen and (min-width: 1728px) {
+        font-size: 1.5rem;
+        min-width: 2rem;
+      }
+    }
   }
 `;
 

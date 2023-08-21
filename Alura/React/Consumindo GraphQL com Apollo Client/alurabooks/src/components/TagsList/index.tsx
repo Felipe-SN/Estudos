@@ -21,26 +21,18 @@ const TagsList = styled.ul<{ $variantType: 'primary' | 'secondary' }>`
   & > li > a {
     color: ${colors.branca};
     display: flex;
+    font-size: 1rem;
     font-weight: 700;
+    padding: 1rem;
     place-items: center;
     text-decoration: none;
     ${props => {
       if (props.$variantType === 'secondary')
         return css`
           background: ${colors.gradienteAzul};
-          font-size: 1rem;
-          padding-bottom: 1rem;
-          padding-left: 1rem;
-          padding-right: 1rem;
-          padding-top: 1rem;
         `;
       return css`
         background-color: ${colors.mostarda};
-        font-size: 1.5rem;
-        padding-bottom: 1.5rem;
-        padding-left: 2rem;
-        padding-right: 2rem;
-        padding-top: 1.5rem;
       `;
     }}
   }

@@ -15,7 +15,6 @@ export default function Loader() {
 const loaderColor = colors.azul;
 
 const ldsRing = keyframes`
-
   0% {
     transform: rotate(0deg);
   }
@@ -27,19 +26,19 @@ const ldsRing = keyframes`
 const LoaderAnimation = styled.div`
   align-self: center;
   display: inline-block;
-  height: 80px;
+  height: 5rem;
   justify-self: center;
   position: relative;
-  width: 80px;
+  width: 5rem;
 
   & div {
     box-sizing: border-box;
     display: block;
     position: absolute;
-    width: 64px;
-    height: 64px;
-    margin: 8px;
-    border: 8px solid ${loaderColor};
+    width: 4rem;
+    height: 4rem;
+    margin: 0.5rem;
+    border: 0.5rem solid ${loaderColor};
     border-radius: 50%;
     animation: ${ldsRing} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: ${loaderColor} transparent transparent transparent;

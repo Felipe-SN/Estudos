@@ -58,7 +58,7 @@ export default function ModalSingUp() {
           $inputLabel="nome"
           className="form-input"
           minLength={3}
-          onChange={(e: { target: { value: React.SetStateAction<string> } }) => setNameValue(e.target.value)}
+          onChange={e => setNameValue(e.target.value)}
           pattern="^(?=.*[a-z])(?=.{1,}[ ]\b)(?=.*[A-Z]).{3,}$"
           placeholder="Seu nome completo"
           required={true}
@@ -70,7 +70,7 @@ export default function ModalSingUp() {
           $hasIcon={false}
           $inputLabel="email"
           className="form-input"
-          onChange={(e: { target: { value: React.SetStateAction<string> } }) => setEmailValue(e.target.value)}
+          onChange={e => setEmailValue(e.target.value)}
           placeholder="seuemail@maneiro.com.br"
           required={true}
           type="email"
@@ -81,7 +81,7 @@ export default function ModalSingUp() {
           $inputLabel="endereço"
           className="form-input"
           minLength={5}
-          onChange={(e: { target: { value: React.SetStateAction<string> } }) => setAddressValue(e.target.value)}
+          onChange={e => setAddressValue(e.target.value)}
           placeholder="Sua rua e número"
           required={true}
           type="text"
@@ -91,7 +91,7 @@ export default function ModalSingUp() {
           $gridArea="complement"
           $inputLabel="complemento"
           className="form-input"
-          onChange={(e: { target: { value: React.SetStateAction<string> } }) => setComplementValue(e.target.value)}
+          onChange={e => setComplementValue(e.target.value)}
           placeholder="Apto/casa, bloco, referência"
           type="text"
           value={complementValue}
@@ -102,7 +102,7 @@ export default function ModalSingUp() {
           className="form-input"
           maxLength={8}
           onBlur={() => handleOnBlur(cepValue)}
-          onChange={(e: { target: { value: React.SetStateAction<string> } }) => setCepValue(e.target.value)}
+          onChange={e => setCepValue(e.target.value)}
           pattern="[\d]{5}-?[\d]{3}"
           placeholder="00000-000"
           required={true}
@@ -115,7 +115,7 @@ export default function ModalSingUp() {
           className="form-input"
           maxLength={32}
           minLength={8}
-          onChange={(e: { target: { value: React.SetStateAction<string> } }) => setPasswordValue(e.target.value)}
+          onChange={e => setPasswordValue(e.target.value)}
           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+_])(?!.*[\s]).{8,32}$"
           placeholder="************"
           required={true}
@@ -129,7 +129,7 @@ export default function ModalSingUp() {
           className="form-input"
           maxLength={32}
           minLength={8}
-          onChange={(e: { target: { value: React.SetStateAction<string> } }) => setPassConfirmValue(e.target.value)}
+          onChange={e => setPassConfirmValue(e.target.value)}
           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+_])(?!.*[\s]).{6,16}$"
           placeholder="************"
           required={true}
@@ -138,7 +138,7 @@ export default function ModalSingUp() {
           value={PassConfirmValue}
         />
         <Button
-          className="modal__form-button-sing-up"
+          className="modal-sing-up__button"
           disabled={passwordValue.length < 8 || passwordValue !== PassConfirmValue}
           $text="Cadastrar"
         />
@@ -148,6 +148,7 @@ export default function ModalSingUp() {
 }
 
 const StyledForm = styled.form`
+  column-gap: 1.5rem;
   display: grid;
   grid-template-areas:
     'name name'
@@ -157,26 +158,35 @@ const StyledForm = styled.form`
     'password password'
     'passConfirm passConfirm'
     'submit submit';
-
-  grid-template-columns: 19rem 11.625rem;
+  grid-template-columns: repeat(2, 9.6rem);
   grid-template-rows: repeat(7, min-content);
-
-  grid-row-gap: 1rem;
-  grid-column-gap: 1.5rem;
+  row-gap: 0.75rem;
 
   .form-input {
-    max-height: 2.75rem;
+    max-height: 2.09rem;
     max-width: -webkit-fill-available;
   }
-  .modal__form-button-sing-up {
+  .modal-sing-up__button {
+    font-size: 0.75rem;
     grid-area: submit;
     height: fit-content;
     justify-self: center;
-    margin-top: 2rem;
-    padding-bottom: 0.5rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.5rem;
+    padding: 0.35rem 0.75rem;
     width: fit-content;
+  }
+
+  @media screen and (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: 19rem 11.625rem;
+    row-gap: 1rem;
+
+    .form-input {
+      max-height: 2.75rem;
+    }
+    .modal-sing-up__button {
+      font-size: 1rem;
+      margin-top: 2rem;
+      padding: 0.5rem 1rem;
+    }
   }
 `;

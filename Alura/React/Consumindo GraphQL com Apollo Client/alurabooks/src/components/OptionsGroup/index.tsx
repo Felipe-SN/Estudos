@@ -1,7 +1,7 @@
 import { colors } from '../UI/variables';
 import { priceFormatter } from 'helpers/formatters';
 import { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export default function AbOptionGroup({ defaultValue, onChange, options }: OptionGroupProps) {
   const [optionSelected, setOptionSelected] = useState<Option | null>(defaultValue ?? null);
@@ -19,8 +19,7 @@ export default function AbOptionGroup({ defaultValue, onChange, options }: Optio
           $selectedID={optionSelected?.id === option.id}
           onClick={() => {
             onOptionSelected(option);
-          }}
-        >
+          }}>
           <header>{option.titulo}</header>
           <div>{priceFormatter(option.preco)}</div>
           <footer>{option.formatos?.join(', ')}</footer>
@@ -31,23 +30,16 @@ export default function AbOptionGroup({ defaultValue, onChange, options }: Optio
 }
 
 const OptionsList = styled.ul`
+  align-content: space-between;
   display: grid;
-  grid-template-columns: repeat(3, max(12.125rem));
-  column-gap: 1.5rem;
+  grid-template-columns: repeat(3, minmax(7.5rem, 12.125rem));
 `;
 
 const OptionItem = styled.li<{ $selectedID: boolean }>`
-  ${props =>
-    props.$selectedID
-      ? css`
-          border: none;
-        `
-      : css`
-          border: 0.063rem solid ${colors.mostarda};
-        `};
+  align-content: space-between;
   background: ${props => (props.$selectedID ? colors.gradienteAzul : colors.branca)};
   border-radius: 0.5rem;
-  box-sizing: border-box;
+  border: ${props => (props.$selectedID ? `none` : `0.063rem solid ${colors.mostarda}`)};
   cursor: pointer;
   display: grid;
   font-family: inherit;
@@ -56,7 +48,7 @@ const OptionItem = styled.li<{ $selectedID: boolean }>`
   grid-template-rows: repeat(3, auto);
   max-width: 12.125rem;
   padding: 0.5rem;
-  place-items: center;
+  text-align: center;
 
   & header {
     color: ${props => (props.$selectedID ? colors.branca : colors.mostarda)};

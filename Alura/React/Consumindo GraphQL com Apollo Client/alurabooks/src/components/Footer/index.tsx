@@ -37,7 +37,6 @@ const StyledFooter = styled.footer`
 
     > h2 {
       font-size: 1.5rem;
-      line-height: 2.25rem;
       margin-right: 6.5rem;
     }
   }
@@ -63,7 +62,6 @@ const StyledList = styled.ul`
     font-size: 0.875rem;
     gap: 1rem;
     letter-spacing: 0rem;
-    line-height: 1.25rem;
     width: 11.8125rem;
 
     & > li {

@@ -36,10 +36,7 @@ const StyledButton = styled.button<ButtonProps>`
   font-family: ${fonts.poppins};
   font-size: 1.25rem;
   font-weight: 700;
-  padding-bottom: 1rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-top: 1rem;
+  padding: 1rem 1.5rem;
 
   :disabled {
     opacity: 0.6;

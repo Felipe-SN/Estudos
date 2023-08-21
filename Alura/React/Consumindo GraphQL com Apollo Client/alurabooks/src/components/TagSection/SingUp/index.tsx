@@ -27,29 +27,40 @@ export default function SingUp() {
 
 const PositionDiv = styled.div`
   align-items: center;
-  display: grid;
   column-gap: 3.5rem;
-  grid-template-columns: repeat(2, max-content);
+  display: grid;
   justify-content: center;
+
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: repeat(2, max-content);
+    align-items: center;
+  }
 `;
 
 const TextDiv = styled.div`
+  align-items: center;
+  text-align: center;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   letter-spacing: 0rem;
   color: ${colors.branca};
+  margin-bottom: 1rem;
 
-  > h4 {
+  & > h4 {
     font-size: 1.5rem;
     font-weight: 500;
-    line-height: 2.25rem;
   }
 
-  > p {
+  & > p {
     max-width: 19rem;
     font-weight: 300;
-    line-height: 1.5rem;
+  }
+
+  @media screen and (min-width: 1024px) {
+    text-align: start;
+    align-items: normal;
+    margin-bottom: 0rem;
   }
 `;
 

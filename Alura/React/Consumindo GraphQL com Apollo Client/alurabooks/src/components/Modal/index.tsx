@@ -4,7 +4,8 @@ import images from 'data/images.json';
 import styled from 'styled-components';
 import useModalOpenState from 'state/recoil/hooks/useModalOpenState';
 
-export default function Modal({ title, children }: ModalProps) {
+export default function Modal({ ...props }: ModalProps) {
+  const { title, children, className } = props;
   const { modalIsOpen, setModalIsOpen } = useModalOpenState();
 
   const toClose = () => setModalIsOpen(false);
@@ -13,12 +14,12 @@ export default function Modal({ title, children }: ModalProps) {
     return (
       <>
         <WindowBlur onClick={toClose} />
-        <ModalWindow>
+        <ModalWindow className={className}>
           <SideImg />
           <ContentSide>
             <ModalTitle>{title}</ModalTitle>
             <ButtonClose onClick={toClose} />
-            <FormWrapper>{children}</FormWrapper>
+            <ChildrenWrapper>{children}</ChildrenWrapper>
           </ContentSide>
         </ModalWindow>
       </>
@@ -29,6 +30,7 @@ export default function Modal({ title, children }: ModalProps) {
 
 const WindowBlur = styled.div`
   background-color: ${colors.cinzaFundoModal};
+  backdrop-filter: blur(0.63rem);
   cursor: pointer;
   height: 100vh;
   position: fixed;
@@ -37,27 +39,23 @@ const WindowBlur = styled.div`
 `;
 
 const ModalWindow = styled.div`
-  align-items: center;
   background-color: ${colors.branca};
   border-radius: 1.5rem;
   box-shadow: 0.25rem 0.25rem 1.5rem -0.25rem ${colors.sombraFiltro};
-  box-sizing: border-box;
   display: grid;
-  grid-column-gap: 3.5rem;
-  grid-template-areas: 'sideImg contentSide';
-  grid-template-columns: repeat(2, max-content);
-  grid-template-rows: 100%;
-  height: fit-content;
-  justify-content: center;
-  padding-bottom: 3.5rem;
-  padding-left: 3rem;
-  padding-right: 3rem;
-  padding-top: 3.5rem;
+  gap: 1.5rem;
+  grid-template-areas: 'sideImg' 'contentSide';
+  padding: 1.5rem;
   position: fixed;
-  inset: 0;
-  margin: auto;
-  width: fit-content;
   z-index: 10;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+
+  @media screen and (min-width: 1024px) {
+    gap: 3.5rem;
+    grid-template-areas: 'sideImg contentSide';
+  }
 `;
 
 const SideImg = styled.span`
@@ -66,56 +64,69 @@ const SideImg = styled.span`
   background-position: center;
   background-size: contain;
   grid-area: sideImg;
-  width: 20rem;
-  height: 20rem;
+  width: 14.1875rem;
+  height: 14.1875rem;
+  justify-self: center;
+
+  @media screen and (min-width: 1024px) {
+    width: 20rem;
+    height: 20rem;
+  }
 `;
 
 const ContentSide = styled.div`
   display: grid;
   grid-area: contentSide;
-  grid-row-gap: 2rem;
-  grid-template-areas: 'title xButton' 'children children';
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, min-content);
+  row-gap: 1.5rem;
+  grid-template-areas: 'title x-button' 'children children';
+
+  @media screen and (min-width: 1024px) {
+    row-gap: 2rem;
+  }
 `;
 
-const FormWrapper = styled.div`
+const ChildrenWrapper = styled.div`
   display: grid;
   grid-area: children;
 `;
 
 const ModalTitle = styled.h2`
   color: ${colors.mostarda};
-  grid-area: title;
-  font-size: 2rem;
   font-weight: 700;
-  line-height: 3rem;
-  letter-spacing: 0rem;
+  grid-area: title;
   text-transform: uppercase;
+  font-size: 1.2rem;
+
+  @media screen and (min-width: 1024px) {
+    font-size: 2rem;
+  }
 `;
 
 const ButtonClose = styled.button`
-  align-items: center;
-  align-self: start;
   background-color: transparent;
   border: none;
   cursor: pointer;
   display: flex;
-  grid-area: xButton;
-  height: 2rem;
-  justify-content: center;
+  grid-area: x-button;
   justify-self: end;
   padding: 0;
-  text-transform: uppercase;
-  width: 2rem;
 
-  ::before {
-    content: url(${icons.close});
-    font-size: 2rem;
+  &::before {
+    content: '';
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url(${icons.close});
+    width: 1.5rem;
+    height: 1.5rem;
+
+    @media screen and (min-width: 1024px) {
+      width: 2rem;
+      height: 2rem;
+    }
   }
 `;
 
 type ModalProps = {
   children: React.ReactNode;
   title: string;
-};
+} & React.ComponentPropsWithoutRef<React.JSXElementConstructor<React.ObjectHTMLAttributes<HTMLDivElement>>>;

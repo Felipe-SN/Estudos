@@ -8,6 +8,7 @@ export default function InputField({ ...props }: InputFieldProps) {
   const { className, $gridArea, $hasIcon = true, $inputLabel, $inputVariable = 'primary', type } = props;
   const [iconTransparent, setIconTransparent] = useState<boolean>(false);
   const passwordRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   const changeVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -36,7 +37,13 @@ export default function InputField({ ...props }: InputFieldProps) {
           />
         </PasswordWrapper>
       ) : (
-        <StyledInput {...props} $hasIcon={$hasIcon} id={`input${type}${index}`} />
+        <StyledInput
+          {...props}
+          $hasIcon={$hasIcon}
+          id={`input${type}${index}`}
+          ref={inputRef}
+          $current={inputRef.current}
+        />
       )}
     </InputPosition>
   );
@@ -50,7 +57,6 @@ const InputLabel = styled.label`
   color: ${colors.azul};
   display: block;
   font-weight: 700;
-  line-height: 1.5rem;
   margin-bottom: 0.25rem;
   margin-left: 1.5rem;
   text-transform: capitalize;
@@ -58,23 +64,55 @@ const InputLabel = styled.label`
 
 const StyledInput = styled.input<InputFieldProps>`
   appearance: none;
+  background-color: ${props => (props.$inputVariable === 'secondary' ? 'transparent' : '')};
   border-radius: 1.5rem;
-  box-sizing: border-box;
+  border: 0.063rem solid ${props => (props.$inputVariable === 'secondary' ? colors.branca : colors.azul)};
+  color: ${props => (props.$inputVariable === 'secondary' ? colors.branca : colors.azul)};
   font-family: ${fonts.poppins};
   font-size: 1rem;
-  height: 50rem;
+  height: 25rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   width: 50rem;
 
   &:focus {
+    outline-color: ${props => (props.$inputVariable === 'secondary' ? colors.branca : colors.azul)};
     outline-width: 0.125rem;
   }
 
   &::placeholder {
+    background-position-y: center;
     background-repeat: no-repeat;
-    background-size: 1.5rem;
-    line-height: 1.5rem;
+    color: ${props => (props.$inputVariable === 'secondary' ? colors.branca : colors.cinzaTransparente)};
+    font-size: 0.875rem;
+
+    @media screen and (min-width: 1024px) {
+      background-size: 1.5rem;
+      font-size: 1rem;
+    }
+
+    ${props =>
+      props.type === 'email' &&
+      props.$hasIcon &&
+      css`
+        background-image: url(${icons.email});
+        padding-left: 2rem;
+      `}
+
+    ${props =>
+      props.type === 'search' &&
+      props.$hasIcon &&
+      css`
+        --input-width: 23.75rem;
+        @media screen and (min-width: 1024px) {
+          --input-width: 36.25rem;
+        }
+
+        background-image: url(${icons.search});
+        background-position-x: calc((var(--input-width) / 2) - (${props.placeholder?.length + 'em'} / 3));
+        padding-left: 2rem;
+        text-align: center;
+      `}
   }
 
   /* invalid outline removed for password inputs */
@@ -87,59 +125,9 @@ const StyledInput = styled.input<InputFieldProps>`
       }
     `}
 
-  /* variant type alterations */
-  ${props => {
-    if (props.$inputVariable === 'secondary') {
-      return css`
-        background-color: transparent;
-        border: 0.063rem solid ${colors.branca};
-        color: ${colors.branca};
-
-        &:focus {
-          outline-color: ${colors.branca};
-        }
-
-        &::placeholder {
-          color: ${colors.branca};
-        }
-      `;
-    }
-    return css`
-      border: 0.063rem solid ${colors.azul};
-      color: ${colors.azul};
-
-      &:focus {
-        outline-color: ${colors.azul};
-      }
-
-      &::placeholder {
-        color: ${colors.cinzaTransparente};
-      }
-    `;
-  }}
-
-  /* background-image icon setter by input type */
-  ${props => {
-    if (props.$hasIcon) {
-      if (props.type === 'email')
-        return css`
-          &::placeholder {
-            background-image: url(${icons.email});
-            background-position-y: center;
-            padding-left: 2rem;
-          }
-        `;
-
-      if (props.type === 'search')
-        return css`
-          &::placeholder {
-            background-image: url(${icons.search});
-            background-position: 9.75rem;
-            padding-left: 11.688rem;
-          }
-        `;
-    }
-  }}
+  &::-webkit-search-cancel-button {
+    display: none;
+  }
 `;
 
 const PasswordWrapper = styled.div<InputFieldProps>`
@@ -157,10 +145,6 @@ const PasswordWrapper = styled.div<InputFieldProps>`
       outline-style: solid;
       outline-color: red;
     }
-  }
-
-  &::placeholder {
-    line-height: 1.5rem;
   }
 
   /* variant type alterations */
@@ -246,4 +230,5 @@ type InputFieldProps = {
   $hasIcon?: boolean;
   $inputLabel?: string;
   $inputVariable?: 'primary' | 'secondary';
+  $current?: HTMLInputElement;
 } & React.ComponentPropsWithoutRef<React.JSXElementConstructor<React.InputHTMLAttributes<HTMLInputElement>>>;
