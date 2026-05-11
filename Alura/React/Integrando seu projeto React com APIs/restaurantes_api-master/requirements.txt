@@ -25,4 +25,4 @@ ruamel.yaml.clib==0.2.6
 sqlparse==0.5.4
 typing_extensions==4.0.1
 uritemplate==4.1.1
-urllib3==2.6.3
+urllib3==2.7.0
